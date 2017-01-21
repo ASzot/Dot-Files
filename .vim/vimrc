@@ -1,0 +1,115 @@
+call pathogen#infect()
+call pathogen#helptags()
+
+let python_highlight_all = 1
+syntax on
+filetype plugin indent on
+set background=dark
+set number
+setglobal spell spelllang=en_us
+
+" I have a habit of saving excessively and the swp files just annoy me. 
+set nobackup
+
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+
+" Easy way to exit edit mode
+ino jj <esc>
+cno jj <c-c>
+
+" Macro to compile current LaTeX file.
+map <F8> :!pdflatex -halt-on-error %:t <CR>
+
+" Space toggles method folding
+nnoremap <space> za
+
+" Easy tab navigation
+map <C-t>j :tabc<cr>
+map <C-t>h :tabp<cr>
+map <C-t>l :tabn<cr>
+
+" NERDTree configuration
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+" Syntastic navigation shortcuts 
+let mapleader = ","
+nmap <leader>h :lnext<CR>
+nmap <leader>l :lprevious<CR>
+function! ToggleErrors()
+	let old_last_winnr = winnr('$')
+	lclose
+	if old_last_winnr == winnr('$')
+		Errors
+	endif
+endfunction
+nnoremap <C-e> :call ToggleErrors()<CR> 
+
+" Shortcut for preferred PHP error checking. 
+nmap <leader>s :!php -l %<CR>
+
+" Syntastic error message supression.
+let g:syntastic_quiet_messages = { 'regex': 'invalid-name\|missing-docstring\|ungrouped-imports\|wrong-import-order\|redefined-outer-name' }
+let g:syntastic_python_pylint_args = '--rcfile=/Users/andrewszot/.pylintrc'
+
+set clipboard=unnamed
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint']
+
+" Keep Syntastic in passive mode. 
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+autocmd BufNewFile,BufRead *.py call SetPythonOptions()
+function SetPythonOptions()
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
+	set expandtab
+	set autoindent
+	set fileformat=unix
+endfunction
+
+func! DeleteTrailingWS()
+	exe "normal mz"
+	%s/\s\+$//ge
+	exe "normal `z"
+endfunc
+
+autocmd BufWrite *.py :call DeleteTrailingWS()
+
+" Options for LaTex
+autocmd BufNewFile,BufRead *.tex call SetTexOptions()
+function SetTexOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set expandtab
+	set autoindent
+endfunction
+
+" Options for full stack. 
+autocmd BufNewFile,BufRead *.js,*.html,*.css,*.vue,*.php call SetWebOptions()
+function SetWebOptions()
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
+	set expandtab
+	set autoindent
+endfunction
+
+autocmd BufWrite *.txt call SetTextOptions()
+function SetTextOptions()
+	set spell
+	set textwidth=79
+endfunction
+
