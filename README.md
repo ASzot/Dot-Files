@@ -19,9 +19,6 @@ macOS Requirements:
     * `brew install koekeishiya/formulae/kwm`
 
 Ubuntu Requirements:
-* System:
-  * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
-  * Copy the necessary config files `sh ubuntu_pull.sh`
 * tmux
   * Installation:
     * `sudo apt-get install tmux`
@@ -31,3 +28,10 @@ Ubuntu Requirements:
   * Installation:
     * Install the Z shell. `sudo apt-get install zsh`
     * `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+    * Set zsh as the default shell `chsh -s `which zsh`
+    * Restart computer.
+* System:
+  * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
+  * Copy the necessary config files `sh ubuntu_pull.sh`
+  * Change the path line in ~/.zshrc file to the appropriate home folder.
+
