@@ -3,9 +3,9 @@ The goal of these dot files is to provide the optimal computing experience for M
 
 Mac OS X Requirements:
 * tmux
-  *Installation:
+  * Installation:
     *`brew install tmux`
-  *Usage:
+  * Usage:
     *`tmux` to start tmux session.
     *`tmux ls` to list the active tmux sessions. 
     *`C-a` is the binding key for this tmux setup.
@@ -14,6 +14,6 @@ Mac OS X Requirements:
     *`C-a+p` previous window.
     *`C-a+%` split vertical pane.
     *`C-a+"` split horizontal pane.
-*kwm
+* kwm
   *Installation:
     *`brew install koekeishiya/formulae/kwm`
