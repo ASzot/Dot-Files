@@ -15,5 +15,5 @@ Mac OS X Requirements:
     *`C-a+%` split vertical pane.
     *`C-a+"` split horizontal pane.
 * kwm
-  *Installation:
+  * Installation:
     *`brew install koekeishiya/formulae/kwm`
