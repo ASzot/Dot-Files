@@ -1,7 +1,7 @@
 #Computer Dot Files
-The goal of these dot files is to provide the optimal computing experience for Mac OS X and hopefully soon Ubuntu. 
+The goal of these dot files is to provide the optimal computing experience for Mac OS X and Ubuntu. 
 
-Mac OS X Requirements:
+macOS Requirements:
 * tmux
   * Installation:
     * `brew install tmux`
@@ -17,3 +17,8 @@ Mac OS X Requirements:
 * kwm
   * Installation:
     * `brew install koekeishiya/formulae/kwm`
+
+Ubuntu Requirements:
+* System:
+  * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
+  * Copy the necessary config files `sh ubuntu_pull.sh`
