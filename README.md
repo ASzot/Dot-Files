@@ -22,3 +22,12 @@ Ubuntu Requirements:
 * System:
   * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
   * Copy the necessary config files `sh ubuntu_pull.sh`
+* tmux
+  * Installation:
+    * `sudo apt-get install tmux`
+  * Usage:
+    * See macOS instructions. 
+* Oh-My-Zsh
+  * Installation:
+    * Install the Z shell. `sudo apt-get install zsh`
+    * `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
