@@ -18,8 +18,54 @@ let g:tex_flavor='latex'
 ino jj <esc>
 cno jj <c-c>
 
+" Rebind redo key
+map <F7> :redo <CR>
+
 " Macro to compile current LaTeX file.
-map <F8> :!pdflatex -halt-on-error %:t <CR>
+map <F8> :call CompileFile() <CR>
+function! CompileFile()
+	let current_filetype = &filetype
+	if current_filetype == 'tex'
+		:!pdflatex -halt-on-error %:t
+	endif	
+	if current_filetype == 'python'
+		:!python %:t
+	endif
+endfunction
+
+function! ToggleSpellCheck()
+	set spell!
+	if &spell
+		echo "Spellcheck ON"
+	else
+		echo "Spellcheck OFF"
+	endif
+endfunction
+
+
+au FocusLost * :call SetNoRelative()
+au FocusGained * :call SetRelative()
+autocmd InsertEnter * :call SetNoRelative()
+autocmd InsertLeave * :call SetRelative()
+
+map <C-p> :call NumberToggle()<CR>
+function! NumberToggle()
+	if(&nu == 1)
+		call SetRelative()
+	else
+		call SetNoRelative()
+	endif	
+endfunc
+
+function! SetRelative()
+	set nu!
+	set rnu
+endfunc
+
+function! SetNoRelative()
+	set nornu
+	set nu
+endfunc
 
 " Space toggles method folding
 nnoremap <space> za
@@ -34,6 +80,7 @@ map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+let NERDTreeIgnore = ['\.pyc$']
 
 " Syntastic navigation shortcuts 
 let mapleader = ","
@@ -46,7 +93,8 @@ function! ToggleErrors()
 		Errors
 	endif
 endfunction
-nnoremap <C-e> :call ToggleErrors()<CR> 
+nnoremap <leader>e :call ToggleErrors()<CR> 
+map <leader>b :call ToggleSpellCheck()<CR>
 
 " Shortcut for preferred PHP error checking. 
 nmap <leader>s :!php -l %<CR>
@@ -75,18 +123,22 @@ function SetPythonOptions()
 	set softtabstop=4
 	set shiftwidth=4
 	set expandtab
+	set textwidth=79
 	set autoindent
 	set fileformat=unix
 	set nospell
 endfunction
 
+"" Function to delete trailing whitespace
 func! DeleteTrailingWS()
 	exe "normal mz"
 	%s/\s\+$//ge
 	exe "normal `z"
 endfunc
 
+"" Delete trailing whitespace on python file save
 autocmd BufWrite *.py :call DeleteTrailingWS()
+
 
 " Options for LaTex
 autocmd BufNewFile,BufRead *.tex call SetTexOptions()
@@ -96,7 +148,8 @@ function SetTexOptions()
 	set shiftwidth=2
 	set expandtab
 	set autoindent
-	set spell
+	set textwidth=79
+	set nospell
 endfunction
 
 " Options for full stack. 
@@ -110,9 +163,37 @@ function SetWebOptions()
 	set nospell
 endfunction
 
-autocmd BufWrite *.txt call SetTextOptions()
-function SetTextOptions()
-	set spell
+" Options for C++,C, CUDA
+autocmd BufNewFile,BufRead *.cpp,*.h,*.c,*.cu,*.cuh call SetCOptions()
+function SetCOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
 	set textwidth=79
+	set expandtab
+	set autoindent
+	set fileformat=unix
+	set nospell
 endfunction
 
+autocmd BufRead,BufNewFile *.txt call SetTextOptions()
+function SetTextOptions()
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
+	set textwidth=79
+	set expandtab
+	set autoindent
+	set nospell
+endfunction
+
+autocmd BufRead,BufNewFile *.md call SetMdOptions()
+function SetMdOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set textwidth=79
+	set expandtab
+	set autoindent
+	set nospell
+endfunction

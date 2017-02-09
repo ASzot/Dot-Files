@@ -1,0 +1,8 @@
+[user]
+	name = Andrew Szot
+	email = me@andrewszot.com
+[alias]
+	aa = add -A
+	po = push origin master
+	fo = fetch origin master
+	rh = reset --hard origin/master

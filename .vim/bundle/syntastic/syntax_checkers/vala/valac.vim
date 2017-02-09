@@ -24,12 +24,9 @@ function! SyntaxCheckers_vala_valac_GetHighlightRegex(pos) " {{{1
 endfunction " }}}1
 
 function! SyntaxCheckers_vala_valac_GetLocList() dict " {{{1
-    let buf = bufnr('')
-    let makeprg = self.makeprgBuild({
-            \ 'args': '-C ' .
-            \   s:GetValaOpts(buf, 'modules',   'modules',  '--pkg') . ' ' .
-            \   s:GetValaOpts(buf, 'vapi_dirs', 'vapidirs', '--vapidir'),
-        \ })
+    let vala_pkg_args = join(map(s:GetValaModules(), '"--pkg ".v:val'), ' ')
+    let vala_vapi_args = join(map(s:GetValaVapiDirs(), '"--vapidir ".v:val'), ' ')
+    let makeprg = self.makeprgBuild({ 'args': '-C ' . vala_pkg_args . ' ' . vala_vapi_args })
 
     let errorformat =
         \ '%A%f:%l.%c-%\d%\+.%\d%\+: %t%[a-z]%\+: %m,'.
@@ -43,27 +40,38 @@ endfunction " }}}1
 
 " Utilities {{{1
 
-function! s:GetValaOpts(buf, name, comment, cmd) " {{{2
-    let var = syntastic#util#var('vala_' . a:name)
-    if type(var) == type([])
-        let opts = map(copy(var), 'syntastic#util#shescape(v:val)')
-    elseif type(var) == type('')
-        if var !=# ''
-            let opts = split(var, '\s\+')
+function! s:GetValaModules() " {{{2
+    if exists('g:syntastic_vala_modules') || exists('b:syntastic_vala_modules')
+        let modules = syntastic#util#var('vala_modules')
+        if type(modules) == type('')
+            return split(modules, '\m\s\+')
+        elseif type(modules) == type([])
+            return copy(modules)
         else
-            let opts = []
-            for line in filter(getbufline(a:buf, 1, 100), 'v:val =~# ' . string('\m^//\s\+' . a:comment . ':\s*'))
-                call extend(opts, split( matchstr(line, '\m^//\s\+' . a:comment . ':\s*\zs.*'), '\s\+' ))
-            endfor
-
-            call map( filter(opts, 'v:val !=# ""'), 'syntastic#util#shescape(v:val)' )
+            echoerr 'syntastic_vala_modules must be either list or string: fallback to in file modules string'
         endif
-    else
-        call syntastic#log#error('syntastic_vala_' . a:name . ' must be either a list, or a string')
-        return ''
     endif
 
-    return join(map(opts, string(a:cmd . ' ') . ' . v:val'))
+    let modules_line = search('^// modules: ', 'n')
+    let modules_str = getline(modules_line)
+    return split(strpart(modules_str, 12), '\m\s\+')
+endfunction " }}}2
+
+function! s:GetValaVapiDirs() " {{{2
+    if exists('g:syntastic_vala_vapi_dirs') || exists('b:syntastic_vala_vapi_dirs')
+        let vapi_dirs = syntastic#util#var('vala_vapi_dirs')
+        if type(vapi_dirs) == type('')
+            return split(vapi_dirs, '\m\s\+')
+        elseif type(vapi_dirs) == type([])
+            return copy(vapi_dirs)
+        else
+            echoerr 'syntastic_vala_vapi_dirs must be either a list, or a string: fallback to in-file modules string'
+        endif
+    endif
+
+    let vapi_line = search('^//\s*vapidirs:\s*','n')
+    let vapi_str = getline(vapi_line)
+    return split( substitute( vapi_str, '\m^//\s*vapidirs:\s*', '', 'g' ), '\m\s\+' )
 endfunction " }}}2
 
 " }}}1

@@ -2277,13 +2277,6 @@ Type: string
 Default: unset
 Additional arguments to pass to "cgc".
 
-Note~
-
-You probably also need a plugin to set |filetype| for OpenGL files, such as
-"vim-glsl":
-
-    https://github.com/tikhomirov/vim-glsl
-
 ==============================================================================
 SYNTAX CHECKERS FOR GO                                 *syntastic-checkers-go*
 
@@ -2392,7 +2385,7 @@ Maintainer:  Kamil Kisiel <kamil@kamilkisiel.net>
 
 See the tool's documentation for details:
 
-    https://godoc.org/cmd/vet
+    https://godoc.org/golang.org/x/tools/cmd/vet
 
 Note~
 
