@@ -25,6 +25,9 @@ macOS Requirements:
 * kwm
   * Installation:
     * `brew install koekeishiya/formulae/kwm`
+* ctags for vim tagbar plugin
+  * Installation:
+    * `brew install ctags`
 
 Ubuntu Requirements:
 * tmux
