@@ -102,6 +102,10 @@ nnoremap <leader>e :call ToggleErrors()<CR>
 " Toggle tagbar
 nmap <leader>t :TagbarToggle<CR>
 
+" Toggle indentation display
+nmap <leader>g :IndentGuidesToggle<CR>
+
+" Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
 function! ToggleFocusMode()
 	Goyo
