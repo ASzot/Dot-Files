@@ -4,7 +4,7 @@ call pathogen#helptags()
 let python_highlight_all = 1
 syntax on
 filetype plugin indent on
-set background=dark
+set background=light
 set number
 
 " I have a habit of saving excessively and the swp files just annoy me. 
@@ -20,6 +20,7 @@ cno jj <c-c>
 
 " Rebind redo key
 map <F7> :redo <CR>
+
 
 " Macro to compile current LaTeX file.
 map <F8> :call CompileFile() <CR>
@@ -99,11 +100,14 @@ function! ToggleErrors()
 endfunction
 nnoremap <leader>e :call ToggleErrors()<CR> 
 
+" Rebind delete to have a no copy version.
+nnoremap <leader>d "_d
+
 " Toggle tagbar
 nmap <leader>t :TagbarToggle<CR>
 
 " Toggle indentation display
-nmap <leader>g :IndentGuidesToggle<CR>
+nmap <leader>i :IndentGuidesToggle<CR>
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
@@ -114,10 +118,13 @@ endfunction
 
 " Toggle focus mode.
 nmap <leader>f :call ToggleFocusMode()<CR>
+let g:goyo_width = 85
 
 
 " Toggle spell check in current file.
 map <leader>b :call ToggleSpellCheck()<CR>
+map <leader>g :GrammarousCheck<CR>
+map <leader>n :GrammarousReset<CR>
 
 " Shortcut for preferred PHP error checking. 
 nmap <leader>s :!php -l %<CR>
@@ -182,9 +189,9 @@ endfunction
 " Options for full stack. 
 autocmd BufNewFile,BufRead *.js,*.html,*.css,*.vue,*.php call SetWebOptions()
 function SetWebOptions()
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
 	set expandtab
 	set autoindent
 	set nospell
@@ -205,10 +212,11 @@ endfunction
 
 autocmd BufRead,BufNewFile *.txt call SetTextOptions()
 function SetTextOptions()
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
 	set textwidth=79
+	set wrap
 	set expandtab
 	set autoindent
 	set nospell
