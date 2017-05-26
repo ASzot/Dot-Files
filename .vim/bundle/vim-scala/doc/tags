@@ -1,0 +1,13 @@
+'g:scala_scaladoc_indent'	scala.txt	/*'g:scala_scaladoc_indent'*
+'g:scala_use_builtin_tagbar_defs'	scala.txt	/*'g:scala_use_builtin_tagbar_defs'*
+'g:scala_use_default_keymappings'	scala.txt	/*'g:scala_use_default_keymappings'*
+:SortScalaImports	scala.txt	/*:SortScalaImports*
+scala	scala.txt	/*scala*
+scala-commands	scala.txt	/*scala-commands*
+scala-credits	scala.txt	/*scala-credits*
+scala-leader-fr	scala.txt	/*scala-leader-fr*
+scala-leader-fs	scala.txt	/*scala-leader-fs*
+scala-leader-ft	scala.txt	/*scala-leader-ft*
+scala-mappings	scala.txt	/*scala-mappings*
+scala-options	scala.txt	/*scala-options*
+scala.txt	scala.txt	/*scala.txt*

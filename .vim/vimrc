@@ -21,7 +21,6 @@ cno jj <c-c>
 " Rebind redo key
 map <F7> :redo <CR>
 
-
 " Macro to compile current LaTeX file.
 map <F8> :call CompileFile() <CR>
 function! CompileFile()
@@ -108,6 +107,9 @@ nmap <leader>t :TagbarToggle<CR>
 
 " Toggle indentation display
 nmap <leader>i :IndentGuidesToggle<CR>
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
@@ -133,7 +135,6 @@ nmap <leader>s :!php -l %<CR>
 let g:syntastic_quiet_messages = { 'regex': 'invalid-name\|missing-docstring\|ungrouped-imports\|wrong-import-order\|redefined-outer-name' }
 let g:syntastic_python_pylint_args = '--rcfile=/Users/andrewszot/.pylintrc'
 
-set clipboard=unnamed
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -147,6 +148,11 @@ let g:syntastic_python_checkers = ['pylint']
 " Keep Syntastic in passive mode. 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+
+"" Because I can't figure out my pasting situation.
+set pastetoggle=<F2>
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
@@ -171,8 +177,31 @@ endfunc
 "" All read, write, open settings are below here.
 """""""
 
+"" Defaults
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set expandtab
+set autoindent
+set nospell
+
+
 "" Delete trailing whitespace on python file save
 autocmd BufWrite *.py :call DeleteTrailingWS()
+
+
+" Options for Scala
+autocmd BufNewFile,BufRead *.scala call SetScalaOptions()
+function SetScalaOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set wrap
+	set expandtab
+	set autoindent
+	set textwidth=79
+  set wrapmargin=2
+endfunction
 
 " Options for LaTex
 autocmd BufNewFile,BufRead *.tex call SetTexOptions()
