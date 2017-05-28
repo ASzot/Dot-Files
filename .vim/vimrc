@@ -48,14 +48,15 @@ au FocusGained * :call SetRelative()
 autocmd InsertEnter * :call SetNoRelative()
 autocmd InsertLeave * :call SetRelative()
 
-map <C-p> :call NumberToggle()<CR>
-function! NumberToggle()
-	if(&nu == 1)
-		call SetRelative()
-	else
-		call SetNoRelative()
-	endif	
-endfunc
+" At this point I always want numbers to be there.
+"map <C-p> :call NumberToggle()<CR>
+"function! NumberToggle()
+"	if(&nu == 1)
+"		call SetRelative()
+"	else
+"		call SetNoRelative()
+"	endif	
+"endfunc
 
 function! SetRelative()
 	set nu!
@@ -148,6 +149,15 @@ let g:syntastic_python_checkers = ['pylint']
 " Keep Syntastic in passive mode. 
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+" Vim closetag
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt"
+
+" CTRLP fuzzy finder
+" Ignore what is in the gitignore
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_map = '<c-f>'
+let g:ctrlp_cmd = 'CtrlP'
 
 
 "" Because I can't figure out my pasting situation.
