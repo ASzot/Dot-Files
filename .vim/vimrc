@@ -151,7 +151,7 @@ let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
 
 " Vim closetag
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt"
+let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 
 " CTRLP fuzzy finder
 " Ignore what is in the gitignore
