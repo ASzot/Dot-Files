@@ -6,3 +6,6 @@ cp ~/.gitconfig ./
 
 rm ./.zshrc
 cp ~/.zshrc ./
+
+rm ./.tmux.conf
+cp ~/.tmux.conf ./
