@@ -72,7 +72,7 @@ endfunc
 call SetRelative()
 
 " Space toggles method folding
-nnoremap <space> za
+" nnoremap <space> za
 
 " Easy tab navigation
 map <C-t>j :tabc<cr>
@@ -105,6 +105,7 @@ nnoremap <leader>d "_d
 
 " Toggle tagbar
 nmap <leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 0 
 
 " Toggle indentation display
 nmap <leader>i :IndentGuidesToggle<CR>
@@ -127,7 +128,7 @@ let g:goyo_width = 85
 " Toggle spell check in current file.
 map <leader>b :call ToggleSpellCheck()<CR>
 map <leader>g :GrammarousCheck<CR>
-map <leader>n :GrammarousReset<CR>
+"map <leader>n :GrammarousReset<CR>
 
 " Shortcut for preferred PHP error checking. 
 nmap <leader>s :!php -l %<CR>
@@ -156,8 +157,27 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 " CTRLP fuzzy finder
 " Ignore what is in the gitignore
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+  \}
+let g:ctrlp_prompt_mappings = { 'PrtExit()': ['<esc>', '<c-c>', '<c-g>', '<space>'] }
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlP'
+nmap <space>a :CtrlPBuffer<cr>
+nmap <space>m :CtrlPMixed<cr>
+nmap <space>s :CtrlPMRU<cr>
+" Buffer settings in vim
+set hidden
+" Move to the next buffer
+nmap <space>j :bnext<CR>
+" Move to the previous buffer
+nmap <space>k :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <space>x :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <space>l :ls<CR>
 
 
 "" Because I can't figure out my pasting situation.
@@ -203,6 +223,19 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 " Options for Scala
 autocmd BufNewFile,BufRead *.scala call SetScalaOptions()
 function SetScalaOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set wrap
+	set expandtab
+	set autoindent
+	set textwidth=79
+  set wrapmargin=2
+endfunction
+
+" Options for Java
+autocmd BufNewFile,BufRead *.java call SetJavaOptions()
+function SetJavaOptions()
 	set tabstop=2
 	set softtabstop=2
 	set shiftwidth=2
