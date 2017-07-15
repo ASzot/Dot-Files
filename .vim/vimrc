@@ -7,6 +7,9 @@ filetype plugin indent on
 set background=light
 set number
 
+let &titlestring = @%
+set title
+
 " I have a habit of saving excessively and the swp files just annoy me. 
 set nobackup
 set noswapfile
@@ -85,6 +88,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 let NERDTreeIgnore = ['\.pyc$']
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 
 " Syntastic navigation shortcuts 
@@ -102,6 +107,8 @@ nnoremap <leader>e :call ToggleErrors()<CR>
 
 " Rebind delete to have a no copy version.
 nnoremap <leader>d "_d
+
+nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " Toggle tagbar
 nmap <leader>t :TagbarToggle<CR>
@@ -176,8 +183,13 @@ nmap <space>k :bprevious<CR>
 " Close the current buffer and move to the previous one
 " This replicates the idea of closing a tab
 nmap <space>x :bp <BAR> bd #<CR>
+" Close all but the current tab
+nmap <space>q :%bd<BAR>e#<CR>
 " Show all open buffers and their status
 nmap <space>l :ls<CR>
+
+" Typescript vim
+let g:typescript_indent_disable = 1
 
 
 "" Because I can't figure out my pasting situation.
@@ -259,11 +271,13 @@ function SetTexOptions()
 endfunction
 
 " Options for full stack. 
-autocmd BufNewFile,BufRead *.js,*.html,*.css,*.vue,*.php call SetWebOptions()
+autocmd BufNewFile,BufRead *.js,*.ts,*.html,*.css,*.vue,*.php call SetWebOptions()
 function SetWebOptions()
 	set tabstop=2
 	set softtabstop=2
 	set shiftwidth=2
+	set textwidth=79
+	set wrap
 	set expandtab
 	set autoindent
 	set nospell
