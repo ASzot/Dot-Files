@@ -1,15 +1,15 @@
-#Computer Dot Files
+# Computer Dot Files
 The goal of these dot files is to provide the optimal computing experience for Mac OS X and Ubuntu. 
 These are all of the config files that I use on my development machine. 
 
-Scripts:
+### Scripts:
 * `mac_push.sh`
   * Pushes the current settings from the machine into the repository.
 * `ubuntu_pull.sh`
   * Pulls the current settings from the GitHub repository and puts them on the
     Ubuntu machine.
 
-macOS Requirements:
+### macOS Requirements:
 * tmux
   * Installation:
     * `brew install tmux`
@@ -29,7 +29,7 @@ macOS Requirements:
   * Installation:
     * `brew install ctags`
 
-Ubuntu Requirements:
+### Ubuntu Requirements:
 * tmux
   * Installation:
     * `sudo apt-get install tmux`
