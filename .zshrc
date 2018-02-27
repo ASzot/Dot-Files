@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/aszot/.oh-my-zsh
+export ZSH=/home/andy/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="af-magic"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -84,6 +84,24 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+bindkey -v
+export KEYTIMEOUT=1
+function zle-line-init zle-keymap-select {
+    VIM_PROMPT="%{$fg_bold[yellow]%} [% VIM]% %{$reset_color%}"
+    HOST_DISPLAY="$(hostname)"
 
-source "/Users/aszot/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $(git_custom_status) $USER@$HOST_DISPLAY $EPS1"
+    zle reset-prompt
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+bindkey '^k' up-history
+bindkey '^j' down-history
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
+
+
 ECLIPSE_HOME="/Applications/eclipse.app/Contents/Eclipse"
+export PATH=~/anaconda3/bin:$PATH
+

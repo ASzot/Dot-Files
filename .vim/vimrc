@@ -137,9 +137,6 @@ map <leader>b :call ToggleSpellCheck()<CR>
 map <leader>g :GrammarousCheck<CR>
 "map <leader>n :GrammarousReset<CR>
 
-" Shortcut for preferred PHP error checking. 
-nmap <leader>s :!php -l %<CR>
-
 " Syntastic error message supression.
 let g:syntastic_quiet_messages = { 'regex': 'invalid-name\|missing-docstring\|ungrouped-imports\|wrong-import-order\|redefined-outer-name' }
 let g:syntastic_python_pylint_args = '--rcfile=/Users/andrewszot/.pylintrc'
@@ -206,6 +203,7 @@ function SetPythonOptions()
 	set autoindent
 	set fileformat=unix
 	set nospell
+  map <leader>e oraise ValueError()<C-c>
 endfunction
 
 "" Function to delete trailing whitespace
