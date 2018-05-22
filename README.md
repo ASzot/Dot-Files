@@ -28,6 +28,15 @@ These are all of the config files that I use on my development machine.
 * ctags for vim tagbar plugin
   * Installation:
     * `brew install ctags`
+### Setting Up a Mac Environment
+* First thing you have to do is install brew here https://brew.sh/. 
+* Install iTerm2 https://www.iterm2.com/
+  * Be sure to disable the border
+  * Disable all of the settings possible for the tabs and put the tabs at the
+    bottom. 
+* Download Ubersicht http://tracesof.net/uebersicht/. Use whatever widget you
+  want 
+  * Good for light themes with padding https://github.com/chris-etheridge/bar.
 
 ### Ubuntu Requirements:
 * tmux
