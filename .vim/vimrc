@@ -226,8 +226,8 @@ set autoindent
 set nospell
 
 
-"" Delete trailing whitespace on python file save
-autocmd BufWrite *.py :call DeleteTrailingWS()
+"" Delete trailing whitespace on python, ruby file save
+autocmd BufWrite *.py,*.rb :call DeleteTrailingWS()
 
 
 " Options for Scala
