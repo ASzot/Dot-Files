@@ -87,6 +87,14 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+
+git_custom_status() {
+  local cb=$(current_branch)
+  if [ -n "$cb" ]; then
+    echo "$(parse_git_dirty)$ZSH_THEME_GIT_PROMPT_PREFIX$(current_branch)$ZSH_THEME_GIT_PROMPT_SUFFIX"
+  fi
+}
+
 bindkey -v
 export KEYTIMEOUT=1
 function zle-line-init zle-keymap-select {

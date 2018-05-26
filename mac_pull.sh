@@ -10,5 +10,5 @@ cp .tmux.conf ~/.tmux.conf
 rm ~/.gitconfig
 cp .gitconfig ~/.gitconfig
 
-rm -rf ~/.kwm
-cp -R ./.kwm ~/.kwm
+#rm -rf ~/.kwm
+#cp -R ./.kwm ~/.kwm
