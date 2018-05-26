@@ -107,3 +107,5 @@ bindkey '^r' history-incremental-search-backward
 
 export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
+
+export ZAPLINE_COLLECTOR_BASE=/home/aszot/all_data
