@@ -7,3 +7,5 @@ sh ubuntu_pull.sh
 chsh -s `which zsh`
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -P ~/
+sudo apt-get install build-essential
+sudo apt-get install exuberant-ctags
