@@ -117,3 +117,9 @@ export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 
 export ZAPLINE_COLLECTOR_BASE=/home/aszot/all_data
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/google-cloud-sdk/path.zsh.inc' ]; then source '~/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/google-cloud-sdk/completion.zsh.inc' ]; then source '~/google-cloud-sdk/completion.zsh.inc'; fi

@@ -2,6 +2,18 @@
 The goal of these dot files is to provide the optimal computing experience for Mac OS X and Ubuntu. 
 These are all of the config files that I use on my development machine. 
 
+# Getting Started
+It is important to clone this repo to the right location. It must be in
+`.dot-files` in your home directory. 
+
+```
+git clone https://github.com/ASzot/Dot-Files.git ~/dot-files
+```
+
+Step one is to make sure you have everything installed on your computer. If you
+are using ubuntu 16.04 you can use the `ubuntu_16_04_fresh.sh` install script
+to set up your system. 
+
 ### Scripts:
 * `mac_push.sh`
   * Pushes the current settings from the machine into the repository.
