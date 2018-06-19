@@ -7,7 +7,7 @@ It is important to clone this repo to the right location. It must be in
 `.dot-files` in your home directory. 
 
 ```
-git clone https://github.com/ASzot/Dot-Files.git ~/dot-files
+git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
 
 Step one is to make sure you have everything installed on your computer. If you
