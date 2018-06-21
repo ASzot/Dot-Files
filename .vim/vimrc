@@ -45,34 +45,9 @@ function! ToggleSpellCheck()
 	endif
 endfunction
 
-" Set the conditions for relative numbering
-au FocusLost * :call SetNoRelative()
-au FocusGained * :call SetRelative()
-autocmd InsertEnter * :call SetNoRelative()
-autocmd InsertLeave * :call SetRelative()
-
-" At this point I always want numbers to be there.
-"map <C-p> :call NumberToggle()<CR>
-"function! NumberToggle()
-"	if(&nu == 1)
-"		call SetRelative()
-"	else
-"		call SetNoRelative()
-"	endif	
-"endfunc
-
-function! SetRelative()
-	set nu!
-	set rnu
-endfunc
-
-function! SetNoRelative()
-	set nornu
-	set nu
-endfunc
-
 " Default is relative numbering.
-call SetRelative()
+set rnu
+set nonumber
 
 " Space toggles method folding
 " nnoremap <space> za
@@ -107,6 +82,9 @@ nnoremap <leader>e :call ToggleErrors()<CR>
 
 " Rebind delete to have a no copy version.
 nnoremap <leader>d "_d
+
+" Toggle line numbers
+nnoremap <leader>w :set relativenumber!
 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
