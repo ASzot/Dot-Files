@@ -84,7 +84,7 @@ nnoremap <leader>e :call ToggleErrors()<CR>
 nnoremap <leader>d "_d
 
 " Toggle line numbers
-nnoremap <leader>w :set relativenumber!
+nnoremap <leader>w :set relativenumber!<CR>
 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
