@@ -125,3 +125,7 @@ if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszo
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH="/opt/conda/miniconda3/bin:$PATH"
+export PATH=/usr/local/cuda/bin:/usr/local/cuda/lib64:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
