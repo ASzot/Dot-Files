@@ -17,10 +17,6 @@ set noswapfile
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
-" Easy way to exit edit mode
-ino jj <esc>
-cno jj <c-c>
-
 " Rebind redo key
 map <F7> :redo <CR>
 
