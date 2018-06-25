@@ -115,7 +115,7 @@ bindkey '^r' history-incremental-search-backward
 export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 
-#sh ~/.dot-files/update.sh
+sh ~/.dot-files/update.sh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
