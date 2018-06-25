@@ -25,15 +25,6 @@ fi
 git fetch origin master
 git reset --hard origin/master
 
-# Pull all except .zshrc
-rm -rf ~/.vim
-cp -R ./.vim ~/.vim
-
-rm ~/.tmux.conf
-cp .tmux.conf ~/.tmux.conf
-
-rm ~/.gitconfig
-cp .gitconfig ~/.gitconfig
-
+sh pull.sh
 
 cd -
