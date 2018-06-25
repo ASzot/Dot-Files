@@ -101,7 +101,7 @@ function zle-line-init zle-keymap-select {
     VIM_PROMPT="%{$fg_bold[yellow]%} [% VIM]% %{$reset_color%}"
     HOST_DISPLAY="$(hostname)"
 
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $(git_custom_status) $USER@$HOST_DISPLAY $EPS1"
+    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $USER@$HOST_DISPLAY $EPS1"
     zle reset-prompt
 }
 
@@ -112,13 +112,10 @@ bindkey '^j' down-history
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
-
 export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 
-export ZAPLINE_COLLECTOR_BASE=/home/aszot/all_data
-
-sh ~/.dot-files/update.sh
+#sh ~/.dot-files/update.sh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
