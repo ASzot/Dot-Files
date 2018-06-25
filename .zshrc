@@ -126,7 +126,7 @@ if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszo
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/completion.zsh.inc'; fi
 
-if [ -f '~/.dot-files/set_env_vars.sh' ];
+if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
 then
   sh ~/.dot-files/set_env_vars.sh
 fi
