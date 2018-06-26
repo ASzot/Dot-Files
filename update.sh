@@ -1,6 +1,8 @@
 cd ~/.dot-files
 echo "Executing update"
 
+sh push.sh
+
 unchecked_changes=`git diff-index HEAD`
 if [ ! -z "$unchecked_changes" ]
 then

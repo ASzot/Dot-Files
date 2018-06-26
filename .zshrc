@@ -125,5 +125,6 @@ if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/User
 
 if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
 then
-  sh ~/.dot-files/set_env_vars.sh
+  source ~/.dot-files/set_env_vars.sh
 fi
+
