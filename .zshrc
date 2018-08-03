@@ -120,7 +120,7 @@ then
   source ~/.dot-files/set_env_vars.sh
 fi
 
-sh ~/.dot-files/update.sh
+alias upme='sh ~/.dot-files/update.sh'
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
