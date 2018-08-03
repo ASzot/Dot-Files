@@ -112,6 +112,7 @@ bindkey '^j' down-history
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
+export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 

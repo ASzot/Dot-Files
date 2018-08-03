@@ -13,3 +13,10 @@ cp .gitconfig ~/.gitconfig
 
 #rm -rf ~/.kwm
 #cp -R ./.kwm ~/.kwm
+
+if [ -d ~/.config ]; then
+  mkdir ~/.config/
+fi
+
+rm -rf ~/.config/alacritty
+cp -R ./.config/alacritty/ ~/.config/alactritty/
