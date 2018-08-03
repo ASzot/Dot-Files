@@ -18,5 +18,8 @@ if [ ! -d ~/.config ]; then
   mkdir ~/.config/
 fi
 
-rm -rf ~/.config/alacritty
+if [ -d ~/.config/alacritty ]; then
+  rm -rf ~/.config/alacritty
+end
+
 cp -R ./.config/alacritty/ ~/.config/alactritty/
