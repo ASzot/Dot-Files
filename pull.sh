@@ -14,7 +14,7 @@ cp .gitconfig ~/.gitconfig
 #rm -rf ~/.kwm
 #cp -R ./.kwm ~/.kwm
 
-if [ -d ~/.config ]; then
+if [ ! -d ~/.config ]; then
   mkdir ~/.config/
 fi
 
