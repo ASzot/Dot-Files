@@ -20,6 +20,6 @@ fi
 
 if [ -d ~/.config/alacritty ]; then
   rm -rf ~/.config/alacritty
-end
+fi
 
 cp -R ./.config/alacritty/ ~/.config/alactritty/
