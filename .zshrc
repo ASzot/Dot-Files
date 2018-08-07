@@ -105,6 +105,10 @@ function zle-line-init zle-keymap-select {
     zle reset-prompt
 }
 
+function haskr() {
+  ghc -o output "$1" && ./output
+}
+
 zle -N zle-line-init
 zle -N zle-keymap-select
 bindkey '^k' up-history
