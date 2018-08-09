@@ -64,7 +64,6 @@ let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-
 " Syntastic navigation shortcuts 
 let mapleader = ","
 nmap <leader>h :lnext<CR>
@@ -95,6 +94,8 @@ nmap <leader>i :IndentGuidesToggle<CR>
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
+
+nmap == :Tabularize /=<CR>
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
