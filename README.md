@@ -67,3 +67,10 @@ to set up your system.
   * Copy the necessary config files `sh ubuntu_pull.sh`
   * Change the path line in ~/.zshrc file to the appropriate home folder.
 
+
+## Common Usage
+Here are some common usages of the plugins and configurations for these dot
+files that I often forget. 
+
+* Working with LaTeX files:
+  * `:LLPStartPreview` begin live preview of `.tex` file.
