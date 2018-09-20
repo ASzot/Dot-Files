@@ -14,6 +14,8 @@ Step one is to make sure you have everything installed on your computer. If you
 are using ubuntu 16.04 you can use the `ubuntu_16_04_fresh.sh` install script
 to set up your system. 
 
+Run `sh update.sh` to install all of the configurations. Reload your bash. Then run `upme` to update the configurations. 
+
 ### Scripts:
 * `mac_push.sh`
   * Pushes the current settings from the machine into the repository.
