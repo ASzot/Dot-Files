@@ -10,11 +10,7 @@ It is important to clone this repo to the right location. It must be in
 git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
 
-Step one is to make sure you have everything installed on your computer. If you
-are using ubuntu 16.04 you can use the `ubuntu_16_04_fresh.sh` install script
-to set up your system. 
-
-Run `sh update.sh` to install all of the configurations. Reload your bash. Then run `upme` to update the configurations. 
+Run `sh update.sh` to install all of the configurations. Reload your bash. Then run `upme` to update the configurations. If you are installing a new system read the mac environment setup or the ubuntu environment setup.
 
 ### Scripts:
 * `mac_push.sh`
@@ -22,8 +18,16 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
 * `ubuntu_pull.sh`
   * Pulls the current settings from the GitHub repository and puts them on the
     Ubuntu machine.
-
-### macOS Requirements:
+    
+### Setting Up a Mac Environment
+* First thing you have to do is install brew here https://brew.sh/. 
+* Install iTerm2 https://www.iterm2.com/
+  * Be sure to disable the border
+  * Disable all of the settings possible for the tabs and put the tabs at the
+    bottom. 
+* Download Ubersicht http://tracesof.net/uebersicht/. Use whatever widget you
+  want 
+  * Good for light themes with padding https://github.com/chris-etheridge/bar.
 * tmux
   * Installation:
     * `brew install tmux`
@@ -42,28 +46,15 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
 * ctags for vim tagbar plugin
   * Installation:
     * `brew install ctags`
-### Setting Up a Mac Environment
-* First thing you have to do is install brew here https://brew.sh/. 
-* Install iTerm2 https://www.iterm2.com/
-  * Be sure to disable the border
-  * Disable all of the settings possible for the tabs and put the tabs at the
-    bottom. 
-* Download Ubersicht http://tracesof.net/uebersicht/. Use whatever widget you
-  want 
-  * Good for light themes with padding https://github.com/chris-etheridge/bar.
 
 ### Ubuntu Requirements:
-* tmux
-  * Installation:
-    * `sudo apt-get install tmux`
-  * Usage:
-    * See macOS instructions. 
-* Oh-My-Zsh
-  * Installation:
-    * Install the Z shell. `sudo apt-get install zsh`
-    * `sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
-    * Set zsh as the default shell `chsh -s `which zsh`
-    * Restart computer.
+First install git and clone this repo to `~/.dot-files`
+#### Server (with gpu for deep learning)
+Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`.
+
+#### Regular
+Run `sh ubuntu_16_04_fresh.sh`
+
 * System:
   * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
   * Copy the necessary config files `sh ubuntu_pull.sh`
