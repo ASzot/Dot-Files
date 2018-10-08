@@ -50,7 +50,7 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
 ### Ubuntu Requirements:
 First install git and clone this repo to `~/.dot-files`
 #### Server (with gpu for deep learning)
-Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`.
+Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`. You also probably want to set up the default bashrc. `sudo vim /etc/skel/.bashrc` and add `export PATH=/opt/conda/bin:$PATH`.
 
 #### Regular
 Run `sh ubuntu_16_04_fresh.sh`
