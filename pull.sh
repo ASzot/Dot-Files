@@ -11,15 +11,3 @@ cp .tmux.conf ~/.tmux.conf
 rm ~/.gitconfig
 cp .gitconfig ~/.gitconfig
 
-#rm -rf ~/.kwm
-#cp -R ./.kwm ~/.kwm
-
-if [ ! -d ~/.config ]; then
-  mkdir ~/.config/
-fi
-
-if [ -d ~/.config/alacritty ]; then
-  rm -rf ~/.config/alacritty
-fi
-
-cp -R ./.config/alacritty/ ~/.config/alacritty

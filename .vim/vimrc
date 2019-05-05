@@ -2,8 +2,8 @@ call pathogen#infect()
 call pathogen#helptags()
 
 let python_highlight_all = 1
-syntax on
 filetype plugin indent on
+syntax on
 set background=light
 set number
 
@@ -14,10 +14,7 @@ set title
 set nobackup
 set noswapfile
 
-let g:livepreview_previewer = 'open -a Skim'
-
 set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
 
 " Rebind redo key
 map <F7> :redo <CR>
@@ -26,9 +23,6 @@ map <F7> :redo <CR>
 map <F8> :call CompileFile() <CR>
 function! CompileFile()
 	let current_filetype = &filetype
-	if current_filetype == 'tex'
-		:!pdflatex -halt-on-error %:t
-	endif	
 	if current_filetype == 'python'
 		:!python %:t
 	endif
@@ -95,7 +89,9 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 
+" Auto tabularize dictionaries and equal signs
 nmap == :Tabularize /=<CR>
+nmap ;; :Tabularize /:<CR>
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
@@ -111,8 +107,6 @@ let g:goyo_width = 85
 
 " Toggle spell check in current file.
 map <leader>b :call ToggleSpellCheck()<CR>
-map <leader>g :GrammarousCheck<CR>
-"map <leader>n :GrammarousReset<CR>
 
 " Syntastic error message supression.
 let g:syntastic_quiet_messages = { 'regex': 'invalid-name\|missing-docstring\|ungrouped-imports\|wrong-import-order\|redefined-outer-name' }
@@ -168,7 +162,22 @@ let g:typescript_indent_disable = 1
 
 "" Because I can't figure out my pasting situation.
 set pastetoggle=<F2>
+
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
 
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
@@ -293,3 +302,12 @@ function SetMdOptions()
 	set autoindent
 	set nospell
 endfunction
+
+
+
+""""""""""""""""'
+" Snipets
+
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
