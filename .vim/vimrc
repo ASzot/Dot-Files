@@ -91,7 +91,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 
 " Auto tabularize dictionaries and equal signs
 nmap == :Tabularize /=<CR>
-nmap ;; :Tabularize /:<CR>
+nmap <leader>; :Tabularize /:<CR>
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
@@ -168,6 +168,8 @@ let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
+
+let g:tmux_navigator_save_on_switch = 2
 
 
 
