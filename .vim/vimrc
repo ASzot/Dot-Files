@@ -306,6 +306,12 @@ function SetMdOptions()
 endfunction
 
 
+autocmd BufRead,BufNewFile *.cmd call SetCmdOptions()
+function SetCmdOptions()
+	set syntax=sh
+endfunction
+
+
 
 """"""""""""""""'
 " Snipets

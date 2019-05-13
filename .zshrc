@@ -127,8 +127,12 @@ fi
 
 # Aliases
 alias upme='sh ~/.dot-files/update.sh'
-
 alias gup='~/go/bin/drive push linux'
+alias py=python
+
+# FOR CLVR NIPS 2019 PROJECT REMOVE WHEN DONE
+alias ep='python exp-base/run_exp.py'
+source activate tor
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
