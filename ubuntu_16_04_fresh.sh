@@ -2,9 +2,8 @@
 sudo apt-get update
 sudo apt-get -y install tmux
 sudo apt-get -y install zsh
-wget -O - https://raw.githubusercontent.com/denysdovhan/spaceship-zsh-theme/master/install.zsh -P ~/ | zsh
-sh ubuntu_pull.sh
-chsh -s `which zsh`
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh pull.sh
 
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -P ~/
 sudo apt-get install build-essential
