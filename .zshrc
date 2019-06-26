@@ -137,6 +137,6 @@ if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszo
 if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/completion.zsh.inc'; fi
 
 systemName=$(uname -s)
-if [ "$systemName" = "Linux" ]; then
-  setxkbmap -layout us -option ctrl:nocaps
-fi
+#if [ "$systemName" = "Linux" ]; then
+#  setxkbmap -layout us -option ctrl:nocaps
+#fi
