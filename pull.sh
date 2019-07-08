@@ -11,3 +11,4 @@ cp .tmux.conf ~/.tmux.conf
 rm ~/.gitconfig
 cp .gitconfig ~/.gitconfig
 
+source ~/.zshrc
