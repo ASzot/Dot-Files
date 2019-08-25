@@ -40,15 +40,20 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
     * `C-a+p` previous window.
     * `C-a+%` split vertical pane.
     * `C-a+"` split horizontal pane.
-* kwm
-  * Installation:
-    * `brew install koekeishiya/formulae/kwm`
-* ctags for vim tagbar plugin
-  * Installation:
-    * `brew install ctags`
+
+
+### Vim Usage
+There are a couple of things that need to be configured for vim usage. You need
+to pip install:
+* `pip install autoflake`
+* `pip install autopep8`
+* `pip install isort`
+This needs to be pip installed to the Python environment that vim is being
+executed with. 
 
 ### Ubuntu Requirements:
 First install git and clone this repo to `~/.dot-files`
+
 #### Server (with gpu for deep learning)
 Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`. You also probably want to set up the default bashrc. `sudo vim /etc/skel/.bashrc` and add `export PATH=/opt/conda/bin:$PATH`.
 
@@ -59,8 +64,6 @@ Run `sh ubuntu_16_04_fresh.sh`
   * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
   * Copy the necessary config files `sh ubuntu_pull.sh`
   * Change the path line in ~/.zshrc file to the appropriate home folder.
-
-
 
 
 ## Common Usage

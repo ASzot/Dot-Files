@@ -92,7 +92,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=black
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 
 " Auto tabularize dictionaries and equal signs
-nmap == :Tabularize /=<CR>
+nmap <leader>= :Tabularize /=<CR>
 nmap <leader>; :Tabularize /:<CR>
 
 " Limelight settings.
@@ -106,31 +106,17 @@ endfunction
 nmap <leader>f :call ToggleFocusMode()<CR>
 let g:goyo_width = 85
 
-
 " Toggle spell check in current file.
-map <leader>b :call ToggleSpellCheck()<CR>
-
-" Syntastic error message supression.
-let g:syntastic_quiet_messages = { 'regex': 'invalid-name\|missing-docstring\|ungrouped-imports\|wrong-import-order\|redefined-outer-name' }
-let g:syntastic_python_pylint_args = '--rcfile=/Users/andrewszot/.pylintrc'
+map <leader>c :call ToggleSpellCheck()<CR>
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-" More syntastic options.
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['pylint']
-
-" Keep Syntastic in passive mode. 
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-
 " Vim closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 
+""""""""""""""
 " CTRLP fuzzy finder
 " Ignore what is in the gitignore
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
@@ -157,6 +143,7 @@ nmap <space>x :bp <BAR> bd #<CR>
 nmap <space>q :%bd<BAR>e#<CR>
 " Show all open buffers and their status
 nmap <space>l :ls<CR>
+""""""""""""""
 
 " Typescript vim
 let g:typescript_indent_disable = 1
@@ -173,12 +160,34 @@ let g:tex_conceal='abdmg'
 
 let g:tmux_navigator_save_on_switch = 2
 
+""""""""""""""
+" Snipets
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+""""""""""""""
+
+""""""""""""""
+" Python Beautifier
+let g:autopep8_disable_show_diff=1
+let g:autoflake_disable_show_diff=1
+let g:autoflake_remove_all_unused_imports=1
+
+" If there are N formatting things in the Beautify() function there needs to
+" be N + 1 <CR> commands after the call.
+nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 
+function Beautify()
+  :!isort %
+  :!autoflake --in-place --remove-all-unused-imports %
+  :Autopep8
+  :edit!
+endfunction
 
 
 
@@ -316,8 +325,4 @@ endfunction
 
 
 """"""""""""""""'
-" Snipets
 
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
