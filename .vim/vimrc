@@ -183,10 +183,14 @@ nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 
 
 function Beautify()
-  :!isort %
-  :!autoflake --in-place --remove-all-unused-imports %
+  :w
   :Autopep8
+  :w
+  :!isort %
+  :w
+  :!autoflake --in-place --remove-all-unused-imports %
   :edit!
+  :w
 endfunction
 
 
