@@ -44,12 +44,8 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
 
 ### Vim Usage
 There are a couple of things that need to be configured for vim usage. You need
-to pip install:
-* `pip install autoflake`
-* `pip install autopep8`
-* `pip install isort`
-This needs to be pip installed to the Python environment that vim is being
-executed with. 
+to pip install a couple of things. Activate the Python environment you will be
+using for Vim development. Then run `sh vim_setup.sh`.
 
 ### Ubuntu Requirements:
 First install git and clone this repo to `~/.dot-files`
