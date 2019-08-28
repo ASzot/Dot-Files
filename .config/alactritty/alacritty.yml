@@ -89,60 +89,34 @@ render_timer: false
 # and cursor.background colors, otherwise invert the colors of the cursor.
 custom_cursor_colors: false
 
-# Colors (Tomorrow Night Bright)
+# Colors (Material Theme)
 colors:
   # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xeaeaea'
-
-    # (Optional) Bright and Dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #
-    # dim_foreground: '0x9a9a9a'
-    # bright_foreground: '0xffffff'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0xffffff'
+    background: '0x1e282d'
+    foreground: '0xc4c7d1'
 
   # Normal colors
   normal:
-    black:   '0x2c3539'
-    red:     '0xa66959'
-    green:   '0x769070'
-    yellow:  '0xac8d6e'
-    blue:    '0x607a86'
-    magenta: '0x8a757e'
-    cyan:    '0x60867f'
-    white:   '0xc4c4b5'
+    black:   '0x666666'
+    red:     '0xeb606b'
+    green:   '0xc3e88d'
+    yellow:  '0xf7eb95'
+    blue:    '0x80cbc4'
+    magenta: '0xff2f90'
+    cyan:    '0xaeddff'
+    white:   '0xffffff'
 
   # Bright colors
   bright:
-    black:   '0x343d41'
-    red:     '0xa66959'
-    green:   '0x769070'
-    yellow:  '0xac8d6e'
-    blue:    '0x607a86'
-    magenta: '0x8a757e'
-    cyan:    '0x60867f'
-    white:   '0xc4c4b5'
-
-  # Dim colors (Optional)
-  dim:
-    black:   '0x333333'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
-    cyan:    '0x66cccc'
-    white:   '0xdddddd'
-
+    black:   '0xff262b'
+    red:     '0xeb606b'
+    green:   '0xc3e88d'
+    yellow:  '0xf7eb95'
+    blue:    '0x7dc6bf'
+    magenta: '0x6c71c4'
+    cyan:    '0x35434d'
+    white:   '0xffffff'
 
 # Visual Bell
 #
@@ -236,10 +210,10 @@ live_config_reload: true
 # You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
 # Entries in shell.args are passed unmodified as arguments to the shell.
 #
- shell:
-   program: /bin/zsh
-   args:
-     - --login
+shell:
+ program: /bin/zsh
+ args:
+   - --login
 
 # Key bindings
 #
@@ -382,5 +356,4 @@ key_bindings:
   - { key: F10,      mods: Command, chars: "\x1b[21;3~"                  }
   - { key: F11,      mods: Command, chars: "\x1b[23;3~"                  }
   - { key: F12,      mods: Command, chars: "\x1b[24;3~"                  }
-  - { key: N,        mods: Command, command: { program: "open", args: ["-nb", "io.alacritty"] } }
   - { key: NumpadEnter,             chars: "\n"                          }
