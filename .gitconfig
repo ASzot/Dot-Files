@@ -7,4 +7,4 @@
 	fo = fetch origin master
 	rh = reset --hard origin/master
   ca = "!f(){ git add -A && git commit -m \"$1\" && git push origin master; };f"
-  gp = pull
+  p = pull
