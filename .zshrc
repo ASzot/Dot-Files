@@ -77,6 +77,7 @@ bindkey '^k' up-history
 bindkey '^j' down-history
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
+bindkey '^f' vi-cmd-mode
 
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
