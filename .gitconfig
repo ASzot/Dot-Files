@@ -2,9 +2,9 @@
 	name = ASzot
 	email = me@andrewszot.com
 [alias]
-	aa = add -p
+	aa = add -A
 	po = push origin master
 	fo = fetch origin master
 	rh = reset --hard origin/master
-  ca = "!f(){ git add -p && git commit -m \"$1\" && git push origin master; };f"
+  ca = "!f(){ git add -A && git commit -m \"$1\" && git push origin master; };f"
   p = pull
