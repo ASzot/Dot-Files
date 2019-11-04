@@ -3,7 +3,7 @@ snippet today "Date"
 endsnippet
 
 snippet mk "Math" wA
-$${1}$`!p
+\(${1}\)`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
 else:
@@ -11,13 +11,44 @@ else:
 `$2
 endsnippet
 
-
 snippet dm "Math" wA
-\[
+$$
 $1
-.\] $0
+$$ $0
 endsnippet
 
 snippet bf "Boldface" wA
 \textbf{${0}}
+endsnippet
+
+snippet mc "Mathcal" wA
+\mathcal{${0}}
+endsnippet
+
+snippet li "html-li"
+<li>
+	$1
+</li> 
+$0
+endsnippet
+
+snippet ul "html-ul"
+<ul>
+	$1
+</ul> 
+$0
+endsnippet
+
+snippet ol "html-ol"
+<ol>
+	$1
+</ol> 
+$0
+endsnippet
+
+snippet p "html-p"
+<p>
+	$1
+</p> 
+$0
 endsnippet
