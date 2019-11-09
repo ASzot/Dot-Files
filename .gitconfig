@@ -1,10 +1,12 @@
 [user]
 	name = ASzot
 	email = me@andrewszot.com
+[push]
+  default = simple
 [alias]
 	aa = add -A
-	po = push origin master
+	po = push
 	fo = fetch origin master
 	rh = reset --hard origin/master
-  ca = "!f(){ git add -A && git commit -m \"$1\" && git push origin master; };f"
+  ca = "!f(){ git add -A && git commit -m \"$1\" && git push; };f"
   p = pull
