@@ -92,7 +92,7 @@ fi
 alias upme='sh ~/.dot-files/update.sh'
 alias gup='~/go/bin/drive push linux'
 alias py=python
-alias ep='python exp-base/run_exp.py'
+alias ep='python rlf/exp_mgr/run_exp.py'
 alias nv='nvidia-smi'
 
 # Default env
