@@ -94,6 +94,7 @@ alias gup='~/go/bin/drive push linux'
 alias py=python
 alias ep='python rlf/exp_mgr/run_exp.py'
 alias nv='nvidia-smi'
+alias sfor='ps aux | grep'
 
 # Default env
 source activate tor 
