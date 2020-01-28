@@ -30,3 +30,4 @@ git reset --hard origin/master
 sh pull.sh
 
 cd -
+source ~/.zshrc
