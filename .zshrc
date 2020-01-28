@@ -96,6 +96,7 @@ alias ep='python rlf/exp_mgr/run_exp.py'
 alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
+alias rs='source ~/.zshrc'
 
 # Default env
 source activate tor 
