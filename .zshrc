@@ -97,6 +97,7 @@ alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
 alias rs='source ~/.zshrc'
+alias cw='tmux kill-window -a'
 
 # Default env
 source activate tor 
