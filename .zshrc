@@ -109,6 +109,6 @@ if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszo
 if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/completion.zsh.inc'; fi
 
 systemName=$(uname -s)
-#if [ "$systemName" = "Linux" ]; then
-#  setxkbmap -layout us -option ctrl:nocaps
-#fi
+
+# Needed for deepmind control suite.
+export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
