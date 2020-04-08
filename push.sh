@@ -2,6 +2,9 @@
 rm -rf ./.vim
 cp -R ~/.vim ./
 
+rm ./sshconfig
+cp ~/.ssh/config ./sshconfig
+
 rm ./.gitconfig
 cp ~/.gitconfig ./
 

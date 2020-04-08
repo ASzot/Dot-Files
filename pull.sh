@@ -2,6 +2,9 @@
 rm -rf ~/.vim
 cp -R ./.vim ~/.vim
 
+rm ~/.ssh/config 
+cp ./sshconfig ~/.ssh/config 
+
 rm ~/.zshrc
 cp .zshrc ~/.zshrc
 

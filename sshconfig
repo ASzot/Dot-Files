@@ -1,0 +1,66 @@
+ServerAliveInterval 120
+
+Host lim1
+  User aszot
+  HostName lim001.usc.edu
+  Port 22
+
+Host lim3
+  User aszot
+  HostName lim003.usc.edu
+  Port 22
+
+Host lim4
+  User aszot
+  HostName 10.136.108.164
+  Port 22
+
+Host lim5
+  User aszot
+  HostName lim005.usc.edu
+  Port 22
+
+Host limc
+  User aszot
+  HostName lim-c.usc.edu
+  Port 22
+
+Host limd
+  User aszot
+  HostName lim-d.usc.edu
+  Port 22
+
+Host lime
+  User aszot
+  HostName lim-e.usc.edu
+  Port 22
+
+Host limb
+  User aszot
+  HostName lim-b.usc.edu
+  Port 22
+
+Host lima
+  User aszot
+  HostName lim-a.usc.edu
+  Port 22
+
+Host seg
+  User aszot
+  HostName seg.cais.plus
+  Port 22
+
+Host fault
+  User aszot
+  HostName fault.cais.plus
+  Port 22
+
+Host aludra
+  User szot
+  HostName aludra.usc.edu
+  Port 22
+
+host github.com
+ HostName github.com
+ IdentityFile ~/.ssh/id_rsa_github
+ User git

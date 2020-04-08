@@ -12,22 +12,15 @@ git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 
 Run `sh update.sh` to install all of the configurations. Reload your bash. Then run `upme` to update the configurations. If you are installing a new system read the mac environment setup or the ubuntu environment setup.
 
-### Scripts:
-* `mac_push.sh`
+### Working with Changes
+* `push.sh`
   * Pushes the current settings from the machine into the repository.
-* `ubuntu_pull.sh`
+* `pull.sh`
   * Pulls the current settings from the GitHub repository and puts them on the
     Ubuntu machine.
     
 ### Setting Up a Mac Environment
 * First thing you have to do is install brew here https://brew.sh/. 
-* Install iTerm2 https://www.iterm2.com/
-  * Be sure to disable the border
-  * Disable all of the settings possible for the tabs and put the tabs at the
-    bottom. 
-* Download Ubersicht http://tracesof.net/uebersicht/. Use whatever widget you
-  want 
-  * Good for light themes with padding https://github.com/chris-etheridge/bar.
 * tmux
   * Installation:
     * `brew install tmux`
@@ -46,17 +39,18 @@ Run `sh update.sh` to install all of the configurations. Reload your bash. Then 
 There are a couple of things that need to be configured for vim usage. You need
 to pip install a couple of things. Activate the Python environment you will be
 using for Vim development. Then run `sh vim_setup.sh`.
+* `sudo apt-get install ctags` to get better code navigation 
 
-### Ubuntu Requirements:
-First install git and clone this repo to `~/.dot-files`
+### GitHub Usage
+Use password protected ssh keys for better project level security.
+* Generate key `ssh-keygen -b 2048 -t rsa -f ~/.ssh/id_rsa_github`
+* `cat ~/.ssh/id_rsa_github.pub` Add key to the GitHub project. Be sure to
+  check the option for write access as well. 
+* `git clone git@github.com:...`
+
 
 #### Server (with gpu for deep learning)
 Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`. You also probably want to set up the default bashrc. `sudo vim /etc/skel/.bashrc` and add `export PATH=/opt/conda/bin:$PATH`.
 
 #### Regular
 Run `sh ubuntu_16_04_fresh.sh`
-
-* System:
-  * Rebind the caps lock key as another control key `setxkbmap -option caps:ctrl_modifier`
-  * Copy the necessary config files `sh ubuntu_pull.sh`
-  * Change the path line in ~/.zshrc file to the appropriate home folder.
