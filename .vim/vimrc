@@ -215,6 +215,10 @@ func! DeleteTrailingWS()
 	exe "normal mz"
 	%s/\s\+$//ge
 	exe "normal `z"
+
+  if filereadable(join([getcwd(), "/tags"], "/"))
+    :silent !ctags -R .
+  endif
 endfunc
 
 """""""
