@@ -181,6 +181,8 @@ nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
+autocmd FileType python setlocal completeopt-=preview
+
 
 
 function Beautify()
