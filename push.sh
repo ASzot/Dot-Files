@@ -11,9 +11,6 @@ cp ~/.gitconfig ./
 rm ./.zshrc
 cp ~/.zshrc ./
 
-rm ./.tmux.conf
-cp ~/.tmux.conf ./
-
 if [ -d ~/.config/alacritty ]; then
   rm -rf ./.config/alacritty
   cp -R ~/.config/alacritty/ ./.config/alactritty/

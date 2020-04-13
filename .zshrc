@@ -90,6 +90,7 @@ fi
 
 # Aliases
 alias upme='sh ~/.dot-files/update.sh'
+alias creategit="sh ~/.dot-files/create_gh_key.sh"
 alias gup='~/go/bin/drive push linux'
 alias py=python
 alias ep='python rlf/exp_mgr/run_exp.py'

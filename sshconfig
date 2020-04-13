@@ -60,7 +60,3 @@ Host aludra
   HostName aludra.usc.edu
   Port 22
 
-host github.com
- HostName github.com
- IdentityFile ~/.ssh/id_rsa_github
- User git
