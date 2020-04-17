@@ -14,7 +14,10 @@ Run `sh update.sh` to install all of the configurations. Reload your zsh. If you
 
 ## Commands
 Shortcuts are defined in `.zshrc`. They are listed here: 
-* `creategit`: Create a GitHub deploy key. 
+* `creategit`: Create a GitHub deploy key. Note that when cloning you specify
+  the project name as the host instead of git@github.com. So if you named the
+  public key `myproj` and the project was at github.com/aszot/project, notice
+  they don't have to match, you would clone with `git clone myproj:aszot/project.git`.
 * `upme`: Fetch settings from github and apply them. 
 * `sa`: Switch to the specified conda environment. 
 * `rs`: Reload zshrc.
