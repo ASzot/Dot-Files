@@ -182,6 +182,8 @@ nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 autocmd FileType python setlocal completeopt-=preview
+let g:jedi#completions_enabled = 0
+let jedi#show_call_signatures = 0
 
 
 
@@ -218,9 +220,9 @@ func! DeleteTrailingWS()
 	%s/\s\+$//ge
 	exe "normal `z"
 
-  if filereadable(join([getcwd(), "/tags"], "/"))
-    :silent !ctags -R .
-  endif
+  " if filereadable(join([getcwd(), "/tags"], "/"))
+  "   :silent !ctags -R .
+  " endif
 endfunc
 
 """""""
