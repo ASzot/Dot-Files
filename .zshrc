@@ -18,6 +18,7 @@ ZSH_THEME="af-magic"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -101,7 +102,7 @@ alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
 
 # Default env
-source activate tor 
+#source activate tor 
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
@@ -113,3 +114,4 @@ systemName=$(uname -s)
 
 # Needed for deepmind control suite.
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
+
