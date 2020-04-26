@@ -177,14 +177,19 @@ let g:autoflake_remove_all_unused_imports=1
 " If there are N formatting things in the Beautify() function there needs to
 " be N + 1 <CR> commands after the call.
 nmap <leader>b :call Beautify()<CR><CR><CR><CR>
+""""""""""""""
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-
+""""""""""""""
+" Python Jedi 
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#completions_enabled = 0
 let jedi#show_call_signatures = 0
+""""""""""""""
 
+""""""""""""""
+" Golang
+set autowrite
+""""""""""""""
 
 
 function Beautify()

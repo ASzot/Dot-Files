@@ -104,14 +104,14 @@ alias cw='tmux kill-window -a'
 # Default env
 #source activate tor 
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/aszot/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/aszot/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/aszot/google-cloud-sdk/completion.zsh.inc'; fi
-
 systemName=$(uname -s)
 
 # Needed for deepmind control suite.
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
 
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/andrewszot/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc'; fi
