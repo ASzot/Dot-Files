@@ -110,8 +110,13 @@ systemName=$(uname -s)
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
 
 
+# Replace this with the HOME dir in the future so it is agnostic to the computer? 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/andrewszot/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/path.zsh.inc'; fi
-
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc'; fi
+
+# For golang
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+export TERM=xterm-256color
