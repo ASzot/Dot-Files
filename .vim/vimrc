@@ -39,12 +39,12 @@ function! ToggleSpellCheck()
 	endif
 endfunction
 
-" Default is relative numbering.
+" Set default to be  relative numbering. 
 set rnu
 set nonumber
 
-" Space toggles method folding
-" nnoremap <space> za
+" Unfold by default
+au BufRead * normal zR
 
 " Easy tab navigation
 map <C-t>j :tabc<cr>
@@ -80,10 +80,6 @@ nnoremap <leader>d "_d
 nnoremap <leader>w :set relativenumber!<CR>
 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
-
-" Toggle tagbar
-nmap <leader>t :TagbarToggle<CR>
-let g:tagbar_autofocus = 0 
 
 " Toggle indentation display
 nmap <leader>i :IndentGuidesToggle<CR>
@@ -191,6 +187,25 @@ let jedi#show_call_signatures = 0
 set autowrite
 """"""""""""""
 
+
+""""""""""""""
+" Toggle tagbar
+nmap <leader>t :TagbarOpen fj<CR>
+let g:tagbar_autofocus = 0 
+""""""""""""""
+
+let g:highlighting = 0
+function! Highlighting()
+  if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
+    let g:highlighting = 0
+    set nohlsearch
+    return ":silent nohlsearch\<CR>"
+  endif
+  let @/ = '\<'.expand('<cword>').'\>'
+  let g:highlighting = 1
+  return ":silent set hlsearch\<CR>"
+endfunction
+nnoremap <silent> <expr> <CR> Highlighting()
 
 function Beautify()
   :w
