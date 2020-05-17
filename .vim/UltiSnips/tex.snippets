@@ -30,15 +30,14 @@ else:
 `$2
 endsnippet
 
-
 snippet dm "Math" wA
-\[
+\begin{align}
 $1
-.\] $0
+\end{align} $0
 endsnippet
 
-snippet bf "Boldface" wA
-\textbf{${0}}
+snippet bf "Boldface" 
+\textbf{${1}}$0
 endsnippet
 
 snippet bb "mathbb"
@@ -49,7 +48,11 @@ snippet | "lvert"
 \lvert
 endsnippet
 
-snippet ~ "lvert"
+snippet -> "arrow"
+\rightarrow
+endsnippet
+
+snippet ~ "sim"
 \sim
 endsnippet
 
@@ -101,14 +104,17 @@ snippet 1d "subscript" iA
 _{$1}$0
 endsnippet
 
-snippet \{ "start_brac" iA
-\\{$1\\}$0
-endsnippet
-
 snippet \al "alpha" iA
 \alpha
 endsnippet
 
+snippet \be "beta" iA
+\beta
+endsnippet
+
+snippet \de "delta" iA
+\delta
+endsnippet
 
 snippet \th "theta" iA
 \theta
@@ -118,8 +124,12 @@ snippet \ti "tilde" iA
 \tilde{$1}$0
 endsnippet
 
-snippet \ha "tilde" iA
+snippet \ha "hat" iA
 \hat{$1}$0
+endsnippet
+
+snippet \ba "bar" iA
+\bar{$1}$0
 endsnippet
 
 snippet \o "omega" iA
@@ -151,11 +161,15 @@ snippet \Ps "Psi" iA
 \Psi
 endsnippet
 
-snippet \g "gamma" iA
+snippet \ga "gamma" iA
 \gamma
 endsnippet
 
-snippet \su "sum" iA
+snippet \ep "epsilon" iA
+\epsilon
+endsnippet
+
+snippet \sum "sum" iA
 \sum_{$1}$0
 endsnippet
 
@@ -174,5 +188,3 @@ endsnippet
 snippet \na "nabla" iA
 \nabla
 endsnippet
-
-

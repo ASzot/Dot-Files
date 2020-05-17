@@ -27,6 +27,8 @@ function! CompileFile()
 	let current_filetype = &filetype
 	if current_filetype == 'python'
 		:!python %:t
+  elseif current_filetype == 'tex'
+    :!pdflatex main.tex
 	endif
 endfunction
 
@@ -96,6 +98,7 @@ let g:limelight_conceal_ctermfg = 'gray'
 function! ToggleFocusMode()
 	Goyo
 	Limelight!!
+  set background=light
 endfunction
 
 " Toggle focus mode.
