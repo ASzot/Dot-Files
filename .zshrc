@@ -79,6 +79,7 @@ bindkey '^j' down-history
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 bindkey '^f' vi-cmd-mode
+bindkey "^E" edit-command-line
 
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
@@ -105,6 +106,7 @@ alias cw='tmux kill-window -a'
 #source activate tor 
 
 systemName=$(uname -s)
+
 
 # Needed for deepmind control suite.
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
