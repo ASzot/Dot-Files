@@ -21,36 +21,6 @@ plugins=(git)
 ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-
 git_custom_status() {
   local cb=$(current_branch)
   if [ -n "$cb" ]; then
@@ -58,20 +28,12 @@ git_custom_status() {
   fi
 }
 
-bindkey -v
-export KEYTIMEOUT=1
-function zle-line-init zle-keymap-select {
-    VIM_PROMPT="%{$fg_bold[yellow]%} [% VIM]% %{$reset_color%}"
-    HOST_DISPLAY="$(hostname)"
-
-    RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $USER@$HOST_DISPLAY $EPS1"
-    zle reset-prompt
-}
-
+# Easy command for compiling and running Haskell programs 
 function haskr() {
   ghc -o output "$1" && ./output
 }
 
+# Some better shortcuts inzsh
 zle -N zle-line-init
 zle -N zle-keymap-select
 bindkey '^k' up-history
@@ -121,4 +83,5 @@ if [ -f '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 # For golang
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-export TERM=xterm-256color
+#export TERM=xterm-256color
+export LC_ALL=en_US.UTF-8
