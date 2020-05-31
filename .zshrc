@@ -28,6 +28,8 @@ git_custom_status() {
   fi
 }
 
+bindkey -v
+
 # Easy command for compiling and running Haskell programs 
 function haskr() {
   ghc -o output "$1" && ./output
