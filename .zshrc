@@ -2,8 +2,6 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-# Ubuntu
-#export ZSH=/home/andy/.oh-my-zsh
 # OSX
 export ZSH=~/.oh-my-zsh
 
@@ -29,14 +27,6 @@ git_custom_status() {
 }
 
 bindkey -v
-function zle-line-init zle-keymap-select {
-  RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-  RPS2=$RPS1
-  zle reset-prompt
-}
-
-zle -N zle-line-init
-zle -N zle-keymap-select
 
 # Easy command for compiling and running Haskell programs 
 function haskr() {
@@ -46,8 +36,6 @@ function haskr() {
 # Some better shortcuts inzsh
 #zle -N zle-line-init
 #zle -N zle-keymap-select
-bindkey '^k' up-history
-bindkey '^j' down-history
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 bindkey '^f' vi-cmd-mode
