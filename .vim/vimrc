@@ -55,9 +55,9 @@ map <C-t>l :tabn<cr>
 
 " NERDTree configuration
 map <C-r> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 let NERDTreeIgnore = ['\.pyc$']
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
@@ -116,33 +116,14 @@ set statusline+=%*
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 
 """"""""""""""
-" CTRLP fuzzy finder
-" Ignore what is in the gitignore
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
-  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
-  \}
-let g:ctrlp_prompt_mappings = { 'PrtExit()': ['<esc>', '<c-c>', '<c-g>', '<space>'] }
-let g:ctrlp_map = '<c-f>'
-let g:ctrlp_cmd = 'CtrlP'
-nmap <space>a :CtrlPBuffer<cr>
-nmap <space>m :CtrlPMixed<cr>
-nmap <space>s :CtrlPMRU<cr>
-" Buffer settings in vim
-set hidden
-" Move to the next buffer
-nmap <space>j :bnext<CR>
-" Move to the previous buffer
-nmap <space>k :bprevious<CR>
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <space>x :bp <BAR> bd #<CR>
-" Close all but the current tab
-nmap <space>q :%bd<BAR>e#<CR>
-" Show all open buffers and their status
-nmap <space>l :ls<CR>
+" FZF settings
+set rtp+=/usr/local/opt/fzf
+nmap <c-f> :Files<CR>
+nmap <c-b> :Buffers<CR>
+nmap <leader>g :GFiles?<CR>
+nmap <leader>s :Ag<Space>
 """"""""""""""
+
 
 " Typescript vim
 let g:typescript_indent_disable = 1

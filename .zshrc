@@ -53,9 +53,7 @@ fi
 # Aliases
 alias upme='sh ~/.dot-files/update.sh'
 alias creategit="sh ~/.dot-files/create_gh_key.sh"
-alias gup='~/go/bin/drive push linux'
 alias py=python
-alias ep='python rlf/exp_mgr/run_exp.py'
 alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
@@ -81,5 +79,9 @@ if [ -f '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 # For golang
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
-#export TERM=xterm-256color
+
+# Terminal settings (needed to have the terminal work sometimes)
+export TERM=xterm
 export LC_ALL=en_US.UTF-8
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
