@@ -117,7 +117,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 
 """"""""""""""
 " FZF settings
-set rtp+=/usr/local/opt/fzf
+set rtp+=~/.fzf
 nmap <c-f> :Files<CR>
 nmap <Space>a :Buffers<CR>
 nmap <Space>s :GFiles?<CR>
