@@ -179,12 +179,6 @@ nmap <leader>t :TagbarOpen fj<CR>
 let g:tagbar_autofocus = 0 
 """"""""""""""
 
-""""""""""""""
-" GitGutter
-" - Make the diff updates reasonably fast
-set updatetime=100
-""""""""""""""
-
 let g:highlighting = 0
 function! Highlighting()
   if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
