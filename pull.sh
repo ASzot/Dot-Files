@@ -11,3 +11,5 @@ cp .tmux.conf ~/.tmux.conf
 rm ~/.gitconfig
 cp .gitconfig ~/.gitconfig
 
+rm ~/.bashrc
+cp .bashrc ~/.bashrc
