@@ -112,7 +112,10 @@ if ! shopt -oq posix; then
 fi
 
 set -o vi
-export PS1="\\w\$(__git_ps1 '(%s)') \$ "
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+export PS1="\u@\h \[\e[32m\]\w \[\e[91m\]\$(parse_git_branch)\[\e[00m\]$ "
 
 # Aliases
 alias upme='sh ~/.dot-files/update.sh'
@@ -137,3 +140,12 @@ export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# customized commands for slurm
+# include .slurm_tools if it exists
+if [ -f $HOME/.slurm_tools ]; then
+  . $HOME/.slurm_tools
+fi
+
+export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
+export SQUEUE_SORT='-b,u,-S'
