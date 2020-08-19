@@ -13,3 +13,6 @@ cp .gitconfig ~/.gitconfig
 
 rm ~/.bashrc
 cp .bashrc ~/.bashrc
+
+rm ~/.profile
+cp .profile ~/.profile
