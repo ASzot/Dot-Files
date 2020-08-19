@@ -60,3 +60,35 @@ Host aludra
   HostName aludra.usc.edu
   Port 22
 
+
+Host ripl1
+  User aszot
+  HostName 143.215.204.199
+
+Host ripl2
+  User aszot
+  HostName 143.215.204.126
+
+Host ripl3
+  User aszot
+  HostName 143.215.206.43
+
+Host ripl4
+  User aszot
+  HostName 143.215.128.16
+
+Host ripl5
+  User aszot
+  HostName 143.215.131.25
+
+Host ripl6
+  User aszot
+  HostName 143.215.131.23
+
+Host sky
+  User aszot3
+  HostName sky1.cc.gatech.edu
+
+Host multivac
+  User aszot3
+  HostName multivac.cc.gatech.edu
