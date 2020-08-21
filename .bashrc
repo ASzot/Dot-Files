@@ -149,3 +149,5 @@ fi
 
 export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
 export SQUEUE_SORT='-b,u,-S'
+export TERM=xterm
+export LC_ALL=en_US.UTF-8
