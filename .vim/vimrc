@@ -122,6 +122,8 @@ nmap <c-f> :Files<CR>
 nmap <Space>a :Buffers<CR>
 nmap <Space>s :GFiles?<CR>
 nmap <Space>f :Ag<Space>
+" Remove the '!' if you don't want this to open up a new window. 
+noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 set hidden
 """"""""""""""
 
