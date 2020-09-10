@@ -62,7 +62,6 @@ alias cw='tmux kill-window -a'
 
 # Default env
 #source activate tor 
-
 systemName=$(uname -s)
 
 
