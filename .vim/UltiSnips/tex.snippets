@@ -3,9 +3,9 @@ snippet today "Date"
 endsnippet
 
 
-snippet fig "Date"
+snippet fig "addfig"
 \begin{figure*}[!h]
-\centering
+	\centering
 	\includegraphics[width=\textwidth]{$1}
 	\caption{
 		$2
@@ -31,10 +31,17 @@ else:
 endsnippet
 
 snippet dm "Math" wA
+\begin{align*}
+$1
+\end{align*} $0
+endsnippet
+
+snippet dn "Math" wA
 \begin{align}
 $1
 \end{align} $0
 endsnippet
+
 
 snippet bf "Boldface" 
 \textbf{${1}}$0
@@ -48,6 +55,11 @@ snippet | "lvert"
 \lvert
 endsnippet
 
+snippet || "lvert"
+\lVert $1 \lVert$0
+endsnippet
+
+
 snippet -> "arrow"
 \rightarrow
 endsnippet
@@ -58,38 +70,6 @@ endsnippet
 
 snippet mc "Mathcal"
 \mathcal{${1}}$0
-endsnippet
-
-snippet li "html-li"
-<li>
-	$1
-</li>$0
-endsnippet
-
-snippet ul "html-ul"
-<ul>
-	$1
-</ul>$0
-endsnippet
-
-snippet ol "html-ol"
-<ol>
-	$1
-</ol>$0
-endsnippet
-
-snippet p "html-p"
-<p>
-	$1
-</p>$0
-endsnippet
-
-snippet b "html-b"
-<b>$1</b>$0
-endsnippet
-
-snippet i "html-i"
-<i>$1</i>$0
 endsnippet
 
 snippet // "Fraction" iA
@@ -187,4 +167,8 @@ endsnippet
 
 snippet \na "nabla" iA
 \nabla
+endsnippet
+
+snippet \iff "nabla" iA
+\leftrightarrow
 endsnippet
