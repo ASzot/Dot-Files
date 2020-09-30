@@ -219,6 +219,14 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
+
+endfunction
+
+function FixTwoSpaces()
+  set ts=2 sts=2 noet
+  retab!
+  set ts=4 sts=4 et
+  retab
 endfunction
 
 "" Function to delete trailing whitespace
