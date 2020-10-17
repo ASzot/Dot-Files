@@ -28,7 +28,7 @@ function! CompileFile()
 	if current_filetype == 'python'
 		:!python %:t
   elseif current_filetype == 'tex'
-    :!pdflatex main.tex
+    :!xelatex main.tex
 	endif
 endfunction
 
@@ -291,8 +291,12 @@ function SetTexOptions()
 	set shiftwidth=2
 	set expandtab
 	set autoindent
-	set textwidth=79
+	set textwidth=0
+  set linebreak
 	set nospell
+  map <leader>r O%R: 
+  inoremap . .
+  inoremap \. .
 endfunction
 
 " Options for full stack. 
