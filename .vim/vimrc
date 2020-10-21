@@ -120,10 +120,13 @@ let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
 set rtp+=~/.fzf
 nmap <c-f> :Files<CR>
 nmap <Space>a :Buffers<CR>
-nmap <Space>s :GFiles?<CR>
 nmap <Space>f :Ag<Space>
+nmap <Space>t :Ag<Space>(^\%\@).*
 " Remove the '!' if you don't want this to open up a new window. 
 noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
+
+let s:ag_options = ' --one-device --skip-vcs-ignores --smart-case '
+
 set hidden
 """"""""""""""
 
@@ -256,6 +259,44 @@ set nospell
 "" Delete trailing whitespace on python, ruby file save
 autocmd BufWrite *.py,*.rb :call DeleteTrailingWS()
 
+" Options for LaTex
+autocmd BufNewFile,BufRead *.tex call SetTexOptions()
+function SetTexOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set expandtab
+	set autoindent
+	set textwidth=0
+  set linebreak
+	set nospell
+  map <leader>r O%R: 
+endfunction
+
+
+if fnamemodify(getcwd(), ':t') == "me"
+  let g:lastfilename = "START"
+  "These define all the options for my Vim Wiki 
+  autocmd BufEnter *.tex call WikiOptions()
+  function WikiOptions()
+    if match(readfile(expand("%:p")),"begin{document}")==-1
+      return
+    endif 
+    if g:lastfilename == expand("%:t")
+      return
+    endif
+    let g:lastfilename = expand("%:t")
+
+    set textwidth=79
+    hi Error NONE
+    " Make sure we are ready to render this file. 
+    :VimtexStop
+    :!osascript -e 'tell application "Skim" to close first window'
+    :VimtexCompile
+  endfunction
+endif
+
+
 
 " Options for Scala
 autocmd BufNewFile,BufRead *.scala call SetScalaOptions()
@@ -281,22 +322,6 @@ function SetJavaOptions()
 	set autoindent
 	set textwidth=79
   set wrapmargin=2
-endfunction
-
-" Options for LaTex
-autocmd BufNewFile,BufRead *.tex call SetTexOptions()
-function SetTexOptions()
-	set tabstop=2
-	set softtabstop=2
-	set shiftwidth=2
-	set expandtab
-	set autoindent
-	set textwidth=0
-  set linebreak
-	set nospell
-  map <leader>r O%R: 
-  inoremap . .
-  inoremap \. .
 endfunction
 
 " Options for full stack. 
