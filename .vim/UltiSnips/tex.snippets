@@ -39,6 +39,23 @@ snippet fig "addfig"
 $0
 endsnippet
 
+snippet mathdoc "mathdoc"
+%@ $1
+%@ Created: `date +%F`
+%@ Tags: $2
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
+
+\end{document}
+endsnippet
+
 snippet beg "begin{} / end{}" bA
 \begin{$1}
 	$0
@@ -69,6 +86,11 @@ endsnippet
 
 snippet bf "Boldface" 
 \textbf{${1}}$0
+endsnippet
+
+
+snippet h "link" 
+\href{${1}}{${2}}$0
 endsnippet
 
 snippet bb "mathbb"

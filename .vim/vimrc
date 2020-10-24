@@ -124,8 +124,7 @@ nmap <Space>f :Ag<Space>
 nmap <Space>t :Ag<Space>(^\%\@).*
 " Remove the '!' if you don't want this to open up a new window. 
 noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
-
-let s:ag_options = ' --one-device --skip-vcs-ignores --smart-case '
+imap <c-x><c-f> <plug>(fzf-complete-path)
 
 set hidden
 """"""""""""""
@@ -143,6 +142,9 @@ let g:vimtex_view_method='skim'
 let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmg'
 let g:tex_comment_nospell=1
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : '/tmp/tex',
+            \}
 
 let g:tmux_navigator_save_on_switch = 2
 
