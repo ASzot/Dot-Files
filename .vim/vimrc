@@ -41,6 +41,13 @@ function! ToggleSpellCheck()
 	endif
 endfunction
 
+" netrw settings
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+map <C-r> :Vexplore<CR>
+let g:netrw_banner = 0
+let g:netrw_winsize = 20
+
 " Set default to be  relative numbering. 
 set rnu
 set nonumber
@@ -52,15 +59,6 @@ au BufRead * normal zR
 map <C-t>j :tabc<cr>
 map <C-t>h :tabp<cr>
 map <C-t>l :tabn<cr>
-
-" NERDTree configuration
-map <C-r> :NERDTreeToggle<CR>
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-let NERDTreeIgnore = ['\.pyc$']
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
 
 " Syntastic navigation shortcuts 
 let mapleader = ","
