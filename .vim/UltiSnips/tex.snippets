@@ -39,7 +39,7 @@ snippet fig "addfig"
 $0
 endsnippet
 
-snippet mathdoc "mathdoc"
+snippet resdoc "resdoc"
 %@ $1
 %@ Authors: 
 %@ Created: `date +%F`
@@ -66,6 +66,23 @@ $0
 \section{Method}
 
 \section{Experiments}
+
+\end{document}
+endsnippet
+
+snippet mathdoc "mathdoc"
+%@ $1
+%@ Created: `date +%F`
+%@ Tags: $2
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
 
 \end{document}
 endsnippet
@@ -107,6 +124,10 @@ snippet h "link"
 \href{${1}}{${2}}$0
 endsnippet
 
+snippet xx "times" 
+\times $0
+endsnippet
+
 snippet bb "mathbb"
 \mathbb{${1}}$0
 endsnippet
@@ -130,6 +151,22 @@ endsnippet
 
 snippet amax "argmax"
 \text{argmax}_{$1}$0
+endsnippet
+
+snippet \im "implies"
+\implies
+endsnippet
+
+snippet U "union"
+\bigcup
+endsnippet
+
+snippet C "intersection"
+\bigcap
+endsnippet
+
+snippet oo "infinity"
+\infty
 endsnippet
 
 snippet ~ "sim"
@@ -169,6 +206,10 @@ snippet EE "Expectation" iA
 \mathbb{E}$0
 endsnippet
 
+snippet PP "Prob" iA
+\mathbb{P}$0
+endsnippet
+
 snippet 1d "subscript" iA
 _{$1}$0
 endsnippet
@@ -203,6 +244,10 @@ endsnippet
 
 snippet \o "omega" iA
 \omega
+endsnippet
+
+snippet \O "Omega" iA
+\Omega
 endsnippet
 
 snippet \ap "approx" iA
@@ -258,6 +303,6 @@ snippet \na "nabla" iA
 \nabla
 endsnippet
 
-snippet \iff "nabla" iA
+snippet \iff "iff" iA
 \leftrightarrow
 endsnippet

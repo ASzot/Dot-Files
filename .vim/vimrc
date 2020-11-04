@@ -41,31 +41,14 @@ function! ToggleSpellCheck()
 	endif
 endfunction
 
-" netrw settings
-" Toggle Vexplore with Ctrl-E
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-    let expl_win_num = bufwinnr(t:expl_buf_num)
-    if expl_win_num != -1
-      let cur_win_nr = winnr()
-      exec expl_win_num . 'wincmd w'
-      close
-      exec cur_win_nr . 'wincmd w'
-      unlet t:expl_buf_num
-    else
-      unlet t:expl_buf_num
-    endif
-  else
-    exec '1wincmd w'
-    Vexplore
-    let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-map <silent> <C-e> :call ToggleVExplorer()<CR>
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_banner = 0
-let g:netrw_winsize = 20
+" NERDTree configuration
+ map <C-r> :NERDTreeToggle<CR>
+ " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+ " autocmd StdinReadPre * let s:std_in=1
+ " autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+ let NERDTreeIgnore = ['\.pyc$']
+ let NERDTreeMinimalUI = 1
+ let NERDTreeDirArrows = 1
 
 " Set default to be  relative numbering. 
 set rnu
@@ -126,7 +109,7 @@ let g:goyo_width = 85
 map <leader>c :call ToggleSpellCheck()<CR>
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 " Vim closetag
@@ -296,7 +279,11 @@ endfunction
 if fnamemodify(getcwd(), ':t') == "me"
   let g:lastfilename = "START"
   "These define all the options for my Vim Wiki 
-  autocmd BufEnter *.tex call WikiOptions()
+  "autocmd BufEnter *.tex call WikiOptions()
+  noremap <silent> <Space>r :call WikiOptions()<CR>
+  set textwidth=79
+  set wrapmargin=2
+	set wrap
   function WikiOptions()
     if match(readfile(expand("%:p")),"begin{document}")==-1
       return
@@ -306,11 +293,11 @@ if fnamemodify(getcwd(), ':t') == "me"
     endif
     let g:lastfilename = expand("%:t")
 
-    set textwidth=79
     hi Error NONE
     " Make sure we are ready to render this file. 
     :VimtexStop
-    :!osascript -e 'tell application "Skim" to close first window'
+    silent! !osascript -e 'tell application "Skim" to close first window'
+    redraw!
     :VimtexCompile
   endfunction
 endif
