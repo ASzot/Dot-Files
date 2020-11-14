@@ -39,6 +39,7 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * tmux
   * Installation:
     * `brew install tmux`
+    * `brew install --HEAD universal-ctags/universal-ctags/universal-ctags` much better than the regular ctags. 
   * Usage:
     * `tmux` to start tmux session.
     * `tmux ls` to list the active tmux sessions. 
@@ -54,7 +55,6 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 There are a couple of things that need to be configured for vim usage. You need
 to pip install a couple of things. Activate the Python environment you will be
 using for Vim development. Then run `sh vim_setup.sh`.
-* `sudo apt-get install ctags` to get better code navigation 
 
 #### Server (with gpu for deep learning)
 Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`. You also probably want to set up the default bashrc. `sudo vim /etc/skel/.bashrc` and add `export PATH=/opt/conda/bin:$PATH`.

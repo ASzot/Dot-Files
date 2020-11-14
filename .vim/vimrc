@@ -93,6 +93,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=darkgrey
 nmap <leader>= :Tabularize /=<CR>
 nmap <leader>; :Tabularize /:<CR>
 
+" ctags 
+nmap <leader>y :!ctags -R .<CR>
+
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
 function! ToggleFocusMode()
@@ -153,6 +156,7 @@ let g:tmux_navigator_save_on_switch = 2
 let g:UltiSnipsExpandTrigger = '<tab>'
 
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
+nmap <leader>u :put =system('echo \\label{$RANDOM}')<CR>
 "let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 """"""""""""""
 
