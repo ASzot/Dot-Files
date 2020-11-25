@@ -64,8 +64,6 @@ map <C-t>l :tabn<cr>
 
 " Syntastic navigation shortcuts 
 let mapleader = ","
-nmap <leader>h :lnext<CR>
-nmap <leader>l :lprevious<CR>
 function! ToggleErrors()
 	let old_last_winnr = winnr('$')
 	lclose
@@ -230,7 +228,8 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
-
+  nmap <leader>y :! ctags -R --fields=+l --languages=python --python-kinds=-iv ./<CR>
+  nmap <leader>h :! ctags -R --fields=+l --languages=python --python-kinds=-iv ./ 
 endfunction
 
 function FixTwoSpaces()
