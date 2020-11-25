@@ -73,6 +73,7 @@ endsnippet
 snippet mathdoc "mathdoc"
 %@ $1
 %@ Created: `date +%F`
+%@ Sections: 
 %@ Tags: $2
 
 \input{\string~/me/header.tex}
@@ -206,6 +207,10 @@ snippet [[ "superscript" iA
 \left[ $1 \right] $0
 endsnippet
 
+snippet {{ "brackets" iA
+\\{ $1 \\} $0
+endsnippet
+
 snippet EE "Expectation" iA
 \mathbb{E}$0
 endsnippet
@@ -232,6 +237,10 @@ endsnippet
 
 snippet \de "delta" iA
 \delta
+endsnippet
+
+snippet \De "Delta" iA
+\Delta
 endsnippet
 
 snippet \th "theta" iA
@@ -289,6 +298,10 @@ endsnippet
 
 snippet \ga "gamma" iA
 \gamma
+endsnippet
+
+snippet \Ga "Gamma" iA
+\Gamma
 endsnippet
 
 snippet \ep "epsilon" iA

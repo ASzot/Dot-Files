@@ -143,7 +143,9 @@ set pastetoggle=<F2>
 let g:tex_flavor='latex'
 let g:vimtex_view_method='skim'
 let g:vimtex_quickfix_mode=0
+set conceallevel=2
 let g:tex_conceal='abdmg'
+hi clear Conceal
 let g:tex_comment_nospell=1
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : '/tmp/tex',
