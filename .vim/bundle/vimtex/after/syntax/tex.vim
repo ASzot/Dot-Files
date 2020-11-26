@@ -161,8 +161,8 @@ syntax region texUrlVerb matchgroup=Delimiter
 syntax match texStatement '\\url\ze\s*{' nextgroup=texUrl
 syntax region texUrl     matchgroup=Delimiter start='{' end='}' contained
 
-syntax match texStatement '\\href' nextgroup=texHref
-syntax region texHref matchgroup=Delimiter start='{' end='}' contained
+syntax match texStatement '\\href' nextgroup=texHref conceal
+syntax region texHref matchgroup=Delimiter start='{' end='}' conceal contained 
       \ nextgroup=texMatcher
 
 syntax match texStatement '\\hyperref' nextgroup=texHyperref

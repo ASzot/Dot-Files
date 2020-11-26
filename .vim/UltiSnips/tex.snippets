@@ -18,6 +18,23 @@ def create_table(snip):
 endglobal
 
 
+global !p
+texMathZones = ['texMathZone'+x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'V', 'W', 'X', 'Y', 'Z']]
+texMathZones += ['texMathZone'+x for x in ['E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS']]
+texIgnoreMathZones = ['texMathText']
+
+texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
+texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
+
+def isMath():
+    synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+    if not set(texIgnoreMathZoneIds).isdisjoint(synstackids):
+        return False
+    return not set(texMathZoneIds).isdisjoint(synstackids)
+    # isdisjoint() can short-circuit as soon as a match is found
+endglobal
+
+
 snippet today "Date"
 `date +%F`
 endsnippet
@@ -211,16 +228,34 @@ snippet {{ "brackets" iA
 \\{ $1 \\} $0
 endsnippet
 
+context "isMath()"
 snippet EE "Expectation" iA
 \mathbb{E}$0
 endsnippet
 
+context "isMath()"
 snippet RR "RealNums" iA
 \mathbb{R}$0
 endsnippet
 
+context "isMath()"
 snippet PP "Prob" iA
 \mathbb{P}$0
+endsnippet
+
+context "isMath()"
+snippet II "II" iA
+\mathcal{I}$0
+endsnippet
+
+context "isMath()"
+snippet DD "DD" iA
+\mathcal{D}$0
+endsnippet
+
+context "isMath()"
+snippet FF "FF" iA
+\mathcal{F}$0
 endsnippet
 
 snippet 1d "subscript" iA
@@ -233,6 +268,10 @@ endsnippet
 
 snippet \be "beta" iA
 \beta
+endsnippet
+
+snippet \et "eta" iA
+\eta
 endsnippet
 
 snippet \de "delta" iA

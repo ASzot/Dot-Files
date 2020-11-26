@@ -64,6 +64,8 @@ map <C-t>l :tabn<cr>
 
 " Syntastic navigation shortcuts 
 let mapleader = ","
+nmap <leader>h :lnext<CR>
+nmap <leader>l :lprevious<CR>
 function! ToggleErrors()
 	let old_last_winnr = winnr('$')
 	lclose
@@ -151,6 +153,14 @@ let g:vimtex_compiler_latexmk = {
 
 let g:tmux_navigator_save_on_switch = 2
 
+"syntax match bra /\\bra{\%([^}]*}\)\@=/ conceal cchar=<
+syntax match braket /\\bra/ conceal cchar=<
+"syntax match bra /\%(\\bra{[^}]*\)\@<=}/ conceal cchar=|
+"syntax match ket /\\ket{\%([^}]*}\)\@=/ conceal cchar=|
+"syntax match ket /\%(\\ket{[^}]*\)\@<=}/ conceal cchar=>
+"syntax match braket /\\braket{\%([^}]*}\)\@=/ conceal cchar=<
+"syntax match braket /\%(\\braket{[^}]*\)\@<=}/ conceal cchar=>
+
 """"""""""""""
 " Snipets
 let g:UltiSnipsExpandTrigger = '<tab>'
@@ -228,8 +238,7 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
-  nmap <leader>y :! ctags -R --fields=+l --languages=python --python-kinds=-iv ./<CR>
-  nmap <leader>h :! ctags -R --fields=+l --languages=python --python-kinds=-iv ./ 
+
 endfunction
 
 function FixTwoSpaces()
