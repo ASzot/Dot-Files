@@ -137,6 +137,10 @@ snippet bf "Boldface"
 \textbf{${1}}$0
 endsnippet
 
+snippet it "Italics" 
+\emph{${1}}$0
+endsnippet
+
 
 snippet h "link" 
 \href{${1}}{${2}}$0
@@ -225,7 +229,7 @@ snippet [[ "superscript" iA
 endsnippet
 
 snippet {{ "brackets" iA
-\\{ $1 \\} $0
+\left\\{ $1 \right\\} $0
 endsnippet
 
 context "isMath()"
