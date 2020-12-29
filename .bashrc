@@ -126,6 +126,7 @@ alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
 alias rs='source ~/.bashrc'
 alias cw='tmux kill-window -a'
+alias syn='rsync -azP --exclude ".*/" --exclude ".*" --exclude "data" --exclude "wandb"'
 
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
@@ -147,7 +148,7 @@ if [ -f $HOME/.slurm_tools ]; then
   . $HOME/.slurm_tools
 fi
 
-export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
-export SQUEUE_SORT='-b,u,-S'
+#export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
+#export SQUEUE_SORT='-b,u,-S'
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
