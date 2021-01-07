@@ -219,7 +219,7 @@ function Beautify()
   :w
   :!isort %
   :w
-  :!autoflake --in-place --remove-all-unused-imports %
+  :!autoflake --in-place %
   :edit!
   :w
 endfunction
@@ -238,6 +238,11 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
+  let b:ale_linters = ['pylint']
+  let b:ale_warn_about_trailing_whitespace = 0
+  let g:ale_python_pylint_options="--errors-only --disable=E1101"
+  nmap <silent> <leader>p <Plug>(ale_previous_wrap)
+  nmap <silent> <leader>n <Plug>(ale_next_wrap)
 
 endfunction
 
