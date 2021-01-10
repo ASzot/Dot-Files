@@ -200,6 +200,8 @@ nmap <leader>t :TagbarOpen fj<CR>
 let g:tagbar_autofocus = 0 
 """"""""""""""
 
+let g:ale_enabled=0
+
 let g:highlighting = 0
 function! Highlighting()
   if g:highlighting == 1 && @/ =~ '^\\<'.expand('<cword>').'\\>$'
@@ -238,6 +240,7 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
+  let g:ale_enabled=1
   let b:ale_linters = ['pylint']
   let b:ale_warn_about_trailing_whitespace = 0
   let g:ale_python_pylint_options="--errors-only --disable=E1101"
