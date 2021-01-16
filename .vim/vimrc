@@ -111,9 +111,9 @@ let g:goyo_width = 85
 " Toggle spell check in current file.
 map <leader>c :call ToggleSpellCheck()<CR>
 
-set statusline+=%#warningmsg#
+"set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%*
 
 " Vim closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
@@ -200,7 +200,7 @@ nmap <leader>t :TagbarOpen fj<CR>
 let g:tagbar_autofocus = 0 
 """"""""""""""
 
-let g:ale_enabled=0
+let g:ale_enabled=1
 
 let g:highlighting = 0
 function! Highlighting()
@@ -240,13 +240,12 @@ function SetPythonOptions()
 	set fileformat=unix
 	set nospell
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
-  let g:ale_enabled=1
   let b:ale_linters = ['pylint']
+  let g:ale_set_highlights = 0
   let b:ale_warn_about_trailing_whitespace = 0
-  let g:ale_python_pylint_options="--errors-only --disable=E1101"
+  let g:ale_python_pylint_options="--errors-only --disable=E1101,import-error"
   nmap <silent> <leader>p <Plug>(ale_previous_wrap)
   nmap <silent> <leader>n <Plug>(ale_next_wrap)
-
 endfunction
 
 function FixTwoSpaces()
@@ -306,6 +305,7 @@ if fnamemodify(getcwd(), ':t') == "me"
   set textwidth=79
   set wrapmargin=2
 	set wrap
+  let g:ale_enabled=0
   function WikiOptions()
     if match(readfile(expand("%:p")),"begin{document}")==-1
       return
