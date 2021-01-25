@@ -21,6 +21,9 @@ set grepprg=grep\ -nH\ $*
 " Rebind redo key
 map <F7> :redo <CR>
 
+" Better wild card matching in the tab window
+set wildmode=longest,list,full
+
 " Macro to compile current LaTeX file.
 map <F8> :call CompileFile() <CR>
 function! CompileFile()
@@ -184,8 +187,9 @@ nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 """"""""""""""
 " Python Jedi 
 autocmd FileType python setlocal completeopt-=preview
-let g:jedi#completions_enabled = 0
-let jedi#show_call_signatures = 0
+"let g:jedi#completions_enabled = 0
+"let jedi#show_call_signatures = 0
+let g:jedi#usages_command = ""
 """"""""""""""
 
 """"""""""""""
