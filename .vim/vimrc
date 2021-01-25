@@ -60,11 +60,6 @@ set nonumber
 " Unfold by default
 au BufRead * normal zR
 
-" Easy tab navigation
-map <C-t>j :tabc<cr>
-map <C-t>h :tabp<cr>
-map <C-t>l :tabn<cr>
-
 " Syntastic navigation shortcuts 
 let mapleader = ","
 nmap <leader>h :lnext<CR>
