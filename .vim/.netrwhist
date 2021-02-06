@@ -1,5 +1,8 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='scp://gcp/p-goal-prox/'
+let g:netrw_dirhist_4='scp://gcp/'
+let g:netrw_dirhist_3='scp://gcp//'
 let g:netrw_dirhist_2='/Users/andrewszot/Documents/writing/research/fellowships'
 let g:netrw_dirhist_1='/Users/andrewszot/Documents/writing/research/fellowships/ndseg_research'
 let g:netrw_dirhist_0='/Users/andrewszot/Documents/writing/research/fellowships/ndseg_research/sections'
@@ -7,6 +10,3 @@ let g:netrw_dirhist_9='/Users/andrewszot/Documents/writing/research/fellowships/
 let g:netrw_dirhist_8='/Users/andrewszot/me/research'
 let g:netrw_dirhist_7='/Users/andrewszot/me'
 let g:netrw_dirhist_6='/Users/andrewszot/me/research'
-let g:netrw_dirhist_5='/Users/andrewszot/me'
-let g:netrw_dirhist_4='/Users/andrewszot/Documents/code'
-let g:netrw_dirhist_3='/Users/andrewszot/Documents/code/rl-toolkit'

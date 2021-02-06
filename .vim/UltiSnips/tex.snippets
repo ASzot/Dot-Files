@@ -137,6 +137,10 @@ snippet bf "Boldface"
 \textbf{${1}}$0
 endsnippet
 
+snippet as "Andrew" 
+\textcolor{blue}{(${1})}$0
+endsnippet
+
 snippet it "Italics" 
 \emph{${1}}$0
 endsnippet
@@ -179,11 +183,11 @@ snippet \im "implies"
 \implies
 endsnippet
 
-snippet U "union"
+snippet Un "union"
 \bigcup
 endsnippet
 
-snippet C "intersection"
+snippet In "intersection"
 \bigcap
 endsnippet
 
@@ -245,6 +249,11 @@ endsnippet
 context "isMath()"
 snippet RR "RealNums" iA
 \mathbb{R}$0
+endsnippet
+
+context "isMath()"
+snippet XX "XX" iA
+\mathcal{X}$0
 endsnippet
 
 context "isMath()"
