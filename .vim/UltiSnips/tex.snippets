@@ -211,7 +211,6 @@ snippet > "rangle"
 \rangle
 endsnippet
 
-
 snippet mc "Mathcal"
 \mathcal{${1}}$0
 endsnippet
@@ -234,6 +233,26 @@ endsnippet
 
 snippet {{ "brackets" iA
 \left\\{ $1 \right\\} $0
+endsnippet
+
+context "isMath()"
+snippet << "prec" 
+\prec
+endsnippet
+
+context "isMath()"
+snippet <<= "preceq" 
+\preceq
+endsnippet
+
+context "isMath()"
+snippet >> "succ" 
+\succ
+endsnippet
+
+context "isMath()"
+snippet >>= "succeq" 
+\succeq
 endsnippet
 
 context "isMath()"
@@ -399,6 +418,10 @@ endsnippet
 
 snippet \sum "sum" iA
 \sum_{$1}$0
+endsnippet
+
+snippet \sq "sqrt" iA
+\sqrt{$1}$0
 endsnippet
 
 snippet \prod "prod" iA
