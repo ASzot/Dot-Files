@@ -60,6 +60,11 @@ alias sa='source deactivate && source activate'
 alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
 
+msync() {
+  # Command for remote development. 
+  fswatch -o . | while read f; do rsync -azP --exclude ".*/" --exclude ".*" --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./* "$1" ; done
+}
+
 # Default env
 #source activate tor 
 systemName=$(uname -s)

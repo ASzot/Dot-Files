@@ -7,6 +7,10 @@ syntax on
 set background=light
 set number
 
+" To automatically reload the file on external changes
+set autoread
+au CursorHold * checktime
+
 let &titlestring = @%
 set title
 
@@ -170,25 +174,6 @@ nmap <leader>u :put =system('echo \\label{$RANDOM}')<CR>
 """"""""""""""
 
 """"""""""""""
-" Python Beautifier
-let g:autopep8_disable_show_diff=1
-let g:autoflake_disable_show_diff=1
-let g:autoflake_remove_all_unused_imports=1
-
-" If there are N formatting things in the Beautify() function there needs to
-" be N + 1 <CR> commands after the call.
-nmap <leader>b :call Beautify()<CR><CR><CR><CR>
-""""""""""""""
-
-""""""""""""""
-" Python Jedi 
-autocmd FileType python setlocal completeopt-=preview
-"let g:jedi#completions_enabled = 0
-"let jedi#show_call_signatures = 0
-let g:jedi#usages_command = ""
-""""""""""""""
-
-""""""""""""""
 " Golang
 set autowrite
 """"""""""""""
@@ -198,6 +183,8 @@ set autowrite
 " Toggle tagbar
 nmap <leader>t :TagbarOpen fj<CR>
 let g:tagbar_autofocus = 0 
+let g:tagbar_position = 'leftabove'
+let g:tagbar_left = 1
 """"""""""""""
 
 let g:ale_enabled=1
@@ -227,6 +214,25 @@ function Beautify()
 endfunction
 
 
+""""""""""""""
+" Python Beautifier
+let g:autopep8_disable_show_diff=1
+let g:autoflake_disable_show_diff=1
+let g:autoflake_remove_all_unused_imports=1
+
+" If there are N formatting things in the Beautify() function there needs to
+" be N + 1 <CR> commands after the call.
+nmap <leader>b :call Beautify()<CR><CR><CR><CR>
+""""""""""""""
+
+""""""""""""""
+" Python Jedi 
+autocmd FileType python setlocal completeopt-=preview
+"let jedi#show_call_signatures = 0
+"let g:jedi#auto_vim_configuration = 0
+"let g:jedi#completions_enabled = 0
+"let g:jedi#usages_command = ""
+""""""""""""""
 
 
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
@@ -277,6 +283,7 @@ set shiftwidth=2
 set expandtab
 set autoindent
 set nospell
+syn match UrlNoSpell "\w\+:\/\/[^[:space:]]\+" contains=@NoSpell
 
 
 "" Delete trailing whitespace on python, ruby file save
@@ -294,8 +301,28 @@ function SetTexOptions()
   set linebreak
 	set nospell
   map <leader>r O%R: 
+  let g:ale_enabled=0
 endfunction
 
+
+autocmd BufNewFile,BufRead *.sh call SetBashOptions()
+function SetBashOptions()
+	set tabstop=2
+	set softtabstop=2
+	set shiftwidth=2
+	set expandtab
+	set autoindent
+	set textwidth=0
+  set linebreak
+	set nospell
+endfunction
+
+
+autocmd BufRead,BufNewFile *.cmd call SetCmdOptions()
+function SetCmdOptions()
+	set syntax=sh
+  call SetBashOptions()
+endfunction
 
 if fnamemodify(getcwd(), ':t') == "me"
   let g:lastfilename = "START"
@@ -320,6 +347,7 @@ if fnamemodify(getcwd(), ':t') == "me"
     :VimtexStop
     silent! !osascript -e 'tell application "Skim" to close first window'
     redraw!
+    :VimtexStopAll
     :VimtexCompile
   endfunction
 endif
@@ -390,8 +418,10 @@ function SetTextOptions()
 	set nospell
 endfunction
 
+
 autocmd BufRead,BufNewFile *.md call SetMdOptions()
 function SetMdOptions()
+  setf markdown
 	set tabstop=2
 	set softtabstop=2
 	set shiftwidth=2
@@ -402,10 +432,6 @@ function SetMdOptions()
 endfunction
 
 
-autocmd BufRead,BufNewFile *.cmd call SetCmdOptions()
-function SetCmdOptions()
-	set syntax=sh
-endfunction
 
 
 
