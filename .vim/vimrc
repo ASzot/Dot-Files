@@ -35,7 +35,7 @@ function! CompileFile()
 	if current_filetype == 'python'
 		:!python %:t
   elseif current_filetype == 'tex'
-    :!xelatex main.tex
+    :!pdflatex main.tex
 	endif
 endfunction
 
@@ -234,6 +234,10 @@ autocmd FileType python setlocal completeopt-=preview
 "let g:jedi#usages_command = ""
 """"""""""""""
 
+""""""""""""""
+" Vim markdown
+let g:vim_markdown_toc_autofit = 1
+""""""""""""""
 
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
@@ -250,6 +254,10 @@ function SetPythonOptions()
   let g:ale_set_highlights = 0
   let b:ale_warn_about_trailing_whitespace = 0
   let g:ale_python_pylint_options="--errors-only --disable=E1101,import-error"
+  " To run linters only on save.
+  let g:ale_lint_on_text_changed = 'never'
+  let g:ale_lint_on_insert_leave = 0
+  let g:ale_lint_on_enter = 0
   nmap <silent> <leader>p <Plug>(ale_previous_wrap)
   nmap <silent> <leader>n <Plug>(ale_next_wrap)
 endfunction
@@ -429,6 +437,7 @@ function SetMdOptions()
 	set expandtab
 	set autoindent
 	set nospell
+  nmap <leader>t :Toc<CR>
 endfunction
 
 
