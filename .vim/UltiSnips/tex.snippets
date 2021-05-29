@@ -105,9 +105,26 @@ $0
 \end{document}
 endsnippet
 
-snippet \se "Section" wA
+snippet sec "Section" 
 \section{$1}
 $0
+endsnippet
+
+snippet subsec "SubSection" 
+\subsection{$1}
+$0
+endsnippet
+
+snippet fref "fig reg" 
+\figref{$1}$0
+endsnippet
+
+snippet sref "fig reg" 
+\secref{$1}$0
+endsnippet
+
+snippet \lab "label" wA
+\label{$1} $0
 endsnippet
 
 snippet beg "begin{} / end{}" bA
@@ -160,6 +177,10 @@ endsnippet
 
 snippet as "Andrew" 
 \textcolor{blue}{(${1})}$0
+endsnippet
+
+snippet asc "Andrew" 
+% Andrew `date +%Y-%m-%d\ %H:%M`: ${0}
 endsnippet
 
 snippet it "Italics" 
@@ -401,7 +422,7 @@ snippet \Sig "Sigma" iA
 \Sigma
 endsnippet
 
-snippet \la "lambda" iA
+snippet \lam "lambda" iA
 \lambda
 endsnippet
 

@@ -22,6 +22,9 @@ set nohlsearch
 
 set grepprg=grep\ -nH\ $*
 
+" For some keyboards this is necessary
+set backspace=indent,eol,start
+
 " Rebind redo key
 map <F7> :redo <CR>
 
@@ -130,6 +133,7 @@ nmap <Space>t :Ag<Space>(^\%\@).*
 " Remove the '!' if you don't want this to open up a new window. 
 noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
+let g:fzf_layout = {'down':'30'}
 
 set hidden
 """"""""""""""
@@ -310,6 +314,7 @@ function SetTexOptions()
 	set nospell
   map <leader>r O%R: 
   let g:ale_enabled=0
+  hi Error NONE
 endfunction
 
 

@@ -59,6 +59,8 @@ alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
 alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
+alias ctags='/usr/local/bin/ctags'
+alias bpush='git ca "Update"'
 
 msync() {
   # Command for remote development. 
