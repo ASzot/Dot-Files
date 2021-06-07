@@ -61,11 +61,20 @@ alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
 alias ctags='/usr/local/bin/ctags'
 alias bpush='git ca "Update"'
+alias fbt="tmux new -s ssh_local 'ssh -L 4004:localhost:22 devfair'"
 
 msync() {
   # Command for remote development. 
-  fswatch -o . | while read f; do rsync -azP --exclude ".*/" --exclude ".*" --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./* "$1" ; done
+  fswatch -o . | while read f; do rsync -azP --exclude ".*/" --exclude ".*" --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./* "$1"; done
 }
+
+# To use this you have to install sshpass: brew install hudochenkov/sshpass/sshpass
+msyncpass() {
+  # Command for remote development. 
+  fswatch -o . | while read f; do sshpass -f ~/.devpass rsync -azP --exclude ".*/" --exclude ".*" --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./* "$1"; done
+}
+
+
 
 # Default env
 #source activate tor 
