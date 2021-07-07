@@ -27,10 +27,11 @@ texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
 texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
 
 def isMath():
-    synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-    if not set(texIgnoreMathZoneIds).isdisjoint(synstackids):
-        return False
-    return not set(texMathZoneIds).isdisjoint(synstackids)
+		return True
+    #synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
+    #if not set(texIgnoreMathZoneIds).isdisjoint(synstackids):
+    #    return False
+    #return not set(texMathZoneIds).isdisjoint(synstackids)
     # isdisjoint() can short-circuit as soon as a match is found
 endglobal
 
@@ -337,10 +338,10 @@ snippet DD "DD" iA
 \mathcal{D}$0
 endsnippet
 
-context "isMath()"
-snippet ll "ll" iA
-\ell$0
-endsnippet
+#context "isMath()"
+#snippet ll "ll" iA
+#\ell$0
+#endsnippet
 
 context "isMath()"
 snippet \for "forall" iA

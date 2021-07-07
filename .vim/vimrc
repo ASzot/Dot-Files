@@ -150,6 +150,8 @@ let g:tex_flavor='latex'
 let g:vimtex_view_method='skim'
 let g:vimtex_fold_enabled =1
 let g:vimtex_quickfix_mode=0
+let g:livepreview_previewer = 'open -a Skim'
+let g:livepreview_cursorhold_recompile = 0
 set conceallevel=2
 let g:tex_conceal='abdmg'
 hi clear Conceal
@@ -208,11 +210,11 @@ nnoremap <silent> <expr> <CR> Highlighting()
 
 function Beautify()
   :w
-  :Autopep8
-  :w
   :!isort %
   :w
-  :!autoflake --in-place %
+  :!python -m black %
+  :w
+  :!autoflake --in-place --expand-star-imports --ignore-init-module-imports --exclude docs/ %
   :edit!
   :w
 endfunction
@@ -357,11 +359,9 @@ if fnamemodify(getcwd(), ':t') == "me"
 
     hi Error NONE
     " Make sure we are ready to render this file. 
-    :VimtexStop
     silent! !osascript -e 'tell application "Skim" to close first window'
     redraw!
-    :VimtexStopAll
-    :VimtexCompile
+    :LLPStartPreview
   endfunction
 endif
 
