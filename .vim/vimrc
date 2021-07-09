@@ -6,6 +6,7 @@ filetype plugin indent on
 syntax on
 set background=light
 set number
+let mapleader = ","
 
 " To automatically reload the file on external changes
 set autoread
@@ -67,25 +68,21 @@ set nonumber
 " Unfold by default
 au BufRead * normal zR
 
-" Syntastic navigation shortcuts 
-let mapleader = ","
-nmap <leader>h :lnext<CR>
-nmap <leader>l :lprevious<CR>
-function! ToggleErrors()
-	let old_last_winnr = winnr('$')
-	lclose
-	if old_last_winnr == winnr('$')
-		Errors
-	endif
-endfunction
-nnoremap <leader>e :call ToggleErrors()<CR> 
-
 " Rebind delete to have a no copy version.
 nnoremap <leader>d "_d
+
+"function! RefreshConfig()
+"  :w
+"  :so ~/.vim/vimrc
+"endfunction
+"
+"" Reload config
+"nnoremap <leader>v :call RefreshConfig()<CR>
 
 " Toggle line numbers
 nnoremap <leader>w :set relativenumber!<CR>
 
+" Find and replace 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 
 " Toggle indentation display
@@ -99,7 +96,7 @@ nmap <leader>= :Tabularize /=<CR>
 nmap <leader>; :Tabularize /:<CR>
 
 " ctags 
-nmap <leader>y :!ctags -R .<CR>
+nmap <leader>y :!ctags -R --exclude=.git . <CR>
 
 " Limelight settings.
 let g:limelight_conceal_ctermfg = 'gray'
@@ -147,28 +144,16 @@ let g:typescript_indent_disable = 1
 set pastetoggle=<F2>
 
 let g:tex_flavor='latex'
-let g:vimtex_view_method='skim'
-let g:vimtex_fold_enabled =1
-let g:vimtex_quickfix_mode=0
 let g:livepreview_previewer = 'open -a Skim'
 let g:livepreview_cursorhold_recompile = 0
 set conceallevel=2
 let g:tex_conceal='abdmg'
 hi clear Conceal
 let g:tex_comment_nospell=1
-let g:vimtex_compiler_latexmk = {
-            \ 'build_dir' : '/tmp/tex',
-            \}
 
 let g:tmux_navigator_save_on_switch = 2
 
-"syntax match bra /\\bra{\%([^}]*}\)\@=/ conceal cchar=<
 syntax match braket /\\bra/ conceal cchar=<
-"syntax match bra /\%(\\bra{[^}]*\)\@<=}/ conceal cchar=|
-"syntax match ket /\\ket{\%([^}]*}\)\@=/ conceal cchar=|
-"syntax match ket /\%(\\ket{[^}]*\)\@<=}/ conceal cchar=>
-"syntax match braket /\\braket{\%([^}]*}\)\@=/ conceal cchar=<
-"syntax match braket /\%(\\braket{[^}]*\)\@<=}/ conceal cchar=>
 
 """"""""""""""
 " Snipets
@@ -176,12 +161,10 @@ let g:UltiSnipsExpandTrigger = '<tab>'
 
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 nmap <leader>u :put =system('echo \\label{$RANDOM}')<CR>
-"let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 """"""""""""""
 
 """"""""""""""
 " Golang
-set autowrite
 """"""""""""""
 
 
@@ -234,10 +217,6 @@ nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 """"""""""""""
 " Python Jedi 
 autocmd FileType python setlocal completeopt-=preview
-"let jedi#show_call_signatures = 0
-"let g:jedi#auto_vim_configuration = 0
-"let g:jedi#completions_enabled = 0
-"let g:jedi#usages_command = ""
 """"""""""""""
 
 """"""""""""""
@@ -245,6 +224,7 @@ autocmd FileType python setlocal completeopt-=preview
 let g:vim_markdown_toc_autofit = 1
 """"""""""""""
 
+" Options for Python
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
 	set tabstop=4
@@ -266,6 +246,11 @@ function SetPythonOptions()
   let g:ale_lint_on_enter = 0
   nmap <silent> <leader>p <Plug>(ale_previous_wrap)
   nmap <silent> <leader>n <Plug>(ale_next_wrap)
+  " Create the tags output directory
+  :silent exec "!mkdir -p ~/.tags/`pwd`"
+  " Override the python ctags setup
+  nmap <leader>y :!ctags -R -f ~/.tags/`pwd`/tags --fields=+l --languages=python --python-kinds=-iv --exclude=.git --exclude=.mypy_cache `pwd` <CR>
+  set tags=~/.tags/$PWD/tags
 endfunction
 
 function FixTwoSpaces()
@@ -419,6 +404,7 @@ function SetCOptions()
 	set nospell
 endfunction
 
+" Options for txt, TextFiles
 autocmd BufRead,BufNewFile *.txt call SetTextOptions()
 function SetTextOptions()
 	set tabstop=2
@@ -432,6 +418,7 @@ function SetTextOptions()
 endfunction
 
 
+" Options for markdown, md 
 autocmd BufRead,BufNewFile *.md call SetMdOptions()
 function SetMdOptions()
   setf markdown

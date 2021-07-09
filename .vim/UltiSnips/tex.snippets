@@ -214,6 +214,10 @@ snippet -> "arrow"
 \rightarrow
 endsnippet
 
+snippet <- "arrow"
+\leftarrow
+endsnippet
+
 snippet amin "argmin"
 \text{argmin}_{$1}$0
 endsnippet
@@ -301,6 +305,11 @@ endsnippet
 context "isMath()"
 snippet EE "Expectation" iA
 \mathbb{E}$0
+endsnippet
+
+context "isMath()"
+snippet MM "MM" iA
+\mathcal{M}$0
 endsnippet
 
 context "isMath()"
