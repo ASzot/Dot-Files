@@ -193,10 +193,6 @@ snippet h "link"
 \href{${1}}{${2}}$0
 endsnippet
 
-snippet xx "times" 
-\times $0
-endsnippet
-
 snippet bb "mathbb"
 \mathbb{${1}}$0
 endsnippet
@@ -213,6 +209,11 @@ endsnippet
 snippet -> "arrow"
 \rightarrow
 endsnippet
+
+snippet x-> "arrow"
+\xrightarrow{\text{$1}}$0
+endsnippet
+
 
 snippet <- "arrow"
 \leftarrow
@@ -236,6 +237,18 @@ endsnippet
 
 snippet In "intersection"
 \bigcap
+endsnippet
+
+snippet ++ "bigplus"
+\bigoplus $0
+endsnippet
+
+snippet xx "times" 
+\times $0
+endsnippet
+
+snippet o. "hammard" 
+\odot $0
 endsnippet
 
 snippet oo "infinity"
@@ -303,54 +316,69 @@ snippet >>= "succeq"
 endsnippet
 
 context "isMath()"
-snippet EE "Expectation" iA
+snippet EE "Expectation" 
 \mathbb{E}$0
 endsnippet
 
 context "isMath()"
-snippet MM "MM" iA
+snippet MM "MM" 
 \mathcal{M}$0
 endsnippet
 
 context "isMath()"
-snippet ER "Error" iA
+snippet ER "Error" 
 \mathcal{E}$0
 endsnippet
 
 context "isMath()"
-snippet RR "RealNums" iA
+snippet RR "RealNums" 
 \mathbb{R}$0
 endsnippet
 
 context "isMath()"
-snippet XX "XX" iA
+snippet XX "XX" 
 \mathcal{X}$0
 endsnippet
 
 context "isMath()"
-snippet PP "Prob" iA
+snippet VV "VV"
+\mathcal{V}$0
+endsnippet
+
+context "isMath()"
+snippet NN "NN"
+\mathcal{N}$0
+endsnippet
+
+context "isMath()"
+snippet TT "TT"
+\mathcal{T}$0
+endsnippet
+
+context "isMath()"
+snippet PP "Prob"
 \mathbb{P}$0
 endsnippet
 
 context "isMath()"
-snippet ZZ "ints" iA
+snippet ZZ "ints"
 \mathbb{Z}$0
 endsnippet
 
 context "isMath()"
-snippet II "II" iA
+snippet II "II" 
 \mathcal{I}$0
 endsnippet
 
 context "isMath()"
-snippet DD "DD" iA
+snippet DD "DD"
 \mathcal{D}$0
 endsnippet
 
-#context "isMath()"
-#snippet ll "ll" iA
-#\ell$0
-#endsnippet
+context "isMath()"
+snippet ll "ll" 
+\ell$0
+endsnippet
 
 context "isMath()"
 snippet \for "forall" iA
@@ -358,12 +386,12 @@ snippet \for "forall" iA
 endsnippet
 
 context "isMath()"
-snippet LL "LL" iA
+snippet LL "LL" 
 \mathcal{L}$0
 endsnippet
 
 context "isMath()"
-snippet FF "FF" iA
+snippet FF "FF"
 \mathcal{F}$0
 endsnippet
 
@@ -468,6 +496,10 @@ snippet \ep "epsilon" iA
 \epsilon
 endsnippet
 
+snippet \ka "epsilon" iA
+\kappa
+endsnippet
+
 snippet \sum "sum" iA
 \sum_{$1}$0
 endsnippet
@@ -494,6 +526,10 @@ endsnippet
 
 snippet \na "nabla" iA
 \nabla
+endsnippet
+
+snippet \pa "partial" iA
+\partial
 endsnippet
 
 snippet \iff "iff" iA
