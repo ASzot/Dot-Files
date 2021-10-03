@@ -29,6 +29,24 @@ set backspace=indent,eol,start
 " Rebind redo key
 map <F7> :redo <CR>
 
+" Change copy and paste to sync with the system clipboard.
+nnoremap d "*d
+vnoremap d "*d
+nnoremap p "*p
+vnoremap p "*p
+nnoremap y "*y
+vnoremap y "*y
+nnoremap Y "*Y
+vnoremap Y "*Y
+nnoremap P "*P
+vnoremap P "*P
+nnoremap D "*D
+vnoremap D "*D
+nnoremap c "*c
+vnoremap c "*c
+nnoremap C "*C
+vnoremap C "*C
+
 " Better wild card matching in the tab window
 set wildmode=longest,list,full
 
@@ -248,6 +266,9 @@ function SetPythonOptions()
 	set autoindent
 	set fileformat=unix
 	set nospell
+
+  set formatoptions-=t
+
   map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
   let b:ale_linters = ['pylint']
   let g:ale_set_highlights = 0
@@ -346,6 +367,7 @@ if fnamemodify(getcwd(), ':t') == "me"
   "These define all the options for my Vim Wiki 
   "autocmd BufEnter *.tex call WikiOptions()
   noremap <silent> <Space>r :call WikiOptions()<CR>
+  noremap <silent> <Space>v :LLPStartPreview<CR>
   set textwidth=79
   set wrapmargin=2
 	set wrap

@@ -106,6 +106,26 @@ $0
 \end{document}
 endsnippet
 
+snippet bookdoc "bookdoc"
+%@ $1
+%@ Author: $2
+%@ Format: $3
+%@ Finished: $4
+%@ Rating (/5): $5
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
+
+\end{document}
+endsnippet
+
+
 snippet sec "Section" 
 \section{$1}
 $0
@@ -116,22 +136,33 @@ snippet subsec "SubSection"
 $0
 endsnippet
 
-snippet fref "fig reg" 
-\figref{$1}$0
-endsnippet
-
-snippet sref "fig reg" 
-\secref{$1}$0
-endsnippet
-
 snippet \lab "label" wA
 \label{$1} $0
+endsnippet
+
+snippet expl "expl"
+\tag*{($1)}$0
 endsnippet
 
 snippet beg "begin{} / end{}" bA
 \begin{$1}
 	$0
 \end{$1}
+endsnippet
+
+snippet cases "cases"
+\begin{cases}
+	${1:equation}, &\text{ if }${2:case}\\\\
+	${3}
+\end{cases}
+endsnippet
+
+snippet oth "otherwise"
+\text{ otherwise } $0
+endsnippet
+
+snippet lim "otherwise"
+\lim_{$1} $0
 endsnippet
 
 snippet mk "Math" wA
@@ -197,9 +228,14 @@ snippet bb "mathbb"
 \mathbb{${1}}$0
 endsnippet
 
-snippet | "lvert"
-\lvert
+snippet l| "left|"
+\left| 
 endsnippet
+
+snippet r| "right|"
+\right| 
+endsnippet
+
 
 snippet || "lvert"
 \lVert $1 \lVert$0
