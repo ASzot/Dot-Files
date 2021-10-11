@@ -30,22 +30,7 @@ set backspace=indent,eol,start
 map <F7> :redo <CR>
 
 " Change copy and paste to sync with the system clipboard.
-nnoremap d "*d
-vnoremap d "*d
-nnoremap p "*p
-vnoremap p "*p
-nnoremap y "*y
-vnoremap y "*y
-nnoremap Y "*Y
-vnoremap Y "*Y
-nnoremap P "*P
-vnoremap P "*P
-nnoremap D "*D
-vnoremap D "*D
-nnoremap c "*c
-vnoremap c "*c
-nnoremap C "*C
-vnoremap C "*C
+set clipboard^=unnamed
 
 " Better wild card matching in the tab window
 set wildmode=longest,list,full
