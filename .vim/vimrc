@@ -113,16 +113,18 @@ nmap <leader>; :Tabularize /:<CR>
 nmap <leader>y :!ctags -R --exclude=.git . <CR>
 
 " Limelight settings.
-let g:limelight_conceal_ctermfg = 'gray'
+"let g:limelight_conceal_ctermfg = 'gray'
 function! ToggleFocusMode()
-	Goyo
-	Limelight!!
-  set background=light
+	"Goyo
+  Goyo "120x100%"
+	"Limelight!!
+  "set background=light
 endfunction
 
 " Toggle focus mode.
 nmap <leader>f :call ToggleFocusMode()<CR>
-let g:goyo_width = 85
+" let g:goyo_width = 120
+"let g:goyo_height = "100%"
 
 " Toggle spell check in current file.
 map <leader>c :call ToggleSpellCheck()<CR>
@@ -325,6 +327,11 @@ function SetTexOptions()
   map <leader>r O%R: 
   let g:ale_enabled=0
   hi Error NONE
+  nnoremap j gj
+  nnoremap k gk
+  set wrap linebreak nolist
+  set nonumber
+  set norelativenumber
 endfunction
 
 
@@ -449,11 +456,16 @@ function SetMdOptions()
 	set tabstop=2
 	set softtabstop=2
 	set shiftwidth=2
-	set textwidth=79
 	set expandtab
 	set autoindent
 	set nospell
   nmap <leader>t :Toc<CR>
+	set textwidth=0
+  nnoremap j gj
+  nnoremap k gk
+  set wrap linebreak nolist
+  set nonumber
+  set norelativenumber
 endfunction
 
 

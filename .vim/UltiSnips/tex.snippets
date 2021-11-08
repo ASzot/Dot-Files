@@ -1,4 +1,8 @@
 global !p
+from uuid import uuid4
+endglobal
+
+global !p
 def create_table(snip):
 	rows = snip.buffer[snip.line].split('x')[0]
 	cols = snip.buffer[snip.line].split('x')[1]
@@ -56,6 +60,20 @@ snippet fig "addfig"
 \end{figure*}
 $0
 endsnippet
+
+snippet wrapfig "addfig"
+\begin{wrapfigure}{r}{$1\textwidth}
+	\centering
+	\includegraphics[width=$1\textwidth]{$2}
+	\caption{
+		$3
+		}
+	\label{$4}
+\end{wrapfigure}
+$0
+endsnippet
+
+
 
 snippet resdoc "resdoc"
 %@ $1
@@ -125,6 +143,18 @@ $0
 \end{document}
 endsnippet
 
+snippet mydef "mydef"
+\begin{mydef}{$1}{`!p if not snip.c: snip.rv = str(uuid4())`}
+	$2
+\end{mydef}$0
+endsnippet
+
+snippet mytheo "mytheo"
+\begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4())`}
+	$2
+\end{mytheo}$0
+endsnippet
+
 
 snippet sec "Section" 
 \section{$1}
@@ -133,6 +163,11 @@ endsnippet
 
 snippet subsec "SubSection" 
 \subsection{$1}
+$0
+endsnippet
+
+snippet subsubsec "SubSection" 
+\subsubsection{$1}
 $0
 endsnippet
 
@@ -176,18 +211,29 @@ endsnippet
 
 snippet dm "Math" wA
 \begin{align*}
-$1
+	$1
 \end{align*} $0
 endsnippet
 
-snippet ldm "LabeledMath" wA
-\begin{align}$1
-\end{align} $0
+snippet qm "Qoute" wA
+\begin{displayqoute}
+	$1
+\end{displayqoute}$0
+endsnippet
+
+snippet qk "Qoute" wA
+\`\`$1"$0
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
 endsnippet
 
 snippet dn "Math" wA
 \begin{align}
-$1
+	$1
 \end{align} $0
 endsnippet
 
@@ -327,6 +373,18 @@ endsnippet
 
 snippet 1u "superscript" iA
 ^{$1}$0
+endsnippet
+
+snippet ceil "ceil" 
+\ceil*{$1}$0
+endsnippet
+
+snippet floor "floor" 
+\floor*{$1}$0
+endsnippet
+
+snippet abs "abs" 
+\abs*{$1}$0
 endsnippet
 
 snippet (( "superscript" iA

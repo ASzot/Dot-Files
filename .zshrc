@@ -106,5 +106,6 @@ export PATH=$GOPATH/bin:$PATH
 # Terminal settings (needed to have the terminal work sometimes)
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
+export HABLAB_INSTALL_PATH=/Users/andrewszot/Documents/release-hab-lab
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
