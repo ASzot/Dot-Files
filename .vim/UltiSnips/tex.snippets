@@ -144,13 +144,13 @@ $0
 endsnippet
 
 snippet mydef "mydef"
-\begin{mydef}{$1}{`!p if not snip.c: snip.rv = str(uuid4())`}
+\begin{mydef}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
 	$2
 \end{mydef}$0
 endsnippet
 
 snippet mytheo "mytheo"
-\begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4())`}
+\begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
 	$2
 \end{mytheo}$0
 endsnippet
@@ -639,3 +639,9 @@ endsnippet
 snippet \iff "iff" iA
 \leftrightarrow
 endsnippet
+
+snippet ** "mult" iA
+\cdot
+endsnippet
+
+
