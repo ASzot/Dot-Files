@@ -8,6 +8,7 @@ set background=light
 set number
 let mapleader = ","
 
+
 " To automatically reload the file on external changes
 set autoread
 au CursorHold * checktime
@@ -42,7 +43,7 @@ function! CompileFile()
 	if current_filetype == 'python'
 		:!python %:t
   elseif current_filetype == 'tex'
-    :!pdflatex main.tex
+    :wa | !pdflatex main.tex
 	endif
 endfunction
 
@@ -159,13 +160,18 @@ let g:typescript_indent_disable = 1
 "" Because I can't figure out my pasting situation.
 set pastetoggle=<F2>
 
-let g:tex_flavor='latex'
-let g:livepreview_previewer = 'open -a Skim'
-let g:livepreview_cursorhold_recompile = 0
+"let g:tex_flavor='latex'
+"let g:livepreview_previewer = 'open -a Skim'
+"let g:livepreview_cursorhold_recompile = 0
+"let g:tex_conceal='abdmg'
+"let g:tex_comment_nospell=1
+let g:vimtex_view_method = 'skim'
+let g:vimtex_quickfix_autoclose_after_keystrokes=2
+let g:vimtex_compiler_latexmk = {
+            \ 'build_dir' : '/tmp',
+            \}
 set conceallevel=2
-let g:tex_conceal='abdmg'
 hi clear Conceal
-let g:tex_comment_nospell=1
 
 let g:tmux_navigator_save_on_switch = 2
 
@@ -314,6 +320,10 @@ syn match UrlNoSpell "\w\+:\/\/[^[:space:]]\+" contains=@NoSpell
 autocmd BufWrite *.py,*.rb :call DeleteTrailingWS()
 
 " Options for LaTex
+function AutoTex()
+   :VimtexStopAll
+   :VimtexCompile
+endfunction
 autocmd BufNewFile,BufRead *.tex call SetTexOptions()
 function SetTexOptions()
 	set tabstop=2
@@ -332,6 +342,9 @@ function SetTexOptions()
   set wrap linebreak nolist
   set nonumber
   set norelativenumber
+
+
+  noremap <leader>v :call AutoTex()<CR>
 endfunction
 
 
@@ -358,27 +371,10 @@ if fnamemodify(getcwd(), ':t') == "me"
   let g:lastfilename = "START"
   "These define all the options for my Vim Wiki 
   "autocmd BufEnter *.tex call WikiOptions()
-  noremap <silent> <Space>r :call WikiOptions()<CR>
-  noremap <silent> <Space>v :LLPStartPreview<CR>
   set textwidth=79
   set wrapmargin=2
 	set wrap
   let g:ale_enabled=0
-  function WikiOptions()
-    if match(readfile(expand("%:p")),"begin{document}")==-1
-      return
-    endif 
-    if g:lastfilename == expand("%:t")
-      return
-    endif
-    let g:lastfilename = expand("%:t")
-
-    hi Error NONE
-    " Make sure we are ready to render this file. 
-    silent! !osascript -e 'tell application "Skim" to close first window'
-    redraw!
-    :LLPStartPreview
-  endfunction
 endif
 
 

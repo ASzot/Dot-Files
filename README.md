@@ -33,22 +33,22 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * `first_pull.sh`: Pulls all settings from repo to local machine and also pulls
   additional files such as SSH config that should only be pulled once as they
   will be overwritten. 
-    
+
+
 ### Setting Up a Mac Environment
-* First thing you have to do is install brew here https://brew.sh/. 
-* tmux
-  * Installation:
-    * `brew install tmux`
-    * `brew install --HEAD universal-ctags/universal-ctags/universal-ctags` much better than the regular ctags. 
-  * Usage:
-    * `tmux` to start tmux session.
-    * `tmux ls` to list the active tmux sessions. 
-    * `C-a` is the binding key for this tmux setup.
-    * `C-a+c` create a window.
-    * `C-a+n` next window.
-    * `C-a+p` previous window.
-    * `C-a+%` split vertical pane.
-    * `C-a+"` split horizontal pane.
+1. Install 1pass: https://1password.com/downloads/mac/
+2. Install spectacle: https://www.spectacleapp.com
+3. Install iterm: https://iterm2.com
+4. Download this repo `git clone https://github.com/ASzot/Dot-Files.git .dot-files`
+5. Install brew https://brew.sh/ 
+6. Install oh-my-zsh `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+7. Run installation script: `sh ~/.dot-files/macos_setup.sh`
+8. Download drive for desktop: https://www.google.com/drive/download/
+9. Download slack from app store
+10. Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
+11. Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
+
+
 
 
 ### Vim Usage
