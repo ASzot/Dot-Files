@@ -1,11 +1,16 @@
 from os.path import join, sep as s, dirname, expanduser
 import os
 from textwrap import dedent
+from itertools import count
+from pathlib import Path
 
 import pytest
 
 from ..helpers import root_dir
 from jedi.api.helpers import _start_match, _fuzzy_match
+from jedi.inference.imports import _load_python_module
+from jedi.file_io import KnownContentFileIO
+from jedi.inference.base_value import ValueSet
 
 
 def test_in_whitespace(Script):
@@ -400,6 +405,22 @@ def test_ellipsis_completion(Script):
     assert Script('...').complete() == []
 
 
+@pytest.fixture
+def module_injector():
+    counter = count()
+
+    def module_injector(inference_state, names, code):
+        assert isinstance(names, tuple)
+        file_io = KnownContentFileIO(
+            Path('foo/bar/module-injector-%s.py' % next(counter)).absolute(),
+            code
+        )
+        v = _load_python_module(inference_state, file_io, names)
+        inference_state.module_cache.add(names, ValueSet([v]))
+
+    return module_injector
+
+
 def test_completion_cache(Script, module_injector):
     """
     For some modules like numpy, tensorflow or pandas we cache docstrings and
@@ -436,3 +457,7 @@ def test_module_completions(Script, module):
         # Just make sure that there are no errors
         c.type
         c.docstring()
+
+
+def test_whitespace_at_end_after_dot(Script):
+    assert 'strip' in [c.name for c in Script('str. ').complete()]

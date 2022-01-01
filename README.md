@@ -47,9 +47,7 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 9. Download slack from app store
 10. Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
 11. Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
-
-
-
+12. Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
 
 ### Vim Usage
 There are a couple of things that need to be configured for vim usage. You need

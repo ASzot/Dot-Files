@@ -30,6 +30,8 @@ set backspace=indent,eol,start
 " Rebind redo key
 map <F7> :redo <CR>
 
+cnoremap YMD <C-R>=strftime("%Y_%m_%d")<CR>
+
 " Change copy and paste to sync with the system clipboard.
 set clipboard^=unnamed
 
@@ -38,6 +40,7 @@ set wildmode=longest,list,full
 
 " Macro to compile current LaTeX file.
 map <F8> :call CompileFile() <CR>
+map <F9> :call FastCompileFile() <CR>
 function! CompileFile()
 	let current_filetype = &filetype
 	if current_filetype == 'python'
@@ -46,6 +49,15 @@ function! CompileFile()
     :wa | !pdflatex main.tex
 	endif
 endfunction
+
+function! FastCompileFile()
+	let current_filetype = &filetype
+  if current_filetype == 'tex'
+    :wa | !pdflatex -draftmode main.tex
+	endif
+endfunction
+
+
 
 function! ToggleSpellCheck()
 	set spell!
@@ -74,14 +86,6 @@ au BufRead * normal zR
 
 " Rebind delete to have a no copy version.
 nnoremap <leader>d "_d
-
-"function! RefreshConfig()
-"  :w
-"  :so ~/.vim/vimrc
-"endfunction
-"
-"" Reload config
-"nnoremap <leader>v :call RefreshConfig()<CR>
 
 " Toggle line numbers
 nnoremap <leader>w :set relativenumber!<CR>
@@ -114,7 +118,6 @@ nmap <leader>; :Tabularize /:<CR>
 nmap <leader>y :!ctags -R --exclude=.git . <CR>
 
 " Limelight settings.
-"let g:limelight_conceal_ctermfg = 'gray'
 function! ToggleFocusMode()
 	"Goyo
   Goyo "120x100%"
@@ -149,6 +152,13 @@ noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
 let g:fzf_layout = {'down':'30'}
 
+set omnifunc=syntaxcomplete#Complete
+
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:SuperTabClosePreviewOnPopupClose = 1
+set completeopt=menu
+let g:completor_complete_options = 'menuone,noselect'
+
 set hidden
 """"""""""""""
 
@@ -160,11 +170,6 @@ let g:typescript_indent_disable = 1
 "" Because I can't figure out my pasting situation.
 set pastetoggle=<F2>
 
-"let g:tex_flavor='latex'
-"let g:livepreview_previewer = 'open -a Skim'
-"let g:livepreview_cursorhold_recompile = 0
-"let g:tex_conceal='abdmg'
-"let g:tex_comment_nospell=1
 let g:vimtex_view_method = 'skim'
 let g:vimtex_quickfix_autoclose_after_keystrokes=2
 let g:vimtex_compiler_latexmk = {
@@ -172,6 +177,7 @@ let g:vimtex_compiler_latexmk = {
             \}
 set conceallevel=2
 hi clear Conceal
+highlight clear Conceal
 
 let g:tmux_navigator_save_on_switch = 2
 
@@ -230,17 +236,12 @@ endfunction
 let g:autopep8_disable_show_diff=1
 let g:autoflake_disable_show_diff=1
 let g:autoflake_remove_all_unused_imports=1
-
-" If there are N formatting things in the Beautify() function there needs to
-" be N + 1 <CR> commands after the call.
-"nmap <leader>b :call Beautify()<CR><CR><CR><CR>
 """"""""""""""
 
 """"""""""""""
 " Python Jedi 
 autocmd FileType python setlocal completeopt-=preview
-let g:jedi#show_call_signatures = "0"
-let g:jedi#usages_command = ""
+
 """"""""""""""
 
 """"""""""""""
@@ -275,12 +276,17 @@ function SetPythonOptions()
   let b:ale_fixers = ['black', 'isort']
   let b:ale_fix_on_save = 1
 
-  nmap <silent> <leader>p <Plug>(ale_previous_wrap)
-  nmap <silent> <leader>n <Plug>(ale_next_wrap)
-  " Create the tags output directory
-  :silent exec "!mkdir -p ~/.tags/`pwd`"
+  nmap <silent> <leader>k <Plug>(ale_previous_wrap)
+  nmap <silent> <leader>j <Plug>(ale_next_wrap)
+
+
   " Override the python ctags setup
   nmap <leader>y :!ctags -R -f ~/.tags/`pwd`/tags --fields=+l --languages=python --python-kinds=-iv --exclude=.git --exclude=.mypy_cache `pwd` <CR>
+
+  " Create the tags output directory
+  :silent exec "!mkdir -p ~/.tags/`pwd`"
+
+  " Fetches the tags from the tmp output directory
   set tags=~/.tags/$PWD/tags
 endfunction
 
@@ -342,9 +348,9 @@ function SetTexOptions()
   set wrap linebreak nolist
   set nonumber
   set norelativenumber
-
-
   noremap <leader>v :call AutoTex()<CR>
+  " Disable auto completion
+  let g:completor_complete_options = 'noselect'
 endfunction
 
 
@@ -462,6 +468,7 @@ function SetMdOptions()
   set wrap linebreak nolist
   set nonumber
   set norelativenumber
+  let g:completor_complete_options = 'noselect'
 endfunction
 
 

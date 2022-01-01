@@ -31,7 +31,15 @@ def execute(callback):
 def infer_anonymous_param(func):
     def get_returns(value):
         if value.tree_node.annotation is not None:
-            return value.execute_with_values()
+            result = value.execute_with_values()
+            if any(v.name.get_qualified_names(include_module_names=True)
+                   == ('typing', 'Generator')
+                   for v in result):
+                return ValueSet.from_sets(
+                    v.py__getattribute__('__next__').execute_annotation()
+                    for v in result
+                )
+            return result
 
         # In pytest we need to differentiate between generators and normal
         # returns.
@@ -43,6 +51,9 @@ def infer_anonymous_param(func):
             return function_context.get_return_values()
 
     def wrapper(param_name):
+        # parameters with an annotation do not need special handling
+        if param_name.annotation_node:
+            return func(param_name)
         is_pytest_param, param_name_is_function_name = \
             _is_a_pytest_param_and_inherited(param_name)
         if is_pytest_param:
@@ -129,6 +140,10 @@ def _iter_pytest_modules(module_context, skip_own_module=False):
     if file_io is not None:
         folder = file_io.get_parent_folder()
         sys_path = module_context.inference_state.get_sys_path()
+
+        # prevent an infinite loop when reaching the root of the current drive
+        last_folder = None
+
         while any(folder.path.startswith(p) for p in sys_path):
             file_io = folder.get_file_io('conftest.py')
             if Path(file_io.path) != module_context.py__file__():
@@ -138,6 +153,11 @@ def _iter_pytest_modules(module_context, skip_own_module=False):
                 except FileNotFoundError:
                     pass
             folder = folder.get_parent_folder()
+
+            # prevent an infinite for loop if the same parent folder is return twice
+            if last_folder is not None and folder.path == last_folder.path:
+                break
+            last_folder = folder  # keep track of the last found parent name
 
     for names in _PYTEST_FIXTURE_MODULES:
         for module_value in module_context.inference_state.import_module(names):
