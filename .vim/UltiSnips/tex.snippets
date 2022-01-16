@@ -196,8 +196,12 @@ snippet oth "otherwise"
 \text{ otherwise } $0
 endsnippet
 
-snippet lim "otherwise"
+snippet lim "limit"
 \lim_{$1} $0
+endsnippet
+
+snippet limoo "limit_inf"
+\lim_{$1 \rightarrow \infty} $0
 endsnippet
 
 snippet mk "Math" wA
@@ -608,8 +612,16 @@ snippet \sum "sum" iA
 \sum_{$1}$0
 endsnippet
 
-snippet \sq "sqrt" iA
+snippet sumoo "sum_inf"
+\sum_{$1=$2}^{\infty} $0
+endsnippet
+
+snippet \sqr "sqrt" iA
 \sqrt{$1}$0
+endsnippet
+
+snippet \sqn "sqrt" iA
+\sqrt[$1]{$2}$0
 endsnippet
 
 snippet \prod "prod" iA

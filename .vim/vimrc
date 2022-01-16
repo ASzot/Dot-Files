@@ -84,6 +84,7 @@ set nonumber
 " Unfold by default
 au BufRead * normal zR
 
+
 " Rebind delete to have a no copy version.
 nnoremap <leader>d "_d
 
@@ -93,16 +94,19 @@ nnoremap <leader>w :set relativenumber!<CR>
 " Find and replace 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " Find and replace across multiple files
-function FindReplaceMultiFile()
+function FindReplaceMultiFile(findStr)
   "let find = input('Find: ')
   let find = expand("<cword>")
   let replace = input('Replace: ')
 
-  execute "vimgrep /" . find . "/gj **/*.yaml **/*.py" 
+  execute "vimgrep /" . find . a:findStr
   :copen
   execute "cfdo %s/" . find . "/" . replace . "/gc"
 endfunction
-nnoremap <leader>& :call FindReplaceMultiFile()<CR>
+
+" quick fix window
+map <leader>h :cn<CR>
+map <leader>l :cp<CR>
 
 " Toggle indentation display
 nmap <leader>i :IndentGuidesToggle<CR>
@@ -119,23 +123,14 @@ nmap <leader>y :!ctags -R --exclude=.git . <CR>
 
 " Limelight settings.
 function! ToggleFocusMode()
-	"Goyo
   Goyo "120x100%"
-	"Limelight!!
-  "set background=light
 endfunction
 
 " Toggle focus mode.
 nmap <leader>f :call ToggleFocusMode()<CR>
-" let g:goyo_width = 120
-"let g:goyo_height = "100%"
 
 " Toggle spell check in current file.
 map <leader>c :call ToggleSpellCheck()<CR>
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
 
 " Vim closetag
 let g:closetag_filenames = "*.html,*.xhtml,*.phtml, *.txt, *.vue"
@@ -152,12 +147,6 @@ noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
 let g:fzf_layout = {'down':'30'}
 
-set omnifunc=syntaxcomplete#Complete
-
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-let g:SuperTabClosePreviewOnPopupClose = 1
-set completeopt=menu
-let g:completor_complete_options = 'menuone,noselect'
 
 set hidden
 """"""""""""""
@@ -171,7 +160,9 @@ let g:typescript_indent_disable = 1
 set pastetoggle=<F2>
 
 let g:vimtex_view_method = 'skim'
-let g:vimtex_quickfix_autoclose_after_keystrokes=2
+let g:vimtex_view_general_options = '-r @line @pdf @tex'
+"let g:vimtex_quickfix_autoclose_after_keystrokes=2
+let g:vimtex_quickfix_enabled = 0
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : '/tmp',
             \}
@@ -244,6 +235,19 @@ autocmd FileType python setlocal completeopt-=preview
 
 """"""""""""""
 
+
+""""""""""""""
+" Super Tab
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+set omnifunc=syntaxcomplete#Complete
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+let g:SuperTabClosePreviewOnPopupClose = 1
+set completeopt=menu
+let g:completor_complete_options = 'noselect'
+""""""""""""""
+
+
 """"""""""""""
 " Vim markdown
 let g:vim_markdown_toc_autofit = 1
@@ -279,6 +283,7 @@ function SetPythonOptions()
   nmap <silent> <leader>k <Plug>(ale_previous_wrap)
   nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
+  nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.yaml **/*.py")<CR>
 
   " Override the python ctags setup
   nmap <leader>y :!ctags -R -f ~/.tags/`pwd`/tags --fields=+l --languages=python --python-kinds=-iv --exclude=.git --exclude=.mypy_cache `pwd` <CR>
@@ -288,6 +293,9 @@ function SetPythonOptions()
 
   " Fetches the tags from the tmp output directory
   set tags=~/.tags/$PWD/tags
+
+  " Enable the auto complete pop up
+  let g:completor_complete_options = 'menuone,noselect'
 endfunction
 
 function FixTwoSpaces()
@@ -348,9 +356,12 @@ function SetTexOptions()
   set wrap linebreak nolist
   set nonumber
   set norelativenumber
+  nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.tex")<CR>
   noremap <leader>v :call AutoTex()<CR>
-  " Disable auto completion
-  let g:completor_complete_options = 'noselect'
+
+  " To soft wrap content at 80 characters
+  set columns=80
+  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
 endfunction
 
 
@@ -371,19 +382,12 @@ autocmd BufRead,BufNewFile *.cmd call SetCmdOptions()
 function SetCmdOptions()
 	set syntax=sh
   call SetBashOptions()
+  nnoremap j gj
+  nnoremap k gk
+  set wrap linebreak nolist
+  set nonumber
+  set norelativenumber
 endfunction
-
-if fnamemodify(getcwd(), ':t') == "me"
-  let g:lastfilename = "START"
-  "These define all the options for my Vim Wiki 
-  "autocmd BufEnter *.tex call WikiOptions()
-  set textwidth=79
-  set wrapmargin=2
-	set wrap
-  let g:ale_enabled=0
-endif
-
-
 
 " Options for Scala
 autocmd BufNewFile,BufRead *.scala call SetScalaOptions()
@@ -422,6 +426,11 @@ function SetWebOptions()
 	set expandtab
 	set autoindent
 	set nospell
+endfunction
+
+autocmd BufNewFile,BufRead *.yaml,*.json call SetConfigOptions()
+function SetConfigOptions()
+  let g:completor_complete_options = 'noselect'
 endfunction
 
 " Options for C++,C, CUDA
@@ -469,6 +478,10 @@ function SetMdOptions()
   set nonumber
   set norelativenumber
   let g:completor_complete_options = 'noselect'
+
+  " To soft wrap content at 80 characters
+  set columns=80
+  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
 endfunction
 
 
