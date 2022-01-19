@@ -12,6 +12,8 @@ git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 
 Run `sh update.sh` to install all of the configurations. Reload your zsh. If you are installing a new system read the mac environment setup or the ubuntu environment setup.
 
+For older versions of tmux, copy the old tmux conf file. 
+
 ## Commands
 Shortcuts are defined in `.zshrc`. They are listed here: 
 * `creategit`: Create a GitHub deploy key. Note that when cloning you specify
