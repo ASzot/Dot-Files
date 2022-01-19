@@ -160,9 +160,10 @@ let g:typescript_indent_disable = 1
 set pastetoggle=<F2>
 
 let g:vimtex_view_method = 'skim'
-let g:vimtex_view_general_options = '-r @line @pdf @tex'
+let g:vimtex_quickfix_open_on_warning = 0
+let g:vimtex_quickfix_mode = 0
 "let g:vimtex_quickfix_autoclose_after_keystrokes=2
-let g:vimtex_quickfix_enabled = 0
+"let g:vimtex_quickfix_enabled = 0
 let g:vimtex_compiler_latexmk = {
             \ 'build_dir' : '/tmp',
             \}
@@ -354,14 +355,8 @@ function SetTexOptions()
   nnoremap j gj
   nnoremap k gk
   set wrap linebreak nolist
-  set nonumber
-  set norelativenumber
   nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.tex")<CR>
   noremap <leader>v :call AutoTex()<CR>
-
-  " To soft wrap content at 80 characters
-  set columns=80
-  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
 endfunction
 
 
@@ -475,13 +470,7 @@ function SetMdOptions()
   nnoremap j gj
   nnoremap k gk
   set wrap linebreak nolist
-  set nonumber
-  set norelativenumber
   let g:completor_complete_options = 'noselect'
-
-  " To soft wrap content at 80 characters
-  set columns=80
-  autocmd VimResized * if (&columns > 80) | set columns=80 | endif
 endfunction
 
 
