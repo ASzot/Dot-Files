@@ -132,8 +132,6 @@ export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 
-export HOME=/coc/testnvme/aszot3/
-
 if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
 then
   source ~/.dot-files/set_env_vars.sh
@@ -150,11 +148,9 @@ if [ -f $HOME/.slurm_tools ]; then
   . $HOME/.slurm_tools
 fi
 
-if [ -f ~/slurm_usage_utils/gpus_users.bashrc ]; then
-  . ~/slurm_usage_utils/gpus_users.bashrc
-fi
-
+#export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
+#export SQUEUE_SORT='-b,u,-S'
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
-
-cd /coc/testnvme/aszot3
+export DISPLAY=:1
+source activate habitat 

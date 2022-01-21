@@ -12,3 +12,7 @@
   p = pull
 [core]
 	mergeoptions = --no-edit
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

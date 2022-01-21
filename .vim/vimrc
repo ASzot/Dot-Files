@@ -254,6 +254,18 @@ let g:completor_complete_options = 'noselect'
 let g:vim_markdown_toc_autofit = 1
 """"""""""""""
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vimdiff options
+if &diff
+    syntax off
+endif
+au VimEnter * if &diff | execute 'windo set wrap' | endif
+hi DiffAdd      ctermfg=NONE          ctermbg=Green
+hi DiffChange   ctermfg=NONE          ctermbg=NONE
+hi DiffDelete   ctermfg=LightBlue     ctermbg=Red
+hi DiffText     ctermfg=Yellow        ctermbg=Red
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Options for Python
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
