@@ -44,7 +44,7 @@ map <F9> :call FastCompileFile() <CR>
 function! CompileFile()
 	let current_filetype = &filetype
 	if current_filetype == 'python'
-		:!python %:t
+		:wa | !python %:t
   elseif current_filetype == 'tex'
     :wa | !pdflatex main.tex
 	endif
@@ -239,6 +239,7 @@ autocmd FileType python setlocal completeopt-=preview
 
 """"""""""""""
 " Super Tab
+" Changes the navigation mode of super tab starting from the bottom
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 set omnifunc=syntaxcomplete#Complete
@@ -246,6 +247,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 let g:SuperTabClosePreviewOnPopupClose = 1
 set completeopt=menu
 let g:completor_complete_options = 'noselect'
+let g:completor_disable_ultisnips = 1
 """"""""""""""
 
 
@@ -265,6 +267,11 @@ hi DiffChange   ctermfg=NONE          ctermbg=NONE
 hi DiffDelete   ctermfg=LightBlue     ctermbg=Red
 hi DiffText     ctermfg=Yellow        ctermbg=Red
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
 
 " Options for Python
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
@@ -369,6 +376,10 @@ function SetTexOptions()
   set wrap linebreak nolist
   nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.tex")<CR>
   noremap <leader>v :call AutoTex()<CR>
+  " the regular completor dialog is annoying.
+  let g:completor_min_chars = 1000
+  " Enable completion for omni complete
+  let g:completor_complete_options = 'menuone,noselect'
 endfunction
 
 
@@ -468,12 +479,19 @@ endfunction
 
 
 " Options for markdown, md 
+function AutoOpenEntry()
+  let projName = input('Project: ')
+  let projPath = system('python entry.py ' . projName)
+  let projPath = projPath[:len(projPath)-2]
+
+  execute "open " . projPath
+endfunction
 autocmd BufRead,BufNewFile *.md call SetMdOptions()
 function SetMdOptions()
   setf markdown
-	set tabstop=2
-	set softtabstop=2
-	set shiftwidth=2
+	set tabstop=4
+	set softtabstop=4
+	set shiftwidth=4
 	set expandtab
 	set autoindent
 	set nospell
@@ -483,9 +501,21 @@ function SetMdOptions()
   nnoremap k gk
   set wrap linebreak nolist
   let g:completor_complete_options = 'noselect'
+
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""
+  " Auto entry wiki options
+
+  nmap <leader>z :call AutoOpenEntry()<CR>
+  """"""""""""""""""""""""""""""""""""""""""""""""""""""
 endfunction
 
 
+
+" For syncing with Jupyter notebooks
+autocmd BufWritePost *.sync.* call SetPythonNotebookOptions()
+function SetPythonNotebookOptions()
+  :!python -m jupyter_ascending.requests.sync --filename %:t
+endfunction
 
 
 

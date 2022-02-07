@@ -129,7 +129,7 @@ snippet bookdoc "bookdoc"
 %@ Author: $2
 %@ Format: $3
 %@ Finished: $4
-%@ Rating (/5): $5
+%@ Rating (/10): $5
 
 \input{\string~/me/header.tex}
 \begin{document}
@@ -283,6 +283,9 @@ snippet cr "link"
 \Cref{${1}}$0
 endsnippet
 
+snippet 11 "indicator"
+\mathbbm{1}$0
+endsnippet
 
 snippet bb "mathbb"
 \mathbb{${1}}$0
@@ -298,7 +301,7 @@ endsnippet
 
 
 snippet || "lvert"
-\lVert $1 \lVert$0
+\norm*{$1}$0
 endsnippet
 
 
@@ -371,6 +374,10 @@ snippet mc "Mathcal"
 \mathcal{${1}}$0
 endsnippet
 
+snippet mr "Mathscr"
+\mathscr{${1}}$0
+endsnippet
+
 snippet // "Fraction" iA
 \\frac{$1}{$2}$0
 endsnippet
@@ -441,6 +448,11 @@ endsnippet
 context "isMath()"
 snippet RR "RealNums" 
 \mathbb{R}$0
+endsnippet
+
+context "isMath()"
+snippet HH "RealNums" 
+\mathcal{H}$0
 endsnippet
 
 context "isMath()"
@@ -616,6 +628,10 @@ snippet sumoo "sum_inf"
 \sum_{$1=$2}^{\infty} $0
 endsnippet
 
+snippet \ub "underbracket" iA
+\underbracket{$1}_\text{$2} $0
+endsnippet
+
 snippet \sqr "sqrt" iA
 \sqrt{$1}$0
 endsnippet
@@ -656,4 +672,6 @@ snippet ** "mult" iA
 \cdot
 endsnippet
 
-
+snippet \kl "KL" iA
+\kl{$1}{$2}$0
+endsnippet
