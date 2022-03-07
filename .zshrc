@@ -59,6 +59,7 @@ alias sfor='ps aux | grep'
 alias sa='source deactivate && source activate'
 alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
+alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out'
 alias ctags='/usr/local/bin/ctags'
 alias bpush='git ca "Update"'
 alias fbt="tmux new -s ssh_local 'ssh -L 4004:localhost:22 devfair'"

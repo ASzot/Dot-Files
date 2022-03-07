@@ -248,6 +248,8 @@ let g:SuperTabClosePreviewOnPopupClose = 1
 set completeopt=menu
 let g:completor_complete_options = 'noselect'
 let g:completor_disable_ultisnips = 1
+" Without this line, autocomplete is very slow
+set foldmethod=manual
 """"""""""""""
 
 
