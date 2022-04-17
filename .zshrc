@@ -77,6 +77,11 @@ msync() {
   fswatch -o . | while read f; do rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"; done
 }
 
+nsync() {
+  # Command for remote development. 
+  rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"
+}
+
 # To use this you have to install sshpass: brew install hudochenkov/sshpass/sshpass
 msyncpass() {
   # Command for remote development. 

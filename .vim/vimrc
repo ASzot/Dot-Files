@@ -93,9 +93,9 @@ nnoremap <leader>w :set relativenumber!<CR>
 
 " Find and replace 
 nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
 " Find and replace across multiple files
-function FindReplaceMultiFile(findStr)
-  "let find = input('Find: ')
+function FindReplaceUnderWordMultiFile(findStr)
   let find = expand("<cword>")
   let replace = input('Replace: ')
 
@@ -103,6 +103,18 @@ function FindReplaceMultiFile(findStr)
   :copen
   execute "cfdo %s/" . find . "/" . replace . "/gc"
 endfunction
+
+" Find and replace across multiple files
+function FindReplaceMultiFile()
+  let findMulti = input('Find: ')
+  let replaceMulti = input("Replace: ")
+  let searchExtsMulti = input('Search Extensions (ex **/*.yaml): ')
+  execute "vimgrep /" . findMulti . "/gj " . searchExtsMulti
+  :copen
+  execute "cfdo %s/" . findMulti . "/" . replaceMulti . "/gc"
+endfunction
+
+
 
 " quick fix window
 map <leader>h :cn<CR>
@@ -305,7 +317,8 @@ function SetPythonOptions()
   nmap <silent> <leader>k <Plug>(ale_previous_wrap)
   nmap <silent> <leader>j <Plug>(ale_next_wrap)
 
-  nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.yaml **/*.py")<CR>
+  nnoremap <leader>^ :call FindReplaceMultiFile()<CR>
+  nnoremap <leader>& :call FindReplaceUnderWordMultiFile("/gj **/*.yaml **/*.py")<CR>
 
   " Override the python ctags setup
   nmap <leader>y :!ctags -R -f ~/.tags/`pwd`/tags --fields=+l --languages=python --python-kinds=-iv --exclude=.git --exclude=.mypy_cache `pwd` <CR>
@@ -376,7 +389,7 @@ function SetTexOptions()
   nnoremap j gj
   nnoremap k gk
   set wrap linebreak nolist
-  nnoremap <leader>& :call FindReplaceMultiFile("/gj **/*.tex")<CR>
+  nnoremap <leader>& :call FindReplaceUnderWordMultiFile("/gj **/*.tex")<CR>
   noremap <leader>v :call AutoTex()<CR>
   " the regular completor dialog is annoying.
   let g:completor_min_chars = 1000

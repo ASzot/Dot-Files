@@ -19,24 +19,9 @@ def create_table(snip):
 		final_str += " \\\\\\\n"
 	final_str += old_spacing + "\\end{bmatrix}\n$0"
 	snip.expand_anon(final_str)
-endglobal
-
-
-global !p
-texMathZones = ['texMathZone'+x for x in ['A', 'AS', 'B', 'BS', 'C', 'CS', 'D', 'DS', 'V', 'W', 'X', 'Y', 'Z']]
-texMathZones += ['texMathZone'+x for x in ['E', 'ES', 'F', 'FS', 'G', 'GS', 'H', 'HS', 'I', 'IS', 'J', 'JS', 'K', 'KS', 'L', 'LS']]
-texIgnoreMathZones = ['texMathText']
-
-texMathZoneIds = vim.eval('map('+str(texMathZones)+", 'hlID(v:val)')")
-texIgnoreMathZoneIds = vim.eval('map('+str(texIgnoreMathZones)+", 'hlID(v:val)')")
 
 def isMath():
-		return True
-    #synstackids = vim.eval("synstack(line('.'), col('.') - (col('.')>=2 ? 1 : 0))")
-    #if not set(texIgnoreMathZoneIds).isdisjoint(synstackids):
-    #    return False
-    #return not set(texMathZoneIds).isdisjoint(synstackids)
-    # isdisjoint() can short-circuit as soon as a match is found
+		return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
 
@@ -84,6 +69,7 @@ snippet resdoc "resdoc"
 %@ Tags: 
 %@ URL: 
 %@ Venue: 
+%@ ref: 
 
 \input{\string~/me/header.tex}
 \begin{document}
@@ -164,6 +150,10 @@ endsnippet
 snippet subsec "SubSection" 
 \subsection{$1}
 $0
+endsnippet
+
+snippet iid "iid" 
+i.i.d. $0
 endsnippet
 
 snippet subsubsec "SubSection" 
@@ -284,11 +274,11 @@ snippet cr "link"
 endsnippet
 
 snippet 11 "indicator"
-\mathbbm{1}$0
+\mathbbm{1} $0
 endsnippet
 
 snippet bb "mathbb"
-\mathbb{${1}}$0
+\mathbb{${1}} $0
 endsnippet
 
 snippet l| "left|"
@@ -305,69 +295,80 @@ snippet || "lvert"
 endsnippet
 
 
-snippet -> "arrow"
-\rightarrow
+context "isMath()"
+snippet -> "arrow" iA
+\rightarrow $0
 endsnippet
 
 snippet x-> "arrow"
-\xrightarrow{\text{$1}}$0
+\xrightarrow{\text{$1}} $0
 endsnippet
 
-
-snippet <- "arrow"
-\leftarrow
+context "isMath()"
+snippet <- "arrow" iA
+\leftarrow $0
 endsnippet
 
-snippet amin "argmin"
+context "isMath()"
+snippet amin "argmin" iA
 \text{argmin}_{$1}$0
 endsnippet
 
-snippet amax "argmax"
-\text{argmax}_{$1}$0
+context "isMath()"
+snippet amax "argmax" iA
+\text{argmax}_{$1} $0
 endsnippet
 
-snippet \im "implies"
-\implies
+context "isMath()"
+snippet \im "implies" iA
+\implies $0
 endsnippet
 
-snippet Un "union"
+context "isMath()"
+snippet Un "union" iA
 \bigcup
 endsnippet
 
-snippet In "intersection"
+context "isMath()"
+snippet In "intersection" iA
 \bigcap
 endsnippet
 
-snippet ++ "bigplus"
+context "isMath()"
+snippet ++ "bigplus" iA
 \bigoplus $0
 endsnippet
 
-snippet xx "times" 
+context "isMath()"
+snippet xx "times"  iA
 \times $0
 endsnippet
 
-snippet o. "hammard" 
+context "isMath()"
+snippet o. "hammard"  iA
 \odot $0
 endsnippet
 
-snippet oo "infinity"
-\infty
+context "isMath()"
+snippet oo "infinity" iA
+\infty $0
 endsnippet
 
 snippet . "dot"
-\dots
+\dots $0
 endsnippet
 
-snippet ~ "sim"
-\sim
+context "isMath()"
+snippet ~ "sim" iA
+\sim $0
 endsnippet
 
 snippet < "langle"
-\langle
+\langle $0
 endsnippet
 
 snippet > "rangle"
-\rangle
+\rangle $0
 endsnippet
 
 snippet mc "Mathcal"
@@ -411,108 +412,128 @@ snippet {{ "brackets" iA
 endsnippet
 
 context "isMath()"
-snippet << "prec" 
+snippet << "prec" iA
 \prec
 endsnippet
 
 context "isMath()"
-snippet <<= "preceq" 
+snippet <<= "preceq" iA
 \preceq
 endsnippet
 
 context "isMath()"
-snippet >> "succ" 
+snippet >> "succ" iA
 \succ
 endsnippet
 
 context "isMath()"
-snippet >>= "succeq" 
+snippet >>= "succeq" iA
 \succeq
 endsnippet
 
 context "isMath()"
-snippet EE "Expectation" 
-\mathbb{E}$0
+snippet EE "Expectation" iA
+\mathbb{E} $0
 endsnippet
 
 context "isMath()"
-snippet MM "MM" 
-\mathcal{M}$0
+snippet MM "MM" iA
+\mathcal{M} $0
 endsnippet
 
 context "isMath()"
-snippet ER "Error" 
-\mathcal{E}$0
+snippet ER "Error" iA
+\mathcal{E} $0
 endsnippet
 
 context "isMath()"
-snippet RR "RealNums" 
-\mathbb{R}$0
+snippet RR "RealNums" iA
+\mathbb{R} $0
 endsnippet
 
 context "isMath()"
-snippet HH "RealNums" 
-\mathcal{H}$0
+snippet HH "RealNums" iA
+\mathcal{H} $0
 endsnippet
 
 context "isMath()"
-snippet XX "XX" 
-\mathcal{X}$0
+snippet XX "XX" iA
+\mathcal{X} $0
 endsnippet
 
 context "isMath()"
-snippet VV "VV"
-\mathcal{V}$0
+snippet YY "YY" iA
+\mathcal{Y} $0
 endsnippet
 
 context "isMath()"
-snippet NN "NN"
-\mathcal{N}$0
+snippet VV "VV" iA
+\mathcal{V} $0
 endsnippet
 
 context "isMath()"
-snippet TT "TT"
-\mathcal{T}$0
+snippet NN "NN" iA
+\mathcal{N} $0
 endsnippet
 
 context "isMath()"
-snippet PP "Prob"
-\mathbb{P}$0
+snippet AA "AA" iA
+\mathcal{A} $0
 endsnippet
 
 context "isMath()"
-snippet ZZ "ints"
-\mathbb{Z}$0
+snippet SS "SS" iA
+\mathcal{S} $0
 endsnippet
 
 context "isMath()"
-snippet II "II" 
-\mathcal{I}$0
+snippet GG "GG" iA
+\mathcal{G} $0
 endsnippet
 
 context "isMath()"
-snippet DD "DD"
-\mathcal{D}$0
+snippet TT "TT" iA
+\mathcal{T} $0
 endsnippet
 
 context "isMath()"
-snippet ll "ll" 
-\ell$0
+snippet PP "Prob" iA
+\mathbb{P} $0
+endsnippet
+
+context "isMath()"
+snippet ZZ "ints" iA
+\mathbb{Z} $0
+endsnippet
+
+context "isMath()"
+snippet II "II" iA
+\mathcal{I} $0
+endsnippet
+
+context "isMath()"
+snippet DD "DD" iA
+\mathcal{D} $0
+endsnippet
+
+context "isMath()"
+snippet ll "ll" iA
+\ell $0
 endsnippet
 
 context "isMath()"
 snippet \for "forall" iA
-\forall$0
+\forall $0
 endsnippet
 
 context "isMath()"
-snippet LL "LL" 
-\mathcal{L}$0
+snippet LL "LL" iA
+\mathcal{L} $0
 endsnippet
 
 context "isMath()"
-snippet FF "FF"
-\mathcal{F}$0
+snippet FF "FF" iA
+\mathcal{F} $0
 endsnippet
 
 snippet 1d "subscript" iA
@@ -657,19 +678,19 @@ snippet \te "text" iA
 endsnippet
 
 snippet \na "nabla" iA
-\nabla
+\nabla $0
 endsnippet
 
 snippet \pa "partial" iA
-\partial
+\partial $0
 endsnippet
 
 snippet \iff "iff" iA
-\leftrightarrow
+\leftrightarrow $0
 endsnippet
 
 snippet ** "mult" iA
-\cdot
+\cdot $0
 endsnippet
 
 snippet \kl "KL" iA
