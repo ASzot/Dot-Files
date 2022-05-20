@@ -301,7 +301,7 @@ function SetPythonOptions()
 
   set formatoptions-=t
 
-  map <leader>e oimport ipdb; ipdb.set_trace()<C-c>
+  map <leader>e obreakpoint()<C-c>
   let b:ale_linters = ['pylint']
   let g:ale_set_highlights = 0
   let b:ale_warn_about_trailing_whitespace = 0
@@ -501,7 +501,7 @@ function AutoOpenEntry()
 
   execute "open " . projPath
 endfunction
-autocmd BufRead,BufNewFile *.md call SetMdOptions()
+autocmd BufRead,BufNewFile *.md,*.rst call SetMdOptions()
 function SetMdOptions()
   setf markdown
 	set tabstop=4
@@ -524,13 +524,6 @@ function SetMdOptions()
   """"""""""""""""""""""""""""""""""""""""""""""""""""""
 endfunction
 
-
-
-" For syncing with Jupyter notebooks
-autocmd BufWritePost *.sync.* call SetPythonNotebookOptions()
-function SetPythonNotebookOptions()
-  :!python -m jupyter_ascending.requests.sync --filename %:t
-endfunction
 
 
 
