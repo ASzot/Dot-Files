@@ -38,18 +38,18 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 
 
 ### Setting Up a Mac Environment
-1. Install 1pass: https://1password.com/downloads/mac/
-2. Install spectacle: https://www.spectacleapp.com
-3. Install iterm: https://iterm2.com
-4. Download this repo `git clone https://github.com/ASzot/Dot-Files.git .dot-files`
-5. Install brew https://brew.sh/ 
-6. Install oh-my-zsh `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-7. Run installation script: `sh ~/.dot-files/macos_setup.sh`
-8. Download drive for desktop: https://www.google.com/drive/download/
-9. Download slack from app store
-10. Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
-11. Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
-12. Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
+* Install 1pass: https://1password.com/downloads/mac/
+* Install spectacle: https://www.spectacleapp.com
+* Install iterm: https://iterm2.com
+* Download drive for desktop: https://www.google.com/drive/download/
+* Download slack from app store
+* Download this repo `git clone https://github.com/ASzot/Dot-Files.git .dot-files`
+* Install brew https://brew.sh/ 
+* Install oh-my-zsh `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+* Run installation script: `sh ~/.dot-files/macos_setup.sh`
+* Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
+* Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
+* Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
 
 ### Vim Usage
 There are a couple of things that need to be configured for vim usage. You need
