@@ -1,11 +1,7 @@
 # Computer Dot Files
-The goal of these dot files is to provide the optimal computing experience for Mac OS X and Ubuntu. 
-These are all of the config files that I use on my development machine. 
+Used for Mac OS X and Ubuntu. 
 
 # Getting Started
-It is important to clone this repo to the right location. It must be in
-`.dot-files` in your home directory. 
-
 ```
 git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
@@ -50,14 +46,8 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
 * Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
 * Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
+* Install daily cron job `env EDITOR=nano crontab -e` then `0 9 * * * ~/.dot-files/cron/daily.sh`
 
 ### Vim Usage
-There are a couple of things that need to be configured for vim usage. You need
-to pip install a couple of things. Activate the Python environment you will be
-using for Vim development. Then run `sh vim_setup.sh`.
+Then run `sh vim_setup.sh`.
 
-#### Server (with gpu for deep learning)
-Run `sh ubuntu_16_04_server_fresh_part_1.sh` then restart the computer then run `sh ubuntu_16_04_server_fresh_part_2.sh`. You also probably want to set up the default bashrc. `sudo vim /etc/skel/.bashrc` and add `export PATH=/opt/conda/bin:$PATH`.
-
-#### Regular
-Run `sh ubuntu_16_04_fresh.sh`
