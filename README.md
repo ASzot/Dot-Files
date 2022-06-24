@@ -46,7 +46,7 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
 * Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
 * Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
-* Install daily cron job `env EDITOR=nano crontab -e` then `0 9 * * * ~/.dot-files/cron/daily.sh`
+* Install daily cron job `env EDITOR=nano crontab -e` then `0 9 * * * ~/.dot-files/cron/daily.sh`. Also put `MAILTO=""` at the top.
 
 ### Vim Usage
 Then run `sh vim_setup.sh`.
