@@ -1,6 +1,6 @@
 # Put data from here to your settings.
-rm -rf ~/.vim
-cp -R ./.vim ~/.vim
+rm -rf ~/.config/nvim
+cp -R ./nvim ~/.config/nvim
 
 rm ~/.zshrc
 cp .zshrc ~/.zshrc

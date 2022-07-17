@@ -3,3 +3,6 @@ pip install autopep8
 pip install isort
 pip install pylint
 pip install black
+pip install jedi
+pip install pyright
+pip install neovim

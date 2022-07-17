@@ -1,6 +1,6 @@
 # Put data from settings to here.
-rm -rf ./.vim
-cp -R ~/.vim ./
+rm -rf ./nvim
+cp -R ~/.config/nvim ./
 
 rm ./.gitconfig
 cp ~/.gitconfig ./

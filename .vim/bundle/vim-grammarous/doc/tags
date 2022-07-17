@@ -1,8 +1,0 @@
-:GrammarousCheck	grammarous.txt	/*:GrammarousCheck*
-:GrammarousReset	grammarous.txt	/*:GrammarousReset*
-grammarous.txt	grammarous.txt	/*grammarous.txt*
-vim-grammarous	grammarous.txt	/*vim-grammarous*
-vim-grammarous-contents	grammarous.txt	/*vim-grammarous-contents*
-vim-grammarous-introduction	grammarous.txt	/*vim-grammarous-introduction*
-vim-grammarous-license	grammarous.txt	/*vim-grammarous-license*
-vim-grammarous-usage	grammarous.txt	/*vim-grammarous-usage*

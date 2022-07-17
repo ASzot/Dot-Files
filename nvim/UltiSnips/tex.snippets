@@ -1,0 +1,709 @@
+global !p
+from uuid import uuid4
+endglobal
+
+global !p
+def create_table(snip):
+	rows = snip.buffer[snip.line].split('x')[0]
+	cols = snip.buffer[snip.line].split('x')[1]
+	int_val = lambda string: int(''.join(s for s in string if s.isdigit()))
+	rows = int_val(rows)
+	cols = int_val(cols)
+	offset = cols + 1
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+	snip.buffer[snip.line] = ''
+	final_str = old_spacing + "\\begin{bmatrix}\n"
+	for i in range(rows):
+		final_str += old_spacing + '\t'
+		final_str += " & ".join(['$' + str(i * cols + j + offset) for j in range(cols)])
+		final_str += " \\\\\\\n"
+	final_str += old_spacing + "\\end{bmatrix}\n$0"
+	snip.expand_anon(final_str)
+
+def isMath():
+		return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+
+snippet today "Date"
+`date +%F`
+endsnippet
+
+pre_expand "create_table(snip)"
+snippet "mat(\d+)x(\d+)" "Generate table of *width* by *height*" r
+endsnippet
+
+
+snippet fig "addfig"
+\begin{figure*}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{$1}
+	\caption{
+		$2
+		}
+	\label{$3}
+\end{figure*}
+$0
+endsnippet
+
+snippet wrapfig "addfig"
+\begin{wrapfigure}{r}{$1\textwidth}
+	\centering
+	\includegraphics[width=$1\textwidth]{$2}
+	\caption{
+		$3
+		}
+	\label{$4}
+\end{wrapfigure}
+$0
+endsnippet
+
+
+
+snippet resdoc "resdoc"
+%@ $1
+%@ Authors: 
+%@ Created: `date +%F`
+%@ Publish Date: 
+%@ Summary: 
+%@ Tags: 
+%@ URL: 
+%@ Venue: 
+%@ ref: 
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+\section{Problem}
+$0
+
+\section{Motivation}
+
+\section{Contribution}
+
+\section{Method}
+
+\section{Experiments}
+
+\end{document}
+endsnippet
+
+snippet mathdoc "mathdoc"
+%@ $1
+%@ Created: `date +%F`
+%@ Sections: 
+%@ Tags: $2
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
+
+\end{document}
+endsnippet
+
+snippet bookdoc "bookdoc"
+%@ $1
+%@ Author: $2
+%@ Format: $3
+%@ Finished: $4
+%@ Rating (/10): $5
+%@ Date Published: $6
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
+
+\end{document}
+endsnippet
+
+snippet mydef "mydef"
+\begin{mydef}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
+	$2
+\end{mydef}$0
+endsnippet
+
+snippet mytheo "mytheo"
+\begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
+	$2
+\end{mytheo}$0
+endsnippet
+
+
+snippet sec "Section" 
+\section{$1}
+$0
+endsnippet
+
+snippet subsec "SubSection" 
+\subsection{$1}
+$0
+endsnippet
+
+snippet iid "iid" 
+i.i.d. $0
+endsnippet
+
+snippet subsubsec "SubSection" 
+\subsubsection{$1}
+$0
+endsnippet
+
+snippet \lab "label" wA
+\label{$1} $0
+endsnippet
+
+snippet expl "expl"
+\tag*{($1)}$0
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+	$0
+\end{$1}
+endsnippet
+
+snippet cases "cases"
+\begin{cases}
+	${1:equation}, &\text{ if }${2:case}\\\\
+	${3}
+\end{cases}
+endsnippet
+
+snippet oth "otherwise"
+\text{ otherwise } $0
+endsnippet
+
+snippet lim "limit"
+\lim_{$1 \rightarrow $2} $0
+endsnippet
+
+snippet limo "limit_inf"
+\lim_{$1 \rightarrow \infty} $0
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Math" wA
+\begin{align*}
+	$1
+\end{align*} $0
+endsnippet
+
+snippet qm "Qoute" wA
+\begin{displayqoute}
+	$1
+\end{displayqoute}$0
+endsnippet
+
+snippet qk "Qoute" wA
+\`\`$1"$0
+endsnippet
+
+snippet enum "Enumerate" bA
+\begin{enumerate}
+	\item $0
+\end{enumerate}
+endsnippet
+
+snippet dn "Math" wA
+\begin{align}
+	$1
+\end{align} $0
+endsnippet
+
+
+snippet bf "Boldface" 
+\textbf{${1}}$0
+endsnippet
+
+snippet bgame "Black Game" 
+\\\\
+\newgame
+\fenboard{${1}}
+\showinverseboard\\\\
+$0
+endsnippet
+
+snippet wgame "White Game" 
+\\\\
+\newgame
+\fenboard{${1}}
+\showboard\\\\
+$0
+endsnippet
+
+snippet as "Andrew" 
+\textcolor{blue}{(${1})}$0
+endsnippet
+
+snippet asc "Andrew" 
+% Andrew `date +%Y-%m-%d\ %H:%M`: ${0}
+endsnippet
+
+snippet it "Italics" 
+\emph{${1}}$0
+endsnippet
+
+
+snippet h "link" 
+\href{${1}}{${2}}$0
+endsnippet
+
+snippet cr "link" 
+\Cref{${1}}$0
+endsnippet
+
+snippet 11 "indicator"
+\mathbbm{1} $0
+endsnippet
+
+snippet bb "mathbb"
+\mathbb{${1}} $0
+endsnippet
+
+snippet l| "left|"
+\left| 
+endsnippet
+
+snippet r| "right|"
+\right| 
+endsnippet
+
+
+snippet || "lvert"
+\norm*{$1}$0
+endsnippet
+
+
+context "isMath()"
+snippet -> "arrow" iA
+\rightarrow $0
+endsnippet
+
+context "isMath()"
+snippet up "uparrow" iA
+\uparrow $0
+endsnippet
+
+context "isMath()"
+snippet down "downarrow" iA
+\downarrow $0
+endsnippet
+
+snippet x-> "arrow"
+\xrightarrow{\text{$1}} $0
+endsnippet
+
+context "isMath()"
+snippet <- "arrow" iA
+\leftarrow $0
+endsnippet
+
+context "isMath()"
+snippet amin "argmin" iA
+\text{argmin}_{$1}$0
+endsnippet
+
+context "isMath()"
+snippet amax "argmax" iA
+\text{argmax}_{$1} $0
+endsnippet
+
+context "isMath()"
+snippet \im "implies" iA
+\implies $0
+endsnippet
+
+context "isMath()"
+snippet Un "union" iA
+\bigcup
+endsnippet
+
+context "isMath()"
+snippet In "intersection" iA
+\bigcap
+endsnippet
+
+context "isMath()"
+snippet ++ "bigplus" iA
+\bigoplus $0
+endsnippet
+
+context "isMath()"
+snippet xx "times"  iA
+\times $0
+endsnippet
+
+context "isMath()"
+snippet o. "hammard"  iA
+\odot $0
+endsnippet
+
+context "isMath()"
+snippet oo "infinity" iA
+\infty $0
+endsnippet
+
+snippet . "dot"
+\dots $0
+endsnippet
+
+context "isMath()"
+snippet ~ "sim" iA
+\sim $0
+endsnippet
+
+snippet < "langle"
+\langle $0
+endsnippet
+
+snippet > "rangle"
+\rangle $0
+endsnippet
+
+snippet mc "Mathcal"
+\mathcal{${1}}$0
+endsnippet
+
+snippet mr "Mathscr"
+\mathscr{${1}}$0
+endsnippet
+
+snippet // "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+snippet 1u "superscript" iA
+^{$1}$0
+endsnippet
+
+snippet ceil "ceil" 
+\ceil*{$1}$0
+endsnippet
+
+snippet flor "floor" 
+\floor*{$1}$0
+endsnippet
+
+snippet | "abs" 
+\abs*{$1}$0
+endsnippet
+
+snippet (( "superscript" iA
+\left( $1 \right) $0
+endsnippet
+
+snippet [[ "superscript" iA
+\left[ $1 \right] $0
+endsnippet
+
+snippet {{ "brackets" iA
+\left\\{ $1 \right\\} $0
+endsnippet
+
+context "isMath()"
+snippet << "prec" iA
+\prec
+endsnippet
+
+context "isMath()"
+snippet <<= "preceq" iA
+\preceq
+endsnippet
+
+context "isMath()"
+snippet >> "succ" iA
+\succ
+endsnippet
+
+context "isMath()"
+snippet >>= "succeq" iA
+\succeq
+endsnippet
+
+context "isMath()"
+snippet EE "Expectation" iA
+\mathbb{E} $0
+endsnippet
+
+context "isMath()"
+snippet MM "MM" iA
+\mathcal{M} $0
+endsnippet
+
+context "isMath()"
+snippet ER "Error" iA
+\mathcal{E} $0
+endsnippet
+
+context "isMath()"
+snippet RR "RealNums" iA
+\mathbb{R} $0
+endsnippet
+
+context "isMath()"
+snippet HH "RealNums" iA
+\mathcal{H} $0
+endsnippet
+
+context "isMath()"
+snippet XX "XX" iA
+\mathcal{X} $0
+endsnippet
+
+context "isMath()"
+snippet YY "YY" iA
+\mathcal{Y} $0
+endsnippet
+
+context "isMath()"
+snippet VV "VV" iA
+\mathcal{V} $0
+endsnippet
+
+context "isMath()"
+snippet NN "NN" iA
+\mathcal{N} $0
+endsnippet
+
+context "isMath()"
+snippet AA "AA" iA
+\mathcal{A} $0
+endsnippet
+
+context "isMath()"
+snippet SS "SS" iA
+\mathcal{S} $0
+endsnippet
+
+context "isMath()"
+snippet GG "GG" iA
+\mathcal{G} $0
+endsnippet
+
+context "isMath()"
+snippet TT "TT" iA
+\mathcal{T} $0
+endsnippet
+
+context "isMath()"
+snippet PP "Prob" iA
+\mathbb{P} $0
+endsnippet
+
+context "isMath()"
+snippet ZZ "ints" iA
+\mathbb{Z} $0
+endsnippet
+
+context "isMath()"
+snippet II "II" iA
+\mathcal{I} $0
+endsnippet
+
+context "isMath()"
+snippet DD "DD" iA
+\mathcal{D} $0
+endsnippet
+
+context "isMath()"
+snippet ll "ll" iA
+\ell $0
+endsnippet
+
+context "isMath()"
+snippet \for "forall" iA
+\forall $0
+endsnippet
+
+context "isMath()"
+snippet LL "LL" iA
+\mathcal{L} $0
+endsnippet
+
+context "isMath()"
+snippet FF "FF" iA
+\mathcal{F} $0
+endsnippet
+
+snippet 1d "subscript" iA
+_{$1}$0
+endsnippet
+
+snippet \al "alpha" iA
+\alpha
+endsnippet
+
+snippet \be "beta" iA
+\beta
+endsnippet
+
+snippet \et "eta" iA
+\eta
+endsnippet
+
+snippet \de "delta" iA
+\delta
+endsnippet
+
+snippet \De "Delta" iA
+\Delta
+endsnippet
+
+snippet \th "theta" iA
+\theta
+endsnippet
+
+snippet \Th "Theta" iA
+\Theta
+endsnippet
+
+snippet \ti "tilde" iA
+\tilde{$1}$0
+endsnippet
+
+snippet \ha "hat" iA
+\hat{$1}$0
+endsnippet
+
+snippet \ba "bar" iA
+\overline{$1}$0
+endsnippet
+
+snippet \o "omega" iA
+\omega
+endsnippet
+
+snippet \O "Omega" iA
+\Omega
+endsnippet
+
+snippet \ap "approx" iA
+\approx
+endsnippet
+
+
+snippet \sig "sigma" iA
+\sigma
+endsnippet
+
+snippet \Sig "Sigma" iA
+\Sigma
+endsnippet
+
+snippet \lam "lambda" iA
+\lambda
+endsnippet
+
+snippet \La "Lambda" iA
+\Lambda
+endsnippet
+
+snippet \ph "phi" iA
+\phi
+endsnippet
+
+snippet \Ph "Phi" iA
+\Phi
+endsnippet
+
+snippet \ps "psi" iA
+\psi
+endsnippet
+
+snippet \Ps "Psi" iA
+\Psi
+endsnippet
+
+snippet \ga "gamma" iA
+\gamma
+endsnippet
+
+snippet \Ga "Gamma" iA
+\Gamma
+endsnippet
+
+snippet \ep "epsilon" iA
+\epsilon
+endsnippet
+
+snippet \ka "epsilon" iA
+\kappa
+endsnippet
+
+snippet \sum "sum" iA
+\sum_{$1}$0
+endsnippet
+
+snippet sumo "sum_inf" iA
+\sum_{$1=$2}^{\infty} $0
+endsnippet
+
+snippet \ub "underbracket" iA
+\underbracket{$1}_\text{$2} $0
+endsnippet
+
+snippet \sqr "sqrt" iA
+\sqrt{$1}$0
+endsnippet
+
+snippet \sqn "sqrt" iA
+\sqrt[$1]{$2}$0
+endsnippet
+
+snippet \prod "prod" iA
+\prod_{$1}$0
+endsnippet
+
+snippet \prop "propto" iA
+\propto
+endsnippet
+
+snippet \ta "tau" iA
+\tau
+endsnippet
+
+snippet \te "text" iA
+\text{$1}$0
+endsnippet
+
+snippet \na "nabla" iA
+\nabla $0
+endsnippet
+
+snippet \pa "partial" iA
+\partial $0
+endsnippet
+
+snippet \iff "iff" iA
+\leftrightarrow $0
+endsnippet
+
+snippet ** "mult" iA
+\cdot $0
+endsnippet
+
+snippet \kl "KL" iA
+\kl{$1}{$2}$0
+endsnippet
