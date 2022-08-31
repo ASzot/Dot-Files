@@ -1,5 +1,4 @@
 local cmp = require'cmp'
-local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
@@ -20,7 +19,6 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'ultisnips' }, -- For ultisnips users.
   }, {
     { name = 'buffer' },
   })
@@ -53,25 +51,6 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- Setup lspconfig.
----- Language Servers
--- map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
--- map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
--- map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
--- map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
--- map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
--- map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
--- map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
--- map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
--- map('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
--- map('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
--- map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
--- map('n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- map('n', '<leader>e', '<cmd>lua vim.diagnostic.open_float()<CR>')
--- map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
--- map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
--- map('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>')
-
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 require("lspconfig").pyright.setup {
@@ -83,7 +62,15 @@ require("lspconfig").pyright.setup {
     client.server_capabilities.definitionProvider = false
     client.server_capabilities.rename = false
     client.server_capabilities.signature_help = false
-  end
+  end,
+  filetypes = { "python" },
+  settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
+            },
+        },
+    }
 }
 
 require("lspconfig").jedi_language_server.setup {
@@ -91,13 +78,21 @@ require("lspconfig").jedi_language_server.setup {
   capabilities = capabilities,
 }
 
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- delay update diagnostics
+    update_in_insert = false,
+  }
+)
+
 vim.diagnostic.config({
   virtual_text = false,
+  -- underline = false,
 })
 
 require('lualine').setup {
   options = {
-    icons_enabled = true,
+    icons_enabled = false,
     theme = 'auto',
     component_separators = { left = ' ', right = ' '},
     section_separators = { left = ' ', right = ' '},
@@ -106,21 +101,21 @@ require('lualine').setup {
     globalstatus = false,
   },
   sections = {
+
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
+    lualine_b = {
+      {
+        'filename',
+        file_status = true, -- displays file status (readonly status, modified status)
+        path = 2 -- 0 = just filename, 1 = relative path, 2 = absolute path
+      }
+    },
+    lualine_c = {'branch', 'diff', 'diagnostics'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
   },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
+  inactive_sections = {},
   tabline = {},
   extensions = {}
 }

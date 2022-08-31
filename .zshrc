@@ -56,14 +56,15 @@ alias creategit="sh ~/.dot-files/create_gh_key.sh"
 alias py=python
 alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
-alias sa='source deactivate && source activate'
+alias sa='conda deactivate && conda activate'
 alias rs='source ~/.zshrc'
 alias cw='tmux kill-window -a'
 alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out'
 alias ctags='/usr/local/bin/ctags'
 alias bpush='git ca "Update"'
+alias fpush='git pull --no-edit; git ca "Update" ; git po'
 alias fbt="tmux new -s ssh_local 'ssh -L 4004:localhost:22 devfair'"
-alias fbtssh="sshpass -f ~/.devpass ssh dflocal"
+alias sshmeta="sshpass -f ~/.devpass ssh meta"
 
 compile_tex() {
   pdflatex $1.tex
@@ -82,13 +83,15 @@ nsync() {
   rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"
 }
 
-# To use this you have to install sshpass: brew install hudochenkov/sshpass/sshpass
+# To use this you have to install sshpass: `brew install hudochenkov/sshpass/sshpass`
 msyncpass() {
   # Command for remote development. 
   fswatch -o . | while read f; do sshpass -f ~/.devpass rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"; done
 }
 
-
+calc() {
+  python -c "print($1)"
+}
 
 # Default env
 #source activate tor 
@@ -97,7 +100,6 @@ systemName=$(uname -s)
 
 # Needed for deepmind control suite.
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
-
 
 # Replace this with the HOME dir in the future so it is agnostic to the computer? 
 # The next line updates PATH for the Google Cloud SDK.
@@ -112,22 +114,27 @@ export PATH=$GOPATH/bin:$PATH
 # Terminal settings (needed to have the terminal work sometimes)
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
-export HABLAB_INSTALL_PATH=/Users/andrewszot/Documents/release-hab-lab
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/andrewszot/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+if [ -f "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh" ]; then
+    . "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh"
 else
-    if [ -f "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/andrewszot/miniconda3/bin:$PATH"
-    fi
+    export PATH="/Users/andrewszot/miniconda3/bin:$PATH"
 fi
-unset __conda_setup
 # <<< conda initialize <<<
+
+
+# This is needed for homebrew installation on macos silicon
+export PATH="/opt/homebrew/bin:$PATH"
+
+if (command -v brew && brew list --formula | grep -c ctags ) > /dev/null 2>&1; then
+    alias ctags="$(brew --prefix universal-ctags)/bin/ctags"
+fi
+export EDITOR=nvim
+
+# Activate base conda env
+conda activate
 

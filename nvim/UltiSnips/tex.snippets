@@ -33,6 +33,11 @@ pre_expand "create_table(snip)"
 snippet "mat(\d+)x(\d+)" "Generate table of *width* by *height*" r
 endsnippet
 
+global !p
+def fix_indent(snip):
+    vim.eval('feedkeys("\<c-f>")')
+endglobal
+
 
 snippet fig "addfig"
 \begin{figure*}[!h]
@@ -191,12 +196,20 @@ snippet lim "limit"
 \lim_{$1 \rightarrow $2} $0
 endsnippet
 
-snippet limo "limit_inf"
+snippet lims "lims"
+\limsup_{$1 \rightarrow $2} $0
+endsnippet
+
+snippet limi "limi"
+\liminf_{$1 \rightarrow $2} $0
+endsnippet
+
+snippet limo "limit_inf" iA
 \lim_{$1 \rightarrow \infty} $0
 endsnippet
 
 snippet mk "Math" wA
-$${1}$`!p
+$ ${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
 else:
@@ -225,6 +238,12 @@ snippet enum "Enumerate" bA
 	\item $0
 \end{enumerate}
 endsnippet
+
+post_expand "fix_indent(snip)"
+snippet * "Individual item" b
+\item $0
+endsnippet
+
 
 snippet dn "Math" wA
 \begin{align}
@@ -302,12 +321,12 @@ snippet -> "arrow" iA
 endsnippet
 
 context "isMath()"
-snippet up "uparrow" iA
+snippet up "uparrow" 
 \uparrow $0
 endsnippet
 
 context "isMath()"
-snippet down "downarrow" iA
+snippet down "downarrow" 
 \downarrow $0
 endsnippet
 
@@ -331,18 +350,63 @@ snippet amax "argmax" iA
 endsnippet
 
 context "isMath()"
-snippet \im "implies" iA
+snippet sup "sup" iA
+\sup$0
+endsnippet
+
+context "isMath()"
+snippet inf "inf" iA
+\inf$0
+endsnippet
+
+context "isMath()"
+snippet imp "implies" iA
 \implies $0
 endsnippet
 
 context "isMath()"
-snippet Un "union" iA
-\bigcup
+snippet Uni "union" iA
+\bigcup_{$1}$0
 endsnippet
 
 context "isMath()"
-snippet In "intersection" iA
-\bigcap
+snippet Uno "unioninf" iA
+\bigcup_{$1}^{\infty} $0
+endsnippet
+
+context "isMath()"
+snippet uni "smallunion" iA
+\cup 
+endsnippet
+
+context "isMath()"
+snippet setm "setminus" iA
+\setminus 
+endsnippet
+
+context "isMath()"
+snippet subs "subset" iA
+\subset 
+endsnippet
+
+context "isMath()"
+snippet emp "emptyset" iA
+\emptyset 
+endsnippet
+
+context "isMath()"
+snippet Int "intersection" iA
+\bigcap_{$1}$0
+endsnippet
+
+context "isMath()"
+snippet Ino "intinf" iA
+\bigcap_{$1}^{\infty} $0
+endsnippet
+
+context "isMath()"
+snippet int "smallintersection" iA
+\cap 
 endsnippet
 
 context "isMath()"
@@ -490,6 +554,11 @@ endsnippet
 context "isMath()"
 snippet AA "AA" iA
 \mathcal{A} $0
+endsnippet
+
+context "isMath()"
+snippet CC "CC" iA
+\mathbb{C} $0
 endsnippet
 
 context "isMath()"
