@@ -9,6 +9,11 @@ find ~/Downloads/* -maxdepth 1 -mtime +1 -exec rm -rf {} \;
 rm ~/Downloads/daily/*
 
 # Generate 
-/Users/andrewszot/miniconda3/bin/python ~/me/get_daily.py
+/Users/andrewszot/miniconda3/bin/python ~/.dot-files/cron/get_daily.py
 
-osascript -e 'display notification "Finished daily"'
+# Remove the auxiliary latex files.
+rm ~/Downloads/daily/*.aux
+rm ~/Downloads/daily/*.out
+rm ~/Downloads/daily/*.log
+
+open ~/Downloads/daily

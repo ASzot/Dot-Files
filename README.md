@@ -5,7 +5,6 @@ Used for Mac OS X and Ubuntu.
 ```
 git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
-
 Run `sh update.sh` to install all of the configurations. Reload your zsh. If you are installing a new system read the mac environment setup or the ubuntu environment setup.
 
 For older versions of tmux, copy the old tmux conf file. 
@@ -23,6 +22,22 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * `cw`: Kill all tmux windows except for the current one. 
 * `nv`: Alias for `nvidia-smi`
 * `sfor`: Alias for `ps aux | grep` to search for a process. 
+
+## Additonal Config
+`./set_env_vars.sh` for system dependent settings. To setup auto conda activate, add this:
+```
+cd () { builtin cd "$@" && chpwd; }
+chpwd () {
+  case $PWD in
+    /Users/andrewszot/Documents/code/habitat-lab)
+      conda activate hablab
+      ;;
+    /Users/andrewszot/Documents/code/p-hr)
+      conda activate hr
+      ;;
+  esac
+}
+```
 
 ## Scripts
 * `push.sh`: Pushes the current settings from the machine into the repository.
@@ -47,7 +62,6 @@ Shortcuts are defined in `.zshrc`. They are listed here:
 * Install neovim: `berw install neovim`
 * Download forklift https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. 
 * Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
-* Install daily cron job `env EDITOR=nano crontab -e` then `0 9 * * * ~/.dot-files/cron/daily.sh`. Also put `MAILTO=""` at the top.
 
 ### Vim Usage
 Then run `sh vim_setup.sh`.

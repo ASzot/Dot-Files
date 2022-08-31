@@ -6,3 +6,5 @@ pip install black
 pip install jedi
 pip install pyright
 pip install neovim
+pip install neovim
+pip install jedi-language-server
