@@ -1,16 +1,24 @@
-snippet nc "New Class"
+snippet nc "New Class" iA
 class $1:
     def __init__(self):
         $0
 endsnippet
 
 
-snippet nf "New func"
+snippet nf "New func" iA
 def $1($2):
     $3
 endsnippet
 
-snippet ncom "New func"
+snippet fk "fstring" iA
+f"$1"$0
+endsnippet
+
+snippet qk "string" iA
+"$1"$0
+endsnippet
+
+snippet ncom "New func" iA
 """
 $1
 """
@@ -19,7 +27,7 @@ endsnippet
 
 
 
-snippet definit "def init"
+snippet definit "def init" iA
 def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
 $0
