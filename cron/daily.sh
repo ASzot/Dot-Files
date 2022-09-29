@@ -6,6 +6,10 @@ cd ~/me && git add -A && git commit -m "Daily update" && git push
 # Clean up downloads folder.
 find ~/Downloads/* -maxdepth 1 -mtime +1 -exec rm -rf {} \;
 
+rm -f ~/Downloads/BeFocused.csv
+# Fetch the BeFocused data
+open -n /Users/andrewszot/Library/Mobile\ Documents/com\~apple\~Automator/Documents/export_befocused_csv.app
+
 rm ~/Downloads/daily/*
 
 # Generate 
