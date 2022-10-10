@@ -11,7 +11,7 @@ with open(SETTINGS_FILE, "r") as f:
 
 users = subprocess.Popen(
     shlex.split(
-        "sacctmgr show assoc format=User%30,Account%30 where account=cvmlp-lab"
+        f"sacctmgr show assoc format=User%30,Account%30 where account={settings['LAB']}"
     ),
     stdout=subprocess.PIPE,
 ).communicate()
