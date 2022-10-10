@@ -20,4 +20,7 @@ rm ~/Downloads/daily/*.aux
 rm ~/Downloads/daily/*.out
 rm ~/Downloads/daily/*.log
 
+# Generate stats vis.
+/Users/andrewszot/miniconda3/bin/python ~/.dot-files/cron/vis_stats.py
+
 open ~/Downloads/daily
