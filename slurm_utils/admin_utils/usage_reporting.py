@@ -3,10 +3,30 @@ import requests
 import yaml
 import os.path as osp
 import shlex
+import argparse
+import json
 
-SETTINGS_FILE = osp.join(osp.expanduser("~"), ".admin_script_info.yaml")
 
-with open(SETTINGS_FILE, "r") as f:
+def send_message(settings, txt):
+    post_data = {}
+    if settings["CHANNEL"] is not None:
+        post_data["channel"] = settings["CHANNEL"]
+
+    if settings["USER"] is not None:
+        post_data["username"] = settings["USER"]
+    post_data["text"] = f"[Skynet space] {txt}"
+    payload = json.dumps(post_data)
+
+    requests.post(settings["SLACK_ENDPOINT"], data=payload)
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--settings-name", type=str, required=True)
+args = parser.parse_args()
+
+settings_file = osp.join(osp.expanduser("~"), f".{args.settings_name}.yaml")
+
+with open(settings_file, "r") as f:
     settings = yaml.safe_load(f)
 
 users = subprocess.Popen(
@@ -36,9 +56,4 @@ for x in output[1:]:
 
         if not (is_valid_user or is_valid_storage):
             continue
-
-        payload = (
-            '{"channel": "%s", "username": "%s", "text": "[Skynet space] %s"}'
-            % (settings["CHANNEL"], settings["USER"], x)
-        )
-        requests.post(settings["SLACK_ENDPOINT"], data=payload)
+        send_message(settings, x)
