@@ -8,7 +8,7 @@ export ZSH=~/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="af-magic"
+ZSH_THEME="kphoen"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -43,28 +43,36 @@ bindkey "^E" edit-command-line
 
 export PATH=/usr/local/bin:$PATH
 export PATH=~/anaconda3/bin:$PATH
-export PATH=~/miniconda3/bin:$PATH
 
 if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
 then
   source ~/.dot-files/set_env_vars.sh
 fi
 
-# Aliases
-alias upme='sh ~/.dot-files/update.sh'
+# Aliases (shortcuts)
 alias creategit="sh ~/.dot-files/create_gh_key.sh"
 alias py=python
 alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
 alias sa='conda deactivate && conda activate'
 alias rs='source ~/.zshrc'
-alias cw='tmux kill-window -a'
-alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out'
 alias ctags='/usr/local/bin/ctags'
+
+# Helper programs
+alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out; rm *.fdb*; rm *.fls'
+alias upme='sh ~/.dot-files/update.sh'
+alias cw='tmux kill-window -a'
 alias bpush='git ca "Update"'
 alias fpush='git pull --no-edit; git ca "Update" ; git po'
-alias fbt="tmux new -s ssh_local 'ssh -L 4004:localhost:22 devfair'"
 alias sshmeta="sshpass -f ~/.devpass ssh meta"
+
+# Project specs
+alias mbirlo='python -m rl_utils.launcher --cfg ~/.dot-files/configs/mbirlo.yaml'
+alias hab='python -m rl_utils.launcher --cfg ~/.dot-files/configs/habitat.yaml'
+alias hr='python -m rl_utils.launcher --cfg ~/.dot-files/configs/hr.yaml'
+alias hreval='python -m rl_utils.launcher.eval_sys --cfg ~/.dot-files/configs/hr.yaml'
+alias rlt='python -m rl_utils.launcher --cfg ~/.dot-files/configs/rlt.yaml'
+alias rlteval='python -m rl_utils.launcher.eval_sys --cfg ~/.dot-files/configs/rlt.yaml'
 
 compile_tex() {
   pdflatex $1.tex
@@ -114,6 +122,7 @@ export PATH=$GOPATH/bin:$PATH
 # Terminal settings (needed to have the terminal work sometimes)
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -129,12 +138,13 @@ fi
 
 # This is needed for homebrew installation on macos silicon
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH=~/miniconda3/bin:$PATH
 
 if (command -v brew && brew list --formula | grep -c ctags ) > /dev/null 2>&1; then
     alias ctags="$(brew --prefix universal-ctags)/bin/ctags"
 fi
-export EDITOR=nvim
+export EDITOR=vim
 
 # Activate base conda env
-conda activate
+conda activate base
 

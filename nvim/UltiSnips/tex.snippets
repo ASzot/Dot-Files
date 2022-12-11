@@ -141,6 +141,12 @@ snippet mydef "mydef"
 \end{mydef}$0
 endsnippet
 
+snippet myex "myex"
+\begin{myex}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
+	$2
+\end{myex}$0
+endsnippet
+
 snippet mytheo "mytheo"
 \begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
 	$2
@@ -171,6 +177,16 @@ snippet \lab "label" wA
 \label{$1} $0
 endsnippet
 
+context "isMath()"
+snippet qq "quad" wA
+\quad $0
+endsnippet
+
+context "isMath()"
+snippet dd "deriv" wA
+\dd$0
+endsnippet
+
 snippet expl "expl"
 \tag*{($1)}$0
 endsnippet
@@ -183,9 +199,9 @@ endsnippet
 
 snippet cases "cases"
 \begin{cases}
-	${1:equation}, &\text{ if }${2:case}\\\\
-	${3}
-\end{cases}
+	${1:equation} &\text{ if }${2:case}\\\\
+	${3} & ${4}
+\end{cases}${0}
 endsnippet
 
 snippet oth "otherwise"
@@ -204,7 +220,7 @@ snippet limi "limi"
 \liminf_{$1 \rightarrow $2} $0
 endsnippet
 
-snippet limo "limit_inf" iA
+snippet limo "limit_inf"
 \lim_{$1 \rightarrow \infty} $0
 endsnippet
 
@@ -293,12 +309,8 @@ snippet cr "link"
 \Cref{${1}}$0
 endsnippet
 
-snippet 11 "indicator"
-\mathbbm{1} $0
-endsnippet
-
 snippet bb "mathbb"
-\mathbb{${1}} $0
+\mathbb{${1}}$0
 endsnippet
 
 snippet l| "left|"
@@ -321,6 +333,26 @@ snippet -> "arrow" iA
 endsnippet
 
 context "isMath()"
+snippet in "in" wA
+\in $0
+endsnippet
+
+context "isMath()"
+snippet ge "ge" iA
+\ge $0
+endsnippet
+
+context "isMath()"
+snippet le "le" iA
+\le $0
+endsnippet
+
+context "isMath()"
+snippet |> "arrow" iA
+\nrightarrow $0
+endsnippet
+
+context "isMath()"
 snippet up "uparrow" 
 \uparrow $0
 endsnippet
@@ -330,13 +362,18 @@ snippet down "downarrow"
 \downarrow $0
 endsnippet
 
-snippet x-> "arrow"
-\xrightarrow{\text{$1}} $0
+snippet larrow "arrow"
+\xrightarrow{$1} $0
 endsnippet
 
 context "isMath()"
 snippet <- "arrow" iA
 \leftarrow $0
+endsnippet
+
+context "isMath()"
+snippet <| "arrow" iA
+\nleftarrow $0
 endsnippet
 
 context "isMath()"
@@ -355,13 +392,18 @@ snippet sup "sup" iA
 endsnippet
 
 context "isMath()"
-snippet inf "inf" iA
+snippet enf "inf" iA
 \inf$0
 endsnippet
 
 context "isMath()"
 snippet imp "implies" iA
 \implies $0
+endsnippet
+
+context "isMath()"
+snippet dd= "dd" iA
+\stackrel{d}{=}
 endsnippet
 
 context "isMath()"
@@ -400,12 +442,17 @@ snippet Int "intersection" iA
 endsnippet
 
 context "isMath()"
+snippet '' "integral" iA
+\int
+endsnippet
+
+context "isMath()"
 snippet Ino "intinf" iA
 \bigcap_{$1}^{\infty} $0
 endsnippet
 
 context "isMath()"
-snippet int "smallintersection" iA
+snippet ent "smallintersection" iA
 \cap 
 endsnippet
 
@@ -429,7 +476,8 @@ snippet oo "infinity" iA
 \infty $0
 endsnippet
 
-snippet . "dot"
+context "isMath()"
+snippet .. "dot" iA
 \dots $0
 endsnippet
 
@@ -508,117 +556,126 @@ endsnippet
 
 context "isMath()"
 snippet EE "Expectation" iA
-\mathbb{E} $0
+\mathbb{E}$0
+endsnippet
+
+snippet 11 "indicator"
+\mathbbm{1}$0
 endsnippet
 
 context "isMath()"
 snippet MM "MM" iA
-\mathcal{M} $0
+\mathcal{M}$0
 endsnippet
 
 context "isMath()"
 snippet ER "Error" iA
-\mathcal{E} $0
+\mathcal{E}$0
 endsnippet
 
 context "isMath()"
 snippet RR "RealNums" iA
-\mathbb{R} $0
+\mathbb{R}$0
 endsnippet
 
 context "isMath()"
 snippet BB "bb" iA
-\mathscr{B} $0
+\mathscr{B}$0
 endsnippet
 
 context "isMath()"
 snippet HH "RealNums" iA
-\mathcal{H} $0
+\mathcal{H}$0
 endsnippet
 
 context "isMath()"
 snippet XX "XX" iA
-\mathcal{X} $0
+\mathcal{X}$0
 endsnippet
 
 context "isMath()"
 snippet YY "YY" iA
-\mathcal{Y} $0
+\mathcal{Y}$0
 endsnippet
 
 context "isMath()"
 snippet VV "VV" iA
-\mathcal{V} $0
+\mathcal{V}$0
 endsnippet
 
 context "isMath()"
 snippet NN "NN" iA
-\mathcal{N} $0
+\mathcal{N}$0
 endsnippet
 
 context "isMath()"
 snippet AA "AA" iA
-\mathcal{A} $0
+\mathcal{A}$0
 endsnippet
 
 context "isMath()"
 snippet CC "CC" iA
-\mathbb{C} $0
+\mathbb{C}$0
 endsnippet
 
 context "isMath()"
 snippet SS "SS" iA
-\mathcal{S} $0
+\mathcal{S}$0
 endsnippet
 
 context "isMath()"
 snippet GG "GG" iA
-\mathcal{G} $0
+\mathcal{G}$0
 endsnippet
 
 context "isMath()"
 snippet TT "TT" iA
-\mathcal{T} $0
+\mathcal{T}$0
 endsnippet
 
 context "isMath()"
 snippet PP "Prob" iA
-\mathbb{P} $0
+\mathbb{P}$0
 endsnippet
 
 context "isMath()"
 snippet ZZ "ints" iA
-\mathbb{Z} $0
+\mathbb{Z}$0
 endsnippet
 
 context "isMath()"
 snippet II "II" iA
-\mathcal{I} $0
+\mathcal{I}$0
 endsnippet
 
 context "isMath()"
 snippet DD "DD" iA
-\mathcal{D} $0
+\mathcal{D}$0
 endsnippet
 
 context "isMath()"
 snippet ll "ll" iA
-\ell $0
+\ell$0
 endsnippet
 
 context "isMath()"
-snippet \for "forall" iA
+snippet for "forall" iA
 \forall $0
 endsnippet
 
 context "isMath()"
+snippet exi "exists" iA
+\exists $0
+endsnippet
+
+context "isMath()"
 snippet LL "LL" iA
-\mathcal{L} $0
+\mathcal{L}$0
 endsnippet
 
 context "isMath()"
 snippet FF "FF" iA
-\mathcal{F} $0
+\mathcal{F}$0
 endsnippet
 
 snippet 1d "subscript" iA
@@ -641,6 +698,7 @@ snippet \de "delta" iA
 \delta
 endsnippet
 
+context "isMath()"
 snippet \De "Delta" iA
 \Delta
 endsnippet
@@ -690,7 +748,7 @@ snippet \lam "lambda" iA
 \lambda
 endsnippet
 
-snippet \La "Lambda" iA
+snippet \Lam "Lambda" iA
 \Lambda
 endsnippet
 
@@ -726,11 +784,12 @@ snippet \ka "epsilon" iA
 \kappa
 endsnippet
 
-snippet \sum "sum" iA
+context "isMath()"
+snippet sum "sum"
 \sum_{$1}$0
 endsnippet
 
-snippet sumo "sum_inf" iA
+snippet sumo "sum_inf"
 \sum_{$1=$2}^{\infty} $0
 endsnippet
 
@@ -746,7 +805,8 @@ snippet \sqn "sqrt" iA
 \sqrt[$1]{$2}$0
 endsnippet
 
-snippet \prod "prod" iA
+context "isMath()"
+snippet prod "prod" iA
 \prod_{$1}$0
 endsnippet
 
@@ -763,11 +823,11 @@ snippet \te "text" iA
 endsnippet
 
 snippet \na "nabla" iA
-\nabla $0
+\nabla$0
 endsnippet
 
 snippet \pa "partial" iA
-\partial $0
+\partial$0
 endsnippet
 
 snippet \iff "iff" iA

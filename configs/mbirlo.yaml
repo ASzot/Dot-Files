@@ -1,0 +1,21 @@
+base_data_dir: "/checkpoint/andrewszot/mbirlo/"
+proj_name: "p-mbirlo"
+wb_entity: "andrew-colab"
+ckpt_cfg_key: "logger.save_dir"
+ckpt_append_name: True
+
+add_env_vars:
+  - "MAGNUM_LOG=quiet"
+  - "HABITAT_SIM_LOG=quiet"
+  - "HYDRA_FULL_ERROR=1"
+conda_env: "meta_irl"
+slurm_ignore_nodes: []
+add_all: "logger.group_name=$GROUP_ID"
+proj_data: 
+  debug: "logger=cli log_interval=1 eval_interval=1 num_eval_episodes=1 logger.run_name=debug"
+  eval: "seed=$CMD_RANK"
+slurm:
+  small:
+    c: 10
+    time: 2880
+    partition: learnfair

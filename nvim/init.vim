@@ -39,8 +39,9 @@ Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'junegunn/goyo.vim'
+Plug 'sheerun/vim-polyglot'
 
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -92,7 +93,7 @@ highlight SignColumn ctermbg=gray guibg=gray
 hi Visual cterm=reverse term=reverse ctermfg=cyan
 
 set updatetime=250
-autocmd CursorHold * lua vim.diagnostic.open_float({scope="line", focus=false})
+" autocmd CursorHold * lua vim.diagnostic.open_float({scope="line", focus=false})
 
 " Unfold by default
 au BufRead * normal zR
@@ -119,9 +120,14 @@ let g:tagbar_autofocus = 0
 let g:tagbar_left = 1
 
 " Vimtex
+syntax on
 let g:vimtex_view_method = 'skim'
+" let g:latex_view_general_viewer = 'zathura'
 let g:vimtex_quickfix_open_on_warning = 0
 let g:vimtex_quickfix_mode = 0
+let g:vimtex_fold_enabled=1
+let g:vimtex_fold_manual=1
+
 "let g:vimtex_quickfix_autoclose_after_keystrokes=2
 "let g:vimtex_quickfix_enabled = 0
 let g:vimtex_compiler_latexmk = {
@@ -145,12 +151,19 @@ let g:black#settings = {
 
 " By defaeult semshi will highlight everything cursor is under.
 let g:semshi#mark_selected_nodes=0
+
+" Markdown
+let g:vim_markdown_toc_autofit=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keyboard Remaps
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+map <leader>1 :call SetDarkMode()<CR>
+map <leader>2 :call SetLightMode()<CR>
+
 " Redo
 map <F7> :redo <CR>
 
@@ -201,20 +214,23 @@ map <leader>q :lua vim.diagnostic.setloclist()<CR>
 " LSP refactor
 map <leader>rn :lua vim.lsp.buf.rename()<CR>
 
-" LSP Symbols
-map <c-]> :lua vim.lsp.buf.definition()<CR>
-map [I :lua vim.lsp.buf.references()<CR>
-map K :lua vim.lsp.buf.hover()<CR>
-map gK :lua vim.lsp.buf.signature_help()<CR>
-" The same as declaration
-" map <leader>D :lua vim.lsp.buf.type_definition()<CR>
-" map gd :lua vim.lsp.buf.definition()<CR>
-"
 map <F8> :call CompileFile() <CR>
 map <F9> :call FastCompileFile() <CR>
 
 " Toggle focus mode.
 nmap <leader>f :call ToggleFocusMode()<CR>
+
+function SetLspOptions()
+  " LSP Symbols
+  map <c-]> :lua vim.lsp.buf.definition()<CR>
+  map [I :lua vim.lsp.buf.references()<CR>
+  map K :lua vim.lsp.buf.hover()<CR>
+  map gK :lua vim.lsp.buf.signature_help()<CR>
+  " The same as declaration
+  " map <leader>D :lua vim.lsp.buf.type_definition()<CR>
+  " map gd :lua vim.lsp.buf.definition()<CR>
+  "
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -224,6 +240,7 @@ nmap <leader>f :call ToggleFocusMode()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
 function SetPythonOptions()
+  call SetLspOptions()
   nnoremap <leader>^ :call FindReplaceMultiFile()<CR>
   nnoremap <leader>& :call FindReplaceUnderWordMultiFile("/gj **/*.yaml **/*.py")<CR>
 
@@ -234,9 +251,11 @@ function SetPythonOptions()
   map <leader>e obreakpoint()<C-c>
 
   " Auto formatters.
-  "nnoremap <buffer><silent> <c-q> <cmd>call Black()<cr>
   autocmd BufWritePre *.py silent! call Black()
   " autocmd BufWritePre *.py execute ':Isort'
+  " autocmd FocusLost *.py silent! TagbarClose
+  " autocmd FocusGained *.py silent! TagbarOpen
+  "autocmd BufWritePost *.py silent! Semshi enable
 
   set signcolumn=number
 endfunction
@@ -287,6 +306,7 @@ function SetTexOptions()
 	set nospell
   map <leader>r O%R: 
   hi Error NONE
+  hi clear Conceal
   set signcolumn=no
   nnoremap j gj
   nnoremap k gk
@@ -295,6 +315,8 @@ function SetTexOptions()
   noremap <leader>v :call AutoTex()<CR>
   " Disable the auto complete
   :lua require('cmp').setup.buffer { enabled = false }
+
+  noremap <leader>b :call FastTex()<CR>
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -375,6 +397,27 @@ function AutoTex()
    :VimtexCompile
 endfunction
 
+
+function FastTex()
+  set updatetime=750
+  set so=999
+  silent !rm ~/Downloads/fast_build/*.log ; rm ~/Downloads/fast_build/*.out ; rm ~/Downloads/fast_build/*.aux ; mkdir -p ~/Downloads/fast_build/
+  silent !touch ~/Downloads/fast_build/note.txt 
+  silent !pdflatex -interaction nonstopmode -output-directory ~/Downloads/fast_build/ %
+
+  let curFile = expand('%:t:r')
+  silent exec "! open -a Skim ~/Downloads/fast_build/" . curFile . ".pdf"
+  autocmd TextChanged,TextChangedI *.tex silent call FastCompile()
+endfunction
+
+function FastCompile()
+  write
+
+  if !empty(expand(glob("~/Downloads/fast_build/note.txt")))
+    exec "! rm ~/Downloads/fast_build/* ; { pdflatex -interaction nonstopmode -output-directory ~/Downloads/fast_build/ " . @% . " ; touch ~/Downloads/fast_build/note.txt } > test.log 2>&1 &"
+  endif
+endfunction
+
 " Find and replace across multiple files
 function FindReplaceMultiFile()
   let findMulti = input('Find: ')
@@ -390,4 +433,17 @@ function! ToggleFocusMode()
   :Goyo "100"
 endfunction
 autocmd! User GoyoLeave silent! source $HOME/.config/nvim/init.vim
+
+function! SetDarkMode()
+  :color darkblue
+  hi clear Conceal
+  highlight clear Conceal
+endfunction
+function! SetLightMode()
+  :color peachpuff
+  hi clear Conceal
+  highlight clear Conceal
+endfunction
+call SetDarkMode()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

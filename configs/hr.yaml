@@ -1,0 +1,82 @@
+base_data_dir: "/checkpoint/andrewszot/hr"
+proj_name: "hr"
+wb_entity: "aszot"
+add_env_vars:
+  - "MAGNUM_LOG=quiet"
+  - "HABITAT_SIM_LOG=quiet"
+proj_dat_add_env_vars:
+  debug: "HABITAT_ENV_DEBUG=1"
+  debug_extreme: "TORCH_DISTRIBUTED_DEBUG=DETAIL"
+  eval_debug: "HABITAT_ENV_DEBUG=1"
+  render_debug: "HABITAT_ENV_DEBUG=1"
+conda_env: "hr"
+ckpt_cfg_key: "CHECKPOINT_FOLDER"
+slurm_ignore_nodes: [""]
+add_all: "WB.ENTITY $WB_ENTITY WB.RUN_NAME $SLURM_ID WB.PROJECT_NAME $PROJECT_NAME WB.GROUP $GROUP_ID CHECKPOINT_FOLDER $DATA_DIR/checkpoints/$SLURM_ID/ VIDEO_DIR $DATA_DIR/vids/$SLURM_ID/ LOG_FILE $DATA_DIR/logs/$SLURM_ID.log TENSORBOARD_DIR $DATA_DIR/tb/$SLURM_ID/"
+eval_sys:
+  ckpt_load_k: "EVAL_CKPT_PATH_DIR"
+  ckpt_search_dir: "checkpoints"
+  sep: " "
+  add_eval_to_vals:
+    - "WB.RUN_NAME"
+  change_vals:
+    "--run-type": "eval"
+proj_data:
+  # Eval settings
+  render: "SENSORS \"('THIRD_RGB_SENSOR', 'HEAD_DEPTH_SENSOR')\" TASK_CONFIG.SIMULATOR.DEBUG_RENDER True TASK_CONFIG.SIMULATOR.AGENT_0.SENSORS \"('HEAD_DEPTH_SENSOR', 'THIRD_RGB_SENSOR')\" NUM_ENVIRONMENTS 1 VIDEO_OPTION \"('disk',)\" WRITER_TYPE tb TEST_EPISODE_COUNT 5"
+  render_debug: "SENSORS \"('THIRD_RGB_SENSOR', 'HEAD_DEPTH_SENSOR')\" TASK_CONFIG.SIMULATOR.DEBUG_RENDER True TASK_CONFIG.SIMULATOR.AGENT_0.SENSORS \"('HEAD_DEPTH_SENSOR', 'THIRD_RGB_SENSOR')\" NUM_ENVIRONMENTS 1 VIDEO_OPTION \"('disk',)\" WRITER_TYPE tb TEST_EPISODE_COUNT 1"
+  render_top: "--run-type eval SENSORS \"('THIRD_RGB_SENSOR', 'HEAD_DEPTH_SENSOR', 'TOP_DOWN_RGB_SENSOR')\" TASK_CONFIG.SIMULATOR.DEBUG_RENDER True TASK_CONFIG.SIMULATOR.AGENT_0.SENSORS \"('HEAD_DEPTH_SENSOR', 'THIRD_RGB_SENSOR', 'TOP_DOWN_RGB_SENSOR')\" NUM_ENVIRONMENTS 1 VIDEO_OPTION \"('disk',)\""
+  hab_eval_debug: "TEST_EPISODE_COUNT 1 SENSORS \"('THIRD_RGB_SENSOR', 'HEAD_DEPTH_SENSOR')\" TASK_CONFIG.SIMULATOR.DEBUG_RENDER True TASK_CONFIG.SIMULATOR.AGENT_0.SENSORS \"('HEAD_DEPTH_SENSOR', 'THIRD_RGB_SENSOR')\" --run-type eval"
+  no_render: "VIDEO_OPTION \"()\""
+  tb: "WRITER_TYPE tb"
+
+  # Method settings
+  discrim: "RL.POLICIES.POLICY_0.high_level_policy.use_pref_discrim True"
+  selfplay: "RL.AGENT_SAMPLER.SELF_PLAY True"
+  aux: "RL.POLICIES.POLICY_0.high_level_policy.use_aux_pred True"
+  stage2: "RL.AGENT_SAMPLER.SECOND_STAGE_START 0.0"
+  discrimloc: "RL.POLICIES.POLICY_0.high_level_policy.pref_discrim.in_keys \"('localization_sensor',)\""
+
+  # Task settings
+  # im: "--exp-config ma_habitat_baselines/config/hab/tp_srl_multi_skills_im.yaml"
+  im: "--exp-config ma_habitat_baselines/config/hab/im.yaml"
+  im_debug: "--exp-config ma_habitat_baselines/config/hab/im_debug.yaml"
+  # st: "--exp-config ma_habitat_baselines/config/hab/tp_srl_multi_skills.yaml"
+  st: "--exp-config ma_habitat_baselines/config/hab/st.yaml"
+  fast: "--exp-config ma_habitat_baselines/config/hab/im2.yaml"
+
+  # Eval settings
+  selfsample: "RL.AGENT_SAMPLER.ONLY_SELF_SAMPLE True RL.AGENT_TRACKER.RENDER_SELF True RL.AGENT_SAMPLER.SELF_PLAY True"
+
+  # Debug settings
+  debug: "NUM_ENVIRONMENTS 1 LOG_INTERVAL 1 RL.PPO.num_mini_batch 1 WRITER_TYPE tb VIDEO_DIR $DATA_DIR/vids/debug/"
+  stage_debug: "RL.AGENT_SAMPLER.SECOND_STAGE_START 2e2 RL.AGENT_SAMPLER.SAMPLE_INTERVAL 1"
+  debug_extreme: "WRITER_TYPE tb"
+  st_debug: "--exp-config ma_habitat_baselines/config/hab/tp_srl_multi.yaml"
+  eval_debug: "NUM_ENVIRONMENTS 1 VIDEO_DIR $DATA_DIR/vids/debug/ RL.AGENT_SAMPLER.FIX_AGENT_A 0 RL.AGENT_SAMPLER.FIX_AGENT_B 1 TEST_EPISODE_COUNT 1 WRITER_TYPE tb"
+  eval_half_debug: "NUM_ENVIRONMENTS 1 VIDEO_DIR $DATA_DIR/vids/debug/ RL.AGENT_SAMPLER.FIX_AGENT_A 0 TEST_EPISODE_COUNT 2 WRITER_TYPE tb"
+
+  skills_im: "--exp-config ma_habitat_baselines/config/hab/tp_srl_multi_skills_im.yaml"
+  skills: "--exp-config ma_habitat_baselines/config/hab/tp_srl_multi_skills.yaml"
+  single_skills: "--exp-config ma_habitat_baselines/config/hab/tp_srl_skills.yaml"
+
+  # tasks
+  tidy_house: "TASK_CONFIG.DATASET.DATA_PATH data/datasets/replica_cad/rearrange/v1/train/tidy_house_10k_1k.json.gz TASK_CONFIG.TASK.TASK_SPEC tidy_house_multi TASK_CONFIG.ENVIRONMENT.MAX_EPISODE_STEPS 750"
+  set_table: ""
+  prepare_groceries: "TASK_CONFIG.DATASET.DATA_PATH data/datasets/replica_cad/rearrange/v1/train/prepare_groceries_10k_1k.json.gz TASK_CONFIG.TASK.TASK_SPEC prepare_groceries_multi TASK_CONFIG.ENVIRONMENT.MAX_EPISODE_STEPS 750"
+
+  # Single agent tasks.
+  set_table_single: "TASK_CONFIG.TASK.TASK_SPEC set_table"
+  tidy_house_single: "TASK_CONFIG.DATASET.DATA_PATH data/datasets/replica_cad/rearrange/v1/train/tidy_house_10k_1k.json.gz TASK_CONFIG.TASK.TASK_SPEC tidy_house TASK_CONFIG.ENVIRONMENT.MAX_EPISODE_STEPS 1500"
+slurm:
+  large:
+    c: 20
+    constraint: volta32gb
+    time: 2880
+    partition: learnfair
+    cpu_mem: "4GB"
+  small:
+    c: 20
+    time: 2880
+    partition: learnfair
+    cpu_mem: "4GB"

@@ -1,4 +1,5 @@
 local cmp = require'cmp'
+local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
 
 cmp.setup({
   snippet = {
@@ -14,8 +15,29 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<C-e>'] = cmp.mapping.abort(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+    -- ["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+    -- ["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      cmp_ultisnips_mappings.expand_or_jump_forwards(fallback)
+			-- if cmp.visible() then
+			-- 	cmp.select_next_item()
+      -- elseif luasnip.expand_or_jumpable() then
+			-- 	luasnip.expand_or_jump()
+			-- else
+			-- 	fallback()
+			-- end
+		end, {"i", "s"}),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+      cmp_ultisnips_mappings.jump_backwards(fallback)
+			-- if cmp.visible() then
+			-- 	cmp.select_prev_item()
+      -- elseif luasnip.jumpable(-1) then
+			-- 	luasnip.jump(-1)
+			-- else
+			-- 	fallback()
+			-- end
+		end, {"i", "s"}),
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -86,8 +108,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 vim.diagnostic.config({
-  virtual_text = false,
-  -- underline = false,
+  --virtual_text = false,
+  virtual_text = {
+    severity=vim.diagnostic.severity.WARN,
+  },
+  signs = {
+    severity=vim.diagnostic.severity.WARN,
+  },
+  severity_sort = true,
+  underline = false,
 })
 
 require('lualine').setup {

@@ -1,24 +1,31 @@
-snippet nc "New Class" iA
+snippet newclass "New Class" 
 class $1:
-    def __init__(self):
+    def __init__(self$2):
+        $0
+endsnippet
+
+snippet newfile "New File" 
+if __name__ == "__main__":
+    $0
+endsnippet
+
+
+
+snippet newclassup "New Class (super)" 
+class $1($2):
+    def __init__(self$3):
+        super().__init__($4)
         $0
 endsnippet
 
 
-snippet nf "New func" iA
+
+snippet nf "New func" 
 def $1($2):
     $3
 endsnippet
 
-snippet fk "fstring" iA
-f"$1"$0
-endsnippet
-
-snippet qk "string" iA
-"$1"$0
-endsnippet
-
-snippet ncom "New func" iA
+snippet ncom "New func" 
 """
 $1
 """
@@ -27,10 +34,14 @@ endsnippet
 
 
 
-snippet definit "def init" iA
+snippet definit "def init" 
 def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
 $0
+endsnippet
+
+snippet now "Date"
+`date +%Y-%m-%d_%H:%M` ${0}
 endsnippet
 
 

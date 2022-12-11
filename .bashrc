@@ -16,10 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
-
-export PROMPT_COMMAND="history -a; history -n"
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -125,60 +123,34 @@ alias creategit="sh ~/.dot-files/create_gh_key.sh"
 alias py=python
 alias nv='nvidia-smi'
 alias sfor='ps aux | grep'
-alias sa='conda deactivate && conda activate'
+alias sa='source deactivate && source activate'
 alias rs='source ~/.bashrc'
-alias ll='ls -l'
 alias cw='tmux kill-window -a'
 alias syn='rsync -azP --exclude ".*/" --exclude ".*" --exclude "data" --exclude "wandb"'
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH=/usr/local/bin:$PATH
+export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64
-
-export HOME=/coc/testnvme/aszot3/
 
 if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
 then
   source ~/.dot-files/set_env_vars.sh
 fi
 
-mlog() {
-  vim "data/log/runs/$1.log"
-}
-
-
 export VISUAL=/usr/bin/vim
 export EDITOR=/usr/bin/vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-export AWKPATH="$HOME/.dot-files/slurm_utils"
-. ~/.dot-files/slurm_utils/gpus_users.bashrc
+# customized commands for slurm
+# include .slurm_tools if it exists
+if [ -f $HOME/.slurm_tools ]; then
+  . $HOME/.slurm_tools
+fi
 
+#export SQUEUE_FORMAT='%.12i %.9P %.18j %.9u %.14b %.14B %.2t %.20S %.12M %.4C'
+#export SQUEUE_SORT='-b,u,-S'
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
-
-cd /coc/testnvme/aszot3
-
-export SQUEUE_FORMAT="%.18i %.9P %.30j %.8u %.8T %.10M %.9l %.6D %.3C %.9b %R"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/srv/flash1/aszot3/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/srv/flash1/aszot3/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/srv/flash1/aszot3/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/srv/flash1/aszot3/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-if [ -f "/srv/flash1/aszot3/miniconda3/etc/profile.d/mamba.sh" ]; then
-    . "/srv/flash1/aszot3/miniconda3/etc/profile.d/mamba.sh"
-fi
-export MAMBA_NO_BANNER=1
-# <<< conda initialize <<<
-
+export DISPLAY=:1
+source activate habitat 
