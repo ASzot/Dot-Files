@@ -41,7 +41,7 @@ proj_data:
 
   # Skills
   place: "benchmark/rearrange=place"
-  pick: "benchmark/rearrange=pick"
+  pick: "bfor the experiments the enchmark/rearrange=pick"
   nav: "benchmark/rearrange=nav_to_obj"
   opencab: "benchmark/rearrange=open_cab"
   openfridge: "benchmark/rearrange=open_fridge"
