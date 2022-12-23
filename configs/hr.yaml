@@ -4,12 +4,12 @@ wb_entity: "aszot"
 add_env_vars:
   - "MAGNUM_LOG=quiet"
   - "HABITAT_SIM_LOG=quiet"
+conda_env: "hr"
 proj_dat_add_env_vars:
   debug: "HABITAT_ENV_DEBUG=1"
   debug_extreme: "TORCH_DISTRIBUTED_DEBUG=DETAIL"
   eval_debug: "HABITAT_ENV_DEBUG=1"
   render_debug: "HABITAT_ENV_DEBUG=1"
-conda_env: "hr"
 ckpt_cfg_key: "CHECKPOINT_FOLDER"
 slurm_ignore_nodes: [""]
 add_all: "WB.ENTITY $WB_ENTITY WB.RUN_NAME $SLURM_ID WB.PROJECT_NAME $PROJECT_NAME WB.GROUP $GROUP_ID CHECKPOINT_FOLDER $DATA_DIR/checkpoints/$SLURM_ID/ VIDEO_DIR $DATA_DIR/vids/$SLURM_ID/ LOG_FILE $DATA_DIR/logs/$SLURM_ID.log TENSORBOARD_DIR $DATA_DIR/tb/$SLURM_ID/"
