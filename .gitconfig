@@ -1,6 +1,6 @@
 [user]
 	name = ASzot
-	email = me@andrewszot.com
+	email = ASzot@users.noreply.github.com
 [push]
   default = simple
 [alias]
@@ -16,3 +16,5 @@
 	tool = vimdiff
 [difftool]
 	prompt = false
+[pull]
+	rebase = true

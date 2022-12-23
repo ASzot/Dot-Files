@@ -29,6 +29,10 @@ snippet today "Date"
 `date +%F`
 endsnippet
 
+snippet now "Now"
+`date +%Y-%m-%d_%H:%M` ${0}
+endsnippet
+
 pre_expand "create_table(snip)"
 snippet "mat(\d+)x(\d+)" "Generate table of *width* by *height*" r
 endsnippet

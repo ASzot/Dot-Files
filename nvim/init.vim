@@ -91,6 +91,7 @@ highlight SignColumn ctermbg=gray guibg=gray
 
 " Visual select color
 hi Visual cterm=reverse term=reverse ctermfg=cyan
+color peachpuff
 
 set updatetime=250
 " autocmd CursorHold * lua vim.diagnostic.open_float({scope="line", focus=false})
@@ -131,8 +132,14 @@ let g:vimtex_fold_manual=1
 "let g:vimtex_quickfix_autoclose_after_keystrokes=2
 "let g:vimtex_quickfix_enabled = 0
 let g:vimtex_compiler_latexmk = {
-            \ 'build_dir' : '/tmp',
-            \}
+      \ 'build_dir' : '/tmp',
+      \ 'options' : [
+        \   '-verbose',
+        \   '-file-line-error',
+        \   '-synctex=1',
+        \   '-interaction=batchmode',
+        \ ],
+        \}
 
 " Nerdtree
 map <C-r> :NERDTreeToggle<CR>
@@ -393,8 +400,10 @@ function AutoOpenEntry()
 endfunction
 
 function AutoTex()
-   :VimtexStopAll
-   :VimtexCompile
+  let b:vimtex_main=expand('%:p')
+  :VimtexReloadState
+  :VimtexStopAll
+  :VimtexCompile
 endfunction
 
 
@@ -434,16 +443,16 @@ function! ToggleFocusMode()
 endfunction
 autocmd! User GoyoLeave silent! source $HOME/.config/nvim/init.vim
 
-function! SetDarkMode()
-  :color darkblue
-  hi clear Conceal
-  highlight clear Conceal
-endfunction
-function! SetLightMode()
-  :color peachpuff
-  hi clear Conceal
-  highlight clear Conceal
-endfunction
-call SetDarkMode()
+" function! SetDarkMode()
+"   :color darkblue
+"   hi clear Conceal
+"   highlight clear Conceal
+" endfunction
+" function! SetLightMode()
+"   :color peachpuff
+"   hi clear Conceal
+"   highlight clear Conceal
+" endfunction
+" call SetDarkMode()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
