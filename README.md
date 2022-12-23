@@ -1,7 +1,7 @@
 # Computer Dot Files
-Used for Mac OS X and Ubuntu. 
+Configuration files.
 
-# Getting Started
+## Getting Started
 ```
 git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
