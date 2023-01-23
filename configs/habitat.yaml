@@ -1,4 +1,4 @@
-base_data_dir: "data/"
+base_data_dir: "../data/"
 proj_name: "hab2_more"
 wb_entity: "aszot"
 ckpt_cfg_key: "CHECKPOINT_FOLDER"

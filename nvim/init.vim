@@ -35,13 +35,10 @@ Plug 'preservim/vim-markdown'
 " Conflict marker
 Plug 'rhysd/conflict-marker.vim'
 
-Plug 'averms/black-nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'stsewd/isort.nvim', { 'do': ':UpdateRemotePlugins' }
-
 Plug 'junegunn/goyo.vim'
 Plug 'sheerun/vim-polyglot'
 
-"Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'mhartington/formatter.nvim'
 
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,9 +153,6 @@ let g:black#settings = {
 " This is the default
 " g:isort_command = 'isort'
 
-" By defaeult semshi will highlight everything cursor is under.
-let g:semshi#mark_selected_nodes=0
-
 " Markdown
 let g:vim_markdown_toc_autofit=1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -258,7 +252,7 @@ function SetPythonOptions()
   map <leader>e obreakpoint()<C-c>
 
   " Auto formatters.
-  autocmd BufWritePre *.py silent! call Black()
+  "autocmd BufWritePre *.py silent! call Black()
   " autocmd BufWritePre *.py execute ':Isort'
   " autocmd FocusLost *.py silent! TagbarClose
   " autocmd FocusGained *.py silent! TagbarOpen

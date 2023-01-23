@@ -59,7 +59,7 @@ alias rs='source ~/.zshrc'
 alias ctags='/usr/local/bin/ctags'
 
 # Helper programs
-alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out; rm *.fdb*; rm *.fls'
+alias clean_latex='rm *.aux; rm *.bbl; rm *.blg; rm *.log; rm *.out; rm *.fdb*; rm *.fls ; rm *.brf'
 alias upme='sh ~/.dot-files/update.sh'
 alias cw='tmux kill-window -a'
 alias bpush='git ca "Update"'
