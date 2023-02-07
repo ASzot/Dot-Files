@@ -293,7 +293,7 @@ $0
 endsnippet
 
 snippet as "Andrew" 
-\textcolor{blue}{(${1})}$0
+\asz{${1}}$0
 endsnippet
 
 snippet asc "Andrew" 
@@ -334,6 +334,16 @@ endsnippet
 context "isMath()"
 snippet -> "arrow" iA
 \rightarrow $0
+endsnippet
+
+context "isMath()"
+snippet d> "darrow" iA
+\Rightarrow $0
+endsnippet
+
+context "isMath()"
+snippet m> "marrow" iA
+\mapsto $0
 endsnippet
 
 context "isMath()"
@@ -524,6 +534,11 @@ endsnippet
 
 snippet | "abs" 
 \abs*{$1}$0
+endsnippet
+
+context "isMath()"
+snippet mm "mid" iA
+\mid $0
 endsnippet
 
 snippet (( "superscript" iA
@@ -816,6 +831,11 @@ endsnippet
 
 snippet \prop "propto" iA
 \propto
+endsnippet
+
+context "isMath()"
+snippet ^t "tt" iA
+^\top
 endsnippet
 
 snippet \ta "tau" iA

@@ -219,7 +219,8 @@ map <F8> :call CompileFile() <CR>
 map <F9> :call FastCompileFile() <CR>
 
 " Toggle focus mode.
-nmap <leader>f :call ToggleFocusMode()<CR>
+nmap <leader>f :Goyo 100x100%<CR>
+nmap <leader>g :Goyo 100-25%x100%<CR>
 
 function SetLspOptions()
   " LSP Symbols
@@ -386,6 +387,7 @@ function! Highlighting()
 endfunction
 
 function AutoOpenEntry()
+  :wa
   let projName = input('Project: ')
   let projPath = system('python entry.py ' . projName)
   let projPath = projPath[:len(projPath)-2]
@@ -433,7 +435,7 @@ endfunction
 
 " Limelight settings.
 function! ToggleFocusMode()
-  :Goyo "100"
+  :Goyo 100-25%x100%
 endfunction
 autocmd! User GoyoLeave silent! source $HOME/.config/nvim/init.vim
 
@@ -448,5 +450,10 @@ autocmd! User GoyoLeave silent! source $HOME/.config/nvim/init.vim
 "   highlight clear Conceal
 " endfunction
 " call SetDarkMode()
+
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost * FormatWriteLock
+augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
