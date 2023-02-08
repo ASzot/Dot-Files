@@ -128,8 +128,6 @@ alias rs='source ~/.bashrc'
 alias cw='tmux kill-window -a'
 alias syn='rsync -azP --exclude ".*/" --exclude ".*" --exclude "data" --exclude "wandb"'
 
-export PATH=/usr/local/bin:$PATH
-export PATH=~/anaconda3/bin:$PATH
 export PATH=~/miniconda3/bin:$PATH
 
 if [ -f "$HOME/.dot-files/set_env_vars.sh" ];
@@ -152,5 +150,3 @@ fi
 #export SQUEUE_SORT='-b,u,-S'
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
-export DISPLAY=:1
-source activate habitat 

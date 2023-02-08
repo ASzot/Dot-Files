@@ -1,4 +1,5 @@
-# Put data from here to your settings.
+#!/bin/sh
+#
 rm -rf ~/.config/nvim
 cp -R ./nvim ~/.config/nvim
 
