@@ -1,3 +1,12 @@
+usage_by_lab() {
+    {
+        sacctmgr -nop show assoc format=account,user,grptres | grep -v 'root' | grep -v 'test-lab';
+        squeue -O "UserName,StateCompact,QOS,tres-alloc:1000,Account,Partition" -h | tr -s " " | awk '$0="G> "$0' | grep gpu | sort;
+    } | awk -f $1 -
+}
+usage_by_node() {
+    { sinfo -o '%n %G %O %e %a %C %T' -S '-O'; squeue -o "G> %N %P [%t] %b %q %C" -h | grep "\[R\]"; } | awk -f $1 -
+}
 
 gpus_users() {
     if [ $# -eq 1 ]; then
