@@ -74,10 +74,7 @@ snippet resdoc "resdoc"
 %@ Authors: 
 %@ Created: `date +%F`
 %@ Publish Date: 
-%@ Summary: 
-%@ Tags: 
 %@ URL: 
-%@ Venue: 
 %@ ref: 
 
 \input{\string~/me/header.tex}
@@ -125,7 +122,8 @@ snippet bookdoc "bookdoc"
 %@ Format: $3
 %@ Finished: $4
 %@ Rating (/10): $5
-%@ Date Published: $6
+%@ Year Published: $6
+%@ Number of Pages: $7
 
 \input{\string~/me/header.tex}
 \begin{document}
@@ -151,10 +149,25 @@ snippet myex "myex"
 \end{myex}$0
 endsnippet
 
+snippet expl "myex"
+\begin{expl}{}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
+	$1
+\end{expl}$0
+endsnippet
+
 snippet mytheo "mytheo"
 \begin{mytheo}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
 	$2
 \end{mytheo}$0
+endsnippet
+
+snippet myproof "proof"
+\begin{proof}
+	Steps:
+	\begin{enumerate}
+		\item $0
+	\end{enumerate}
+\end{proof}
 endsnippet
 
 
@@ -191,7 +204,11 @@ snippet dd "deriv" wA
 \dd$0
 endsnippet
 
-snippet expl "expl"
+snippet exl "expl" iA
+\text{\tag*{$1}}$0
+endsnippet
+
+snippet UNUSED "expl" iA
 \tag*{($1)}$0
 endsnippet
 
@@ -321,6 +338,10 @@ snippet l| "left|"
 \left| 
 endsnippet
 
+snippet b| "left|" iA
+\Big|_{$1}$0
+endsnippet
+
 snippet r| "right|"
 \right| 
 endsnippet
@@ -349,6 +370,11 @@ endsnippet
 context "isMath()"
 snippet in "in" wA
 \in $0
+endsnippet
+
+context "isMath()"
+snippet nin "notin" wA
+\notin $0
 endsnippet
 
 context "isMath()"
@@ -392,12 +418,12 @@ endsnippet
 
 context "isMath()"
 snippet amin "argmin" iA
-\text{argmin}_{$1}$0
+\argmin_{$1}$0
 endsnippet
 
 context "isMath()"
 snippet amax "argmax" iA
-\text{argmax}_{$1} $0
+\argmax_{$1} $0
 endsnippet
 
 context "isMath()"
@@ -421,6 +447,11 @@ snippet d= "dd" iA
 endsnippet
 
 context "isMath()"
+snippet s= "s=" iA
+\cong
+endsnippet
+
+context "isMath()"
 snippet Uni "union" iA
 \bigcup_{$1}$0
 endsnippet
@@ -436,8 +467,18 @@ snippet uni "smallunion" iA
 endsnippet
 
 context "isMath()"
-snippet setm "setminus" iA
+snippet sm "setminus" iA
 \setminus 
+endsnippet
+
+context "isMath()"
+snippet we "wedge" iA
+\wedge
+endsnippet
+
+context "isMath()"
+snippet ve "wedge" iA
+\vee
 endsnippet
 
 context "isMath()"
@@ -451,7 +492,7 @@ snippet emp "emptyset" iA
 endsnippet
 
 context "isMath()"
-snippet Int "intersection" iA
+snippet Ent "intersection" iA
 \bigcap_{$1}$0
 endsnippet
 
@@ -461,7 +502,7 @@ snippet '' "integral" iA
 endsnippet
 
 context "isMath()"
-snippet Ino "intinf" iA
+snippet Eno "intinf" iA
 \bigcap_{$1}^{\infty} $0
 endsnippet
 
@@ -483,6 +524,11 @@ endsnippet
 context "isMath()"
 snippet o. "hammard"  iA
 \odot $0
+endsnippet
+
+context "isMath()"
+snippet o, "hammard"  iA
+\circ $0
 endsnippet
 
 context "isMath()"
@@ -598,6 +644,12 @@ snippet RR "RealNums" iA
 endsnippet
 
 context "isMath()"
+snippet QQ "Rationals" iA
+\mathbb{Q}$0
+endsnippet
+
+
+context "isMath()"
 snippet BB "bb" iA
 \mathscr{B}$0
 endsnippet
@@ -628,8 +680,18 @@ snippet NN "NN" iA
 endsnippet
 
 context "isMath()"
+snippet nn "nn" iA
+\mathbb{N}$0
+endsnippet
+
+context "isMath()"
 snippet AA "AA" iA
 \mathcal{A}$0
+endsnippet
+
+context "isMath()"
+snippet OO "OO" iA
+\mathcal{O}$0
 endsnippet
 
 context "isMath()"
@@ -701,105 +763,164 @@ snippet 1d "subscript" iA
 _{$1}$0
 endsnippet
 
-snippet \al "alpha" iA
+context "isMath()"
+snippet al "alpha" iA
 \alpha
 endsnippet
 
-snippet \be "beta" iA
+context "isMath()"
+snippet ch "chi" iA
+\chi
+endsnippet
+
+context "isMath()"
+snippet rh "rho" iA
+\rho
+endsnippet
+
+context "isMath()"
+snippet be "beta" iA
 \beta
 endsnippet
 
-snippet \et "eta" iA
+context "isMath()"
+snippet et "eta" iA
 \eta
 endsnippet
 
-snippet \de "delta" iA
+context "isMath()"
+snippet de "delta" iA
 \delta
 endsnippet
 
 context "isMath()"
-snippet \De "Delta" iA
+snippet De "Delta" iA
 \Delta
 endsnippet
 
-snippet \th "theta" iA
+context "isMath()"
+snippet th "theta" iA
 \theta
 endsnippet
 
-snippet \Th "Theta" iA
+context "isMath()"
+snippet Th "Theta" iA
 \Theta
 endsnippet
 
-snippet \ti "tilde" iA
+context "isMath()"
+snippet til "tilde" iA
 \tilde{$1}$0
 endsnippet
 
-snippet \ha "hat" iA
+context "isMath()"
+snippet hat "hat" iA
 \hat{$1}$0
 endsnippet
 
-snippet \ba "bar" iA
+context "isMath()"
+snippet bar "bar" iA
 \overline{$1}$0
 endsnippet
 
-snippet \o "omega" iA
+context "isMath()"
+snippet uba "bar" iA
+\underline{$1}$0
+endsnippet
+
+context "isMath()"
+snippet om "omega" iA
 \omega
 endsnippet
 
-snippet \O "Omega" iA
+context "isMath()"
+snippet Om "Omega" iA
 \Omega
 endsnippet
 
-snippet \ap "approx" iA
+context "isMath()"
+snippet pi "pi" iA
+\pi
+endsnippet
+
+context "isMath()"
+snippet Pi "Pi" iA
+\Pi
+endsnippet
+
+context "isMath()"
+snippet mu "mu" iA
+\mu
+endsnippet
+
+context "isMath()"
+snippet nu "nu" iA
+\nu
+endsnippet
+
+context "isMath()"
+snippet ap "approx" iA
 \approx
 endsnippet
 
 
-snippet \sig "sigma" iA
+context "isMath()"
+snippet sig "sigma" iA
 \sigma
 endsnippet
 
-snippet \Sig "Sigma" iA
+context "isMath()"
+snippet Sig "Sigma" iA
 \Sigma
 endsnippet
 
-snippet \lam "lambda" iA
+context "isMath()"
+snippet lam "lambda" iA
 \lambda
 endsnippet
 
-snippet \Lam "Lambda" iA
+context "isMath()"
+snippet Lam "Lambda" iA
 \Lambda
 endsnippet
 
-snippet \ph "phi" iA
+context "isMath()"
+snippet ph "phi" iA
 \phi
 endsnippet
 
-snippet \Ph "Phi" iA
+context "isMath()"
+snippet Ph "Phi" iA
 \Phi
 endsnippet
 
-snippet \ps "psi" iA
+context "isMath()"
+snippet ps "psi" iA
 \psi
 endsnippet
 
-snippet \Ps "Psi" iA
+context "isMath()"
+snippet Ps "Psi" iA
 \Psi
 endsnippet
 
-snippet \ga "gamma" iA
+context "isMath()"
+snippet ga "gamma" iA
 \gamma
 endsnippet
 
-snippet \Ga "Gamma" iA
+context "isMath()"
+snippet Ga "Gamma" iA
 \Gamma
 endsnippet
 
-snippet \ep "epsilon" iA
+context "isMath()"
+snippet ep "epsilon" iA
 \epsilon
 endsnippet
 
-snippet \ka "epsilon" iA
+context "isMath()"
+snippet ka "epsilon" iA
 \kappa
 endsnippet
 
@@ -808,19 +929,23 @@ snippet sum "sum"
 \sum_{$1}$0
 endsnippet
 
+context "isMath()"
 snippet sumo "sum_inf"
 \sum_{$1=$2}^{\infty} $0
 endsnippet
 
-snippet \ub "underbracket" iA
-\underbracket{$1}_\text{$2} $0
+context "isMath()"
+snippet ubr "underbracket" iA
+\underbracket{$0
 endsnippet
 
-snippet \sqr "sqrt" iA
+context "isMath()"
+snippet sqr "sqrt" iA
 \sqrt{$1}$0
 endsnippet
 
-snippet \sqn "sqrt" iA
+context "isMath()"
+snippet sqn "sqrt" iA
 \sqrt[$1]{$2}$0
 endsnippet
 
@@ -829,32 +954,48 @@ snippet prod "prod"
 \prod_{$1}$0
 endsnippet
 
-snippet \prop "propto" iA
+context "isMath()"
+snippet prop "propto" iA
 \propto
 endsnippet
 
 context "isMath()"
-snippet ^t "tt" iA
+snippet tt "tt" iA
 ^\top
 endsnippet
 
-snippet \ta "tau" iA
+context "isMath()"
+snippet cc "cc" iA
+^c
+endsnippet
+
+context "isMath()"
+snippet == "equal" iA
+&= $0
+endsnippet
+
+context "isMath()"
+snippet ta "tau" iA
 \tau
 endsnippet
 
-snippet \te "text" iA
+context "isMath()"
+snippet tex "text" iA
 \text{$1}$0
 endsnippet
 
-snippet \na "nabla" iA
+context "isMath()"
+snippet nab "nabla" iA
 \nabla$0
 endsnippet
 
-snippet \pa "partial" iA
+context "isMath()"
+snippet par "partial" iA
 \partial$0
 endsnippet
 
-snippet \iff "iff" iA
+context "isMath()"
+snippet iff "iff" iA
 \leftrightarrow $0
 endsnippet
 
@@ -862,6 +1003,57 @@ snippet ** "mult" iA
 \cdot $0
 endsnippet
 
-snippet \kl "KL" iA
+context "isMath()"
+snippet kl "KL" iA
 \kl{$1}{$2}$0
+endsnippet
+
+context "isMath()"
+snippet chs "choose" iA
+{$1 \choose $2}$0
+endsnippet
+
+context "isMath()"
+snippet exp "exp" iA
+\exp$0
+endsnippet
+
+context "isMath()"
+snippet sin "sin" iA
+\sin$0
+endsnippet
+
+context "isMath()"
+snippet cos "sin" iA
+\cos$0
+endsnippet
+
+context "isMath()"
+snippet tan "tan" iA
+\tan$0
+endsnippet
+
+context "isMath()"
+snippet log "log" iA
+\log$0
+endsnippet
+
+context "isMath()"
+snippet mx "max" iA
+\max$0
+endsnippet
+
+context "isMath()"
+snippet mn "log" iA
+\min$0
+endsnippet
+
+context "isMath()"
+snippet ne "ne" iA
+\ne $0
+endsnippet
+
+context "isMath()"
+snippet equ "equiv" iA
+\equiv $0
 endsnippet

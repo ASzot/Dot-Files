@@ -1,33 +1,32 @@
-import subprocess
-import requests
-import yaml
+"""
+# File should look something like:
+SLACK_ENDPOINT: https://hooks.slack.com/services/UUID
+THRESHOLD: 90
+CHANNEL: "#channel"
+USER: "slack_user"
+LAB: "lab_name"
+STORAGE_IDS:
+  - "device1"
+"""
+
+import argparse
 import os.path as osp
 import shlex
-import argparse
-import json
+import subprocess
 
-
-def send_message(settings, txt):
-    post_data = {}
-    if settings["CHANNEL"] is not None:
-        post_data["channel"] = settings["CHANNEL"]
-
-    if settings["USER"] is not None:
-        post_data["username"] = settings["USER"]
-    post_data["text"] = f"[Skynet space] {txt}"
-    payload = json.dumps(post_data)
-
-    requests.post(settings["SLACK_ENDPOINT"], data=payload)
-
+import yaml
+from utils import send_message
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--settings-name", type=str, required=True)
+parser.add_argument("--test", action="store_true")
+parser.add_argument("--override-channel", type=str, default=None)
 args = parser.parse_args()
 
-settings_file = osp.join(osp.expanduser("~"), f".{args.settings_name}.yaml")
-
-with open(settings_file, "r") as f:
+with open(args.settings_name, "r") as f:
     settings = yaml.safe_load(f)
+if args.override_channel is not None:
+    settings["CHANNEL"] = args.override_channel
 
 users = subprocess.Popen(
     shlex.split(
@@ -42,6 +41,9 @@ child = subprocess.Popen(["df", "-h"], stdout=subprocess.PIPE)
 output = child.communicate()
 output = output[0].decode().strip().split("\n")
 
+if args.test:
+    send_message(settings, "Checking storage")
+
 for x in output[1:]:
     if int(x.split()[-2][:-1]) >= settings["THRESHOLD"]:
         if x.split()[0] == "/dev/md2p1":
@@ -50,9 +52,7 @@ for x in output[1:]:
         is_valid_user = any(user in x for user in users)
 
         storage_id = x.split(" ")[0]
-        is_valid_storage = any(
-            storage_id.endswith(x) for x in settings["STORAGE_IDS"]
-        )
+        is_valid_storage = any(storage_id.endswith(x) for x in settings["STORAGE_IDS"])
 
         if not (is_valid_user or is_valid_storage):
             continue

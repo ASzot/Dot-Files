@@ -40,6 +40,11 @@ Plug 'sheerun/vim-polyglot'
 
 Plug 'mhartington/formatter.nvim'
 
+Plug 'knsh14/vim-github-link'
+
+"Plug 'github/copilot.vim'
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -88,13 +93,15 @@ highlight SignColumn ctermbg=gray guibg=gray
 
 " Visual select color
 hi Visual cterm=reverse term=reverse ctermfg=cyan
-color peachpuff
 
 set updatetime=250
 " autocmd CursorHold * lua vim.diagnostic.open_float({scope="line", focus=false})
 
 " Unfold by default
 au BufRead * normal zR
+
+" No mouse input.
+set mouse=
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -155,6 +162,30 @@ let g:black#settings = {
 
 " Markdown
 let g:vim_markdown_toc_autofit=1
+
+" imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
+" " By default disable copilot for all file types.
+" let g:copilot_filetypes = {
+"     \ '*': v:false,
+"     \ 'gitcommit': v:true,
+"     \ 'python': v:true,
+"     \ 'yaml': v:true,
+"     \ }
+" 
+let g:semshi#mark_selected_nodes=0
+
+" Options for editing encrypted files.
+set backupskip+=*.asc
+set viminfo=
+augroup GPG
+  autocmd!
+  autocmd BufReadPost  *.asc :%!gpg -q -d
+  autocmd BufReadPost  *.asc |redraw!
+  autocmd BufWritePre  *.asc :%!gpg -q -a -c
+  autocmd BufWritePost *.asc u
+  autocmd VimLeave     *.asc :!clear
+augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -180,11 +211,14 @@ nnoremap <leader>* :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
 " Insert random UUID
 nmap <leader>u :put =system('echo \\label{$RANDOM}')<CR>
 
-nmap <leader>t :TagbarOpen fj<CR>
+" Tag viewing
+nmap <leader>t :TagbarToggle fj<CR>
+nmap <leader>y :BTags<CR>
+nmap <leader>m :Marks<CR>
 
 " File commands
 nmap <c-f> :Files<CR>
-nmap <Space>a :Buffers<CR>
+nmap <space>a :Buffers<CR>
 nmap <Space>f :Ag<Space>
 nmap <Space>t :Ag<Space>(^\%\@).*
 " Remove the '!' if you don't want this to open up a new window. 
@@ -212,8 +246,6 @@ map <leader>j :lua vim.diagnostic.goto_next()<cr>
 map <leader>k :lua vim.diagnostic.goto_prev()<cr>
 " Display all errors.
 map <leader>q :lua vim.diagnostic.setloclist()<CR>
-" LSP refactor
-map <leader>rn :lua vim.lsp.buf.rename()<CR>
 
 map <F8> :call CompileFile() <CR>
 map <F9> :call FastCompileFile() <CR>
@@ -221,6 +253,9 @@ map <F9> :call FastCompileFile() <CR>
 " Toggle focus mode.
 nmap <leader>f :Goyo 100x100%<CR>
 nmap <leader>g :Goyo 100-25%x100%<CR>
+
+" Copy github link to line numbers.
+nmap <leader>m :'<,'>GetCurrentBranchLink<CR>
 
 function SetLspOptions()
   " LSP Symbols
@@ -241,12 +276,11 @@ endfunction
 " File specific settings.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd BufNewFile,BufRead *.py call SetPythonOptions()
+
 function SetPythonOptions()
   call SetLspOptions()
   nnoremap <leader>^ :call FindReplaceMultiFile()<CR>
   nnoremap <leader>& :call FindReplaceUnderWordMultiFile("/gj **/*.yaml **/*.py")<CR>
-
-  nmap <leader>y :!ctags -R -f ~/.tags/`pwd`/tags --fields=+l --languages=python --python-kinds=-iv --exclude=.git --exclude=.mypy_cache `pwd` <CR>
 
   " Create the tags output directory
   :silent exec "!mkdir -p ~/.tags/`pwd`"
@@ -258,8 +292,21 @@ function SetPythonOptions()
   " autocmd FocusLost *.py silent! TagbarClose
   " autocmd FocusGained *.py silent! TagbarOpen
   "autocmd BufWritePost *.py silent! Semshi enable
+  autocmd VimEnter,BufNewFile,BufRead,VimResized *.py call PythonRefreshWindow()
 
   set signcolumn=number
+
+endfunction
+
+" Called whenever the window is refreshed
+function PythonRefreshWindow()
+  " Ensure all syntax highlighting is active.
+  :Semshi enable
+  if (winwidth(0) > 120)
+    :TagbarOpen
+  else
+    :TagbarClose
+  endif
 endfunction
 
 autocmd BufRead,BufNewFile *.cmd call SetCmdOptions()
@@ -273,7 +320,7 @@ function SetCmdOptions()
 endfunction
 
 " Options for markdown, md 
-autocmd BufRead,BufNewFile *.md,*.rst call SetMdOptions()
+autocmd BufRead,BufNewFile *.md,*.rst,*.asc call SetMdOptions()
 function SetMdOptions()
   setf markdown
 	set tabstop=4
@@ -306,7 +353,6 @@ function SetTexOptions()
 	set textwidth=0
   set linebreak
 	set nospell
-  map <leader>r O%R: 
   hi Error NONE
   hi clear Conceal
   set signcolumn=no
@@ -439,21 +485,47 @@ function! ToggleFocusMode()
 endfunction
 autocmd! User GoyoLeave silent! source $HOME/.config/nvim/init.vim
 
-" function! SetDarkMode()
-"   :color darkblue
-"   hi clear Conceal
-"   highlight clear Conceal
-" endfunction
-" function! SetLightMode()
-"   :color peachpuff
-"   hi clear Conceal
-"   highlight clear Conceal
-" endfunction
-" call SetDarkMode()
-
 augroup FormatAutogroup
   autocmd!
   autocmd BufWritePost * FormatWriteLock
 augroup END
 
+function! SetDarkMode()
+  color default
+
+  hi clear Conceal
+  highlight clear Conceal
+endfunction
+function! SetLightMode()
+  " For light color
+  color delek
+  function MyCustomHighlights()
+    " Default
+    hi semshiLocal           ctermfg=209 guifg=#ff875f
+    hi semshiGlobal          ctermfg=214 guifg=#ffaf00
+    hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
+    hi semshiParameter       ctermfg=75  guifg=#5fafff
+    hi semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
+    hi semshiFree            ctermfg=218 guifg=#ffafd7
+    hi semshiBuiltin         ctermfg=207 guifg=#ff5fff
+    hi semshiAttribute       ctermfg=25   guifg=#5fffaf
+    hi semshiSelf            ctermfg=249 guifg=#b2b2b2
+    hi semshiUnresolved      ctermfg=58 guifg=#5f5f00  cterm=underline gui=underline
+    hi semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
+
+    hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+    hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
+    sign define semshiError text=E> texthl=semshiErrorSign
+  endfunction
+  autocmd FileType python call MyCustomHighlights()
+  autocmd ColorScheme * call MyCustomHighlights()
+
+  hi clear Conceal
+  highlight clear Conceal
+endfunction
+
+
+call SetDarkMode()
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+

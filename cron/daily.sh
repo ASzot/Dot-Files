@@ -24,3 +24,4 @@ rm ~/Downloads/daily/*.log
 # /Users/andrewszot/miniconda3/bin/python ~/.dot-files/cron/vis_stats.py
 
 open ~/Downloads/daily
+

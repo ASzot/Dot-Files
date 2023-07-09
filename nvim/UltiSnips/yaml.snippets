@@ -1,4 +1,11 @@
+global !p
+from uuid import uuid4
+endglobal
 
 snippet now "Date"
 `date +%Y-%m-%d_%H:%M` ${0}
+endsnippet
+
+snippet rnd "rnd"
+`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`
 endsnippet

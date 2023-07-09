@@ -11,12 +11,33 @@ def $1($2):
 endsnippet
 
 snippet nfm "New method func" 
-def $1(self, $2):
+def $1(self$2):
     $3
 endsnippet
-########################################
 
-snippet ncom "New func" 
+
+########################################
+snippet fs "Format string" 
+f"$1"$0
+endsnippet
+
+snippet rs "reg string" 
+"$1"$0
+endsnippet
+
+snippet si "Init" 
+super().__init__($1)$0
+endsnippet
+
+snippet pf "Init" 
+print(f"$1")$0
+endsnippet
+
+snippet pr "Init" 
+print("$1")$0
+endsnippet
+
+snippet nc "Docstring" 
 """
 $1
 """

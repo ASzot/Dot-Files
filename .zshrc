@@ -65,6 +65,7 @@ alias cw='tmux kill-window -a'
 alias bpush='git ca "Update"'
 alias fpush='git pull --no-edit; git ca "Update" ; git po'
 alias sshmeta="sshpass -f ~/.devpass ssh meta"
+alias bt="bolt task"
 
 # Project specs
 alias mbirlo='python -m rl_utils.launcher --cfg ~/.dot-files/configs/mbirlo.yaml'
@@ -73,6 +74,8 @@ alias hr='python -m rl_utils.launcher --cfg ~/.dot-files/configs/hr.yaml'
 alias hreval='python -m rl_utils.launcher.eval_sys --cfg ~/.dot-files/configs/hr.yaml'
 alias rlt='python -m rl_utils.launcher --cfg ~/.dot-files/configs/rlt.yaml'
 alias rlteval='python -m rl_utils.launcher.eval_sys --cfg ~/.dot-files/configs/rlt.yaml'
+
+alias ellm='python -m rl_utils.launcher --cfg ~/Documents/code/p-ellm/interactive_and_embodied/projects/rl_llm/launch.yaml'
 
 compile_tex() {
   pdflatex $1.tex
@@ -147,4 +150,7 @@ export EDITOR=vim
 
 # Activate base conda env
 conda activate base
+
+# For GPG
+export GPG_TTY=$(tty)
 
