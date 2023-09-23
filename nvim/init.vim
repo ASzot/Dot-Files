@@ -42,8 +42,7 @@ Plug 'mhartington/formatter.nvim'
 
 Plug 'knsh14/vim-github-link'
 
-"Plug 'github/copilot.vim'
-Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -102,6 +101,10 @@ au BufRead * normal zR
 
 " No mouse input.
 set mouse=
+
+" Needed to display italics correctly.
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -133,17 +136,21 @@ let g:vimtex_quickfix_mode = 0
 let g:vimtex_fold_enabled=1
 let g:vimtex_fold_manual=1
 
-"let g:vimtex_quickfix_autoclose_after_keystrokes=2
-"let g:vimtex_quickfix_enabled = 0
+" let g:vimtex_quickfix_autoclose_after_keystrokes=2
+" let g:vimtex_quickfix_enabled = 0
 let g:vimtex_compiler_latexmk = {
-      \ 'build_dir' : '/tmp',
+      \ 'build_dir' : '/Users/andrewszot/Downloads',
       \ 'options' : [
         \   '-verbose',
         \   '-file-line-error',
         \   '-synctex=1',
         \   '-interaction=batchmode',
+        \   '-output-directory=~/Downloads/'
         \ ],
         \}
+" let g:vimtex_compiler_latexmk = {
+"             \ 'build_dir' : 'build',
+"             \}
 
 " Nerdtree
 map <C-r> :NERDTreeToggle<CR>
@@ -186,21 +193,24 @@ augroup GPG
   autocmd BufWritePost *.asc u
   autocmd VimLeave     *.asc :!clear
 augroup END
+
+
+" Color management
+colorscheme catppuccin-latte
+
+nnoremap <leader>1 :colorscheme catppuccin-latte<CR>
+nnoremap <leader>2 :colorscheme catppuccin-mocha<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Keyboard Remaps
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors
-map <leader>1 :call SetDarkMode()<CR>
-map <leader>2 :call SetLightMode()<CR>
-
 " Redo
 map <F7> :redo <CR>
 
 " Rebind delete to have a no copy version.
-nnoremap <leader>d "_d
 
 " Toggle line numbers
 nnoremap <leader>w :set relativenumber!<CR>
@@ -252,7 +262,7 @@ map <F9> :call FastCompileFile() <CR>
 
 " Toggle focus mode.
 nmap <leader>f :Goyo 100x100%<CR>
-nmap <leader>g :Goyo 100-25%x100%<CR>
+nmap <leader>d :Goyo 100-25%x100%<CR>
 
 " Copy github link to line numbers.
 nmap <leader>m :'<,'>GetCurrentBranchLink<CR>
@@ -263,6 +273,9 @@ function SetLspOptions()
   map [I :lua vim.lsp.buf.references()<CR>
   map K :lua vim.lsp.buf.hover()<CR>
   map gK :lua vim.lsp.buf.signature_help()<CR>
+  " Smart rename
+  map <leader>r :lua vim.lsp.buf.rename()<CR>
+
   " The same as declaration
   " map <leader>D :lua vim.lsp.buf.type_definition()<CR>
   " map gd :lua vim.lsp.buf.definition()<CR>
@@ -291,7 +304,6 @@ function SetPythonOptions()
   " autocmd BufWritePre *.py execute ':Isort'
   " autocmd FocusLost *.py silent! TagbarClose
   " autocmd FocusGained *.py silent! TagbarOpen
-  "autocmd BufWritePost *.py silent! Semshi enable
   autocmd VimEnter,BufNewFile,BufRead,VimResized *.py call PythonRefreshWindow()
 
   set signcolumn=number
@@ -301,7 +313,6 @@ endfunction
 " Called whenever the window is refreshed
 function PythonRefreshWindow()
   " Ensure all syntax highlighting is active.
-  :Semshi enable
   if (winwidth(0) > 120)
     :TagbarOpen
   else
@@ -490,42 +501,6 @@ augroup FormatAutogroup
   autocmd BufWritePost * FormatWriteLock
 augroup END
 
-function! SetDarkMode()
-  color default
-
-  hi clear Conceal
-  highlight clear Conceal
-endfunction
-function! SetLightMode()
-  " For light color
-  color delek
-  function MyCustomHighlights()
-    " Default
-    hi semshiLocal           ctermfg=209 guifg=#ff875f
-    hi semshiGlobal          ctermfg=214 guifg=#ffaf00
-    hi semshiImported        ctermfg=214 guifg=#ffaf00 cterm=bold gui=bold
-    hi semshiParameter       ctermfg=75  guifg=#5fafff
-    hi semshiParameterUnused ctermfg=117 guifg=#87d7ff cterm=underline gui=underline
-    hi semshiFree            ctermfg=218 guifg=#ffafd7
-    hi semshiBuiltin         ctermfg=207 guifg=#ff5fff
-    hi semshiAttribute       ctermfg=25   guifg=#5fffaf
-    hi semshiSelf            ctermfg=249 guifg=#b2b2b2
-    hi semshiUnresolved      ctermfg=58 guifg=#5f5f00  cterm=underline gui=underline
-    hi semshiSelected        ctermfg=231 guifg=#ffffff ctermbg=161 guibg=#d7005f
-
-    hi semshiErrorSign       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-    hi semshiErrorChar       ctermfg=231 guifg=#ffffff ctermbg=160 guibg=#d70000
-    sign define semshiError text=E> texthl=semshiErrorSign
-  endfunction
-  autocmd FileType python call MyCustomHighlights()
-  autocmd ColorScheme * call MyCustomHighlights()
-
-  hi clear Conceal
-  highlight clear Conceal
-endfunction
-
-
-call SetDarkMode()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

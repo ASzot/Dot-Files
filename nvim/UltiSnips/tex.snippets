@@ -542,6 +542,16 @@ snippet .. "dot" iA
 endsnippet
 
 context "isMath()"
+snippet do "dot" iA
+\dot{$1}$0
+endsnippet
+
+context "isMath()"
+snippet d2o "dot" iA
+\ddot{$1}$0
+endsnippet
+
+context "isMath()"
 snippet ~ "sim" iA
 \sim $0
 endsnippet
@@ -615,6 +625,16 @@ snippet >> "succ" iA
 endsnippet
 
 context "isMath()"
+snippet m> "much greater" iA
+\gg
+endsnippet
+
+context "isMath()"
+snippet m< "much lesser" iA
+\ll
+endsnippet
+
+context "isMath()"
 snippet >>= "succeq" iA
 \succeq
 endsnippet
@@ -682,6 +702,11 @@ endsnippet
 context "isMath()"
 snippet nn "nn" iA
 \mathbb{N}$0
+endsnippet
+
+context "isMath()"
+snippet rr "rr" iA
+\mathcal{R}$0
 endsnippet
 
 context "isMath()"
@@ -1009,7 +1034,7 @@ snippet kl "KL" iA
 endsnippet
 
 context "isMath()"
-snippet chs "choose" iA
+snippet cs "choose" iA
 {$1 \choose $2}$0
 endsnippet
 

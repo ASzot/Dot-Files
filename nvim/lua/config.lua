@@ -97,6 +97,7 @@ require("lspconfig").pyright.setup {
     client.server_capabilities.hoverProvider = false
     client.server_capabilities.definitionProvider = false
     client.server_capabilities.rename = false
+    client.server_capabilities.renameProvider = false
     client.server_capabilities.signature_help = false
   end,
   filetypes = { "python" },
@@ -164,3 +165,23 @@ require('lualine').setup {
 }
 
 
+vim.api.nvim_create_user_command('CustomRename', function()
+	vim.lsp.buf.rename()
+end, {})
+
+-- Color schemes
+require("catppuccin").setup {
+    color_overrides = {
+        -- all = {
+        --     text = "#ffffff",
+        -- },
+        latte = {
+            base = "#ffffff",
+            -- mantle = "#242424",
+            -- crust = "#474747",
+        },
+        frappe = {},
+        macchiato = {},
+        mocha = {},
+    }
+}

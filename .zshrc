@@ -123,7 +123,7 @@ export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 
 # Terminal settings (needed to have the terminal work sometimes)
-export TERM=xterm
+export TERM=xterm-256color
 export LC_ALL=en_US.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1
 

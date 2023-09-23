@@ -11,7 +11,9 @@ find ~/Downloads/* -maxdepth 1 -mtime +1 -exec rm -rf {} \;
 # open -n /Users/andrewszot/Library/Mobile\ Documents/com\~apple\~Automator/Documents/export_befocused_csv.app
 
 rm ~/Downloads/daily/*
+cd ~/Downloads
 
+sh ~/me/math/analysis/generate_pdfs.sh
 # Generate 
 /Users/andrewszot/miniconda3/bin/python ~/.dot-files/cron/get_daily.py
 
