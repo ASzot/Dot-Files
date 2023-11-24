@@ -5,9 +5,6 @@ Configuration files.
 ```
 git clone https://github.com/ASzot/Dot-Files.git ~/.dot-files
 ```
-Run `sh update.sh` to install all of the configurations. Reload your zsh. If you are installing a new system read the mac environment setup or the ubuntu environment setup.
-
-For older versions of tmux, copy the old tmux conf file. 
 
 ## Commands
 Shortcuts are defined in `.zshrc`. They are listed here: 
@@ -43,10 +40,13 @@ chpwd () {
 * `push.sh`: Pushes the current settings from the machine into the repository.
 * `pull.sh`: Pulls the current settings from the GitHub repository and puts them on the Ubuntu machine.
 * `create_gh_key.sh`: Script for automatically configuring GitHub keys. 
-* `first_pull.sh`: Pulls all settings from repo to local machine and also pulls
-  additional files such as SSH config that should only be pulled once as they
-  will be overwritten. 
+* `first_pull.sh`: Pulls all settings from repo to local machine and also pulls additional files such as SSH config that should only be pulled once as they will be overwritten. 
 
+### First Install
+- `cd` into this directory.
+- Run `sh first_pull.sh`.
+- Start neovim. 
+- `:PlugInstall`. Quit and run this again if you get an error about one of the plugins installing.
 
 ### Setting Up a Mac Environment
 * Install 1pass: https://1password.com/downloads/mac/

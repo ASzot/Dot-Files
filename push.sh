@@ -2,6 +2,9 @@
 rm -rf ./nvim
 cp -R ~/.config/nvim ./
 
+rm -rf ./ranger
+cp -R ~/.config/ranger ./
+
 rm ./.gitconfig
 cp ~/.gitconfig ./
 

@@ -138,16 +138,18 @@ let g:vimtex_fold_manual=1
 
 " let g:vimtex_quickfix_autoclose_after_keystrokes=2
 " let g:vimtex_quickfix_enabled = 0
-let g:vimtex_compiler_latexmk = {
-      \ 'build_dir' : '/Users/andrewszot/Downloads',
-      \ 'options' : [
-        \   '-verbose',
-        \   '-file-line-error',
-        \   '-synctex=1',
-        \   '-interaction=batchmode',
-        \   '-output-directory=~/Downloads/'
-        \ ],
-        \}
+
+" Setting these options can make the PDF display not work.
+" let g:vimtex_compiler_latexmk = {
+"       \ 'build_dir' : '/Users/andrewszot/Downloads',
+"       \ 'options' : [
+"         \   '-verbose',
+"         \   '-file-line-error',
+"         \   '-synctex=1',
+"         \   '-interaction=batchmode',
+"         \   '-output-directory=~/Downloads/'
+"         \ ],
+"         \}
 " let g:vimtex_compiler_latexmk = {
 "             \ 'build_dir' : 'build',
 "             \}
@@ -226,7 +228,7 @@ nmap <leader>t :TagbarToggle fj<CR>
 nmap <leader>y :BTags<CR>
 nmap <leader>m :Marks<CR>
 
-" File commands
+" fzf File commands
 nmap <c-f> :Files<CR>
 nmap <space>a :Buffers<CR>
 nmap <Space>f :Ag<Space>
@@ -234,6 +236,17 @@ nmap <Space>t :Ag<Space>(^\%\@).*
 " Remove the '!' if you don't want this to open up a new window. 
 noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
+inoremap <expr> <c-x><c-]> fzf#vim#complete(fzf#vim#tags)
+
+function! s:make_sentence(lines)
+  let subbed = substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '')
+  let splitList = split(subbed, '\t')
+  return '\href{' . splitList[2] . '}{' . splitList[0] . '}'
+endfunction
+
+inoremap <expr> <c-x><c-]> fzf#vim#complete({
+  \ 'source':  'cat tags',
+  \ 'reducer': function('<sid>make_sentence')})
 
 " quick fix window
 map <leader>h :cn<CR>
