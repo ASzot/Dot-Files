@@ -44,6 +44,9 @@ Plug 'knsh14/vim-github-link'
 
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
+Plug 'tpope/vim-fugitive'
+Plug 'sindrets/diffview.nvim'
+
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -61,6 +64,7 @@ lua require('config')
 " Disable swp files.
 set nobackup
 set noswapfile
+set nowritebackup
 
 let mapleader = ","
 
@@ -169,9 +173,6 @@ let g:black#settings = {
 " This is the default
 " g:isort_command = 'isort'
 
-" Markdown
-let g:vim_markdown_toc_autofit=1
-
 " imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
 " let g:copilot_no_tab_map = v:true
 " " By default disable copilot for all file types.
@@ -241,7 +242,7 @@ inoremap <expr> <c-x><c-]> fzf#vim#complete(fzf#vim#tags)
 function! s:make_sentence(lines)
   let subbed = substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '')
   let splitList = split(subbed, '\t')
-  return '\href{' . splitList[2] . '}{' . splitList[0] . '}'
+  return '\href{' . splitList[2] . '}{' . tolower(splitList[0]) . '}'
 endfunction
 
 inoremap <expr> <c-x><c-]> fzf#vim#complete({
@@ -353,7 +354,6 @@ function SetMdOptions()
 	set expandtab
 	set autoindent
 	set nospell
-  nmap <leader>t :Toc<CR>
 	set textwidth=0
   nnoremap j gj
   nnoremap k gk

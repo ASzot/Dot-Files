@@ -137,6 +137,14 @@ else
     export PATH="/Users/andrewszot/miniconda3/bin:$PATH"
 fi
 # <<< conda initialize <<<
+## >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# if [ -f "/Users/andrewszot/miniforge3/etc/profile.d/conda.sh" ]; then
+#     . "/Users/andrewszot/miniforge3/etc/profile.d/conda.sh"
+# else
+#     export PATH="/Users/andrewszot/miniforge3/bin:$PATH"
+# fi
+
 
 
 # This is needed for homebrew installation on macos silicon

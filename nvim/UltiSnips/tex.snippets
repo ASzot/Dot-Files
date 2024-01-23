@@ -137,6 +137,27 @@ $0
 \end{document}
 endsnippet
 
+snippet moviedoc "moviedoc"
+%@ $1
+%@ Director: $2
+%@ Year Published: $3
+%@ Andrew Score: $4
+%@ Nikki Score: $5
+
+\input{\string~/me/header.tex}
+\begin{document}
+
+\title{$1}
+\date{}
+\maketitle
+
+$0
+
+\end{document}
+endsnippet
+
+
+
 snippet mydef "mydef"
 \begin{mydef}{$1}{`!p if not snip.c: snip.rv = str(uuid4()).split("-")[0]`}
 	$2
@@ -358,6 +379,11 @@ snippet -> "arrow" iA
 endsnippet
 
 context "isMath()"
+snippet to "arrow" iA
+\rightarrow $0
+endsnippet
+
+context "isMath()"
 snippet d> "darrow" iA
 \Rightarrow $0
 endsnippet
@@ -457,6 +483,16 @@ snippet Uni "union" iA
 endsnippet
 
 context "isMath()"
+snippet Dun "Disjoint Union" iA
+\bigsqcup_{$1}$0
+endsnippet
+
+context "isMath()"
+snippet dun "disjoint union" iA
+\sqcup $0
+endsnippet
+
+context "isMath()"
 snippet Uno "unioninf" iA
 \bigcup_{$1}^{\infty} $0
 endsnippet
@@ -484,6 +520,11 @@ endsnippet
 context "isMath()"
 snippet subs "subset" iA
 \subset 
+endsnippet
+
+context "isMath()"
+snippet subq "subset" iA
+\subseteq 
 endsnippet
 
 context "isMath()"
@@ -675,6 +716,11 @@ snippet BB "bb" iA
 endsnippet
 
 context "isMath()"
+snippet bb "bb" iA
+\mathcal{B}$0
+endsnippet
+
+context "isMath()"
 snippet HH "RealNums" iA
 \mathcal{H}$0
 endsnippet
@@ -727,6 +773,11 @@ endsnippet
 context "isMath()"
 snippet SS "SS" iA
 \mathcal{S}$0
+endsnippet
+
+context "isMath()"
+snippet ss "ss" iA
+\mathbb{S}$0
 endsnippet
 
 context "isMath()"
@@ -1022,6 +1073,11 @@ endsnippet
 context "isMath()"
 snippet iff "iff" iA
 \leftrightarrow $0
+endsnippet
+
+context "isMath()"
+snippet gt "gets" iA
+\gets $0
 endsnippet
 
 snippet ** "mult" iA
