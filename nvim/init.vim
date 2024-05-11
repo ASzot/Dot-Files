@@ -44,6 +44,9 @@ Plug 'knsh14/vim-github-link'
 
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
+Plug 'github/copilot.vim'
+
+" Git related plugins
 Plug 'tpope/vim-fugitive'
 Plug 'sindrets/diffview.nvim'
 
@@ -98,7 +101,6 @@ highlight SignColumn ctermbg=gray guibg=gray
 hi Visual cterm=reverse term=reverse ctermfg=cyan
 
 set updatetime=250
-" autocmd CursorHold * lua vim.diagnostic.open_float({scope="line", focus=false})
 
 " Unfold by default
 au BufRead * normal zR
@@ -173,16 +175,18 @@ let g:black#settings = {
 " This is the default
 " g:isort_command = 'isort'
 
-" imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-" let g:copilot_no_tab_map = v:true
-" " By default disable copilot for all file types.
-" let g:copilot_filetypes = {
-"     \ '*': v:false,
-"     \ 'gitcommit': v:true,
-"     \ 'python': v:true,
-"     \ 'yaml': v:true,
-"     \ }
-" 
+imap <silent><script><expr> <C-S> copilot#Accept("\<CR>")
+inoremap <C-L> <Plug>(copilot-suggest)
+let g:copilot_enabled = v:false
+let g:copilot_no_tab_map = v:true
+" By default disable copilot for all file types.
+let g:copilot_filetypes = {
+    \ '*': v:false,
+    \ 'gitcommit': v:true,
+    \ 'python': v:true,
+    \ 'yaml': v:true,
+    \ }
+
 let g:semshi#mark_selected_nodes=0
 
 " Options for editing encrypted files.
@@ -196,7 +200,6 @@ augroup GPG
   autocmd BufWritePost *.asc u
   autocmd VimLeave     *.asc :!clear
 augroup END
-
 
 " Color management
 colorscheme catppuccin-latte
@@ -226,8 +229,8 @@ nmap <leader>u :put =system('echo \\label{$RANDOM}')<CR>
 
 " Tag viewing
 nmap <leader>t :TagbarToggle fj<CR>
-nmap <leader>y :BTags<CR>
-nmap <leader>m :Marks<CR>
+nmap <leader>m :BTags<CR>
+nmap <leader>n :Tags<CR>
 
 " fzf File commands
 nmap <c-f> :Files<CR>
@@ -279,7 +282,7 @@ nmap <leader>f :Goyo 100x100%<CR>
 nmap <leader>d :Goyo 100-25%x100%<CR>
 
 " Copy github link to line numbers.
-nmap <leader>m :'<,'>GetCurrentBranchLink<CR>
+nmap <leader>g :'<,'>GetCurrentBranchLink<CR>
 
 function SetLspOptions()
   " LSP Symbols

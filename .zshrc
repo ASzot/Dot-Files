@@ -76,6 +76,12 @@ alias rlt='python -m rl_utils.launcher --cfg ~/.dot-files/configs/rlt.yaml'
 alias rlteval='python -m rl_utils.launcher.eval_sys --cfg ~/.dot-files/configs/rlt.yaml'
 
 alias ellm='python -m rl_utils.launcher --cfg ~/Documents/code/p-ellm/interactive_and_embodied/projects/rl_llm/launch.yaml'
+llarpdeploy() {
+  # Command for remote development. 
+  rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'datasets' --exclude 'data' --exclude 'wandb' --exclude ".git" -e "ssh" /Users/andrewszot/Documents/code/p-ellm/llarp/ aszot3@sky2.cc.gatech.edu:/coc/testnvme/aszot3/p-ellm/run-llarp
+}
+
+
 
 compile_tex() {
   pdflatex $1.tex
@@ -86,12 +92,12 @@ compile_tex() {
 
 msync() {
   # Command for remote development. 
-  fswatch -o . | while read f; do rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"; done
+  fswatch -o . | while read f; do rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude "*.egg-info" --exclude 'data' --exclude 'wandb' --exclude 'datasets' --exclude '.git' -e "ssh" ./ "$1"; done
 }
 
 nsync() {
   # Command for remote development. 
-  rsync -azP --exclude ".pyc" --exclude "__pycache__" --exclude 'data' --exclude 'wandb' -e "ssh" ./ "$1"
+  rsync -azP --exclude ".pyc" --exclude "*.egg-info" --exclude "__pycache__" --exclude 'datasets' --exclude 'data' --exclude 'wandb' --exclude ".git" -e "ssh" ./ "$1"
 }
 
 # To use this you have to install sshpass: `brew install hudochenkov/sshpass/sshpass`
@@ -131,20 +137,22 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-if [ -f "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh" ]; then
-    . "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh"
+__conda_setup="$('/Users/andrewszot/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
 else
-    export PATH="/Users/andrewszot/miniconda3/bin:$PATH"
+    if [ -f "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/andrewszot/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/andrewszot/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/Users/andrewszot/miniconda3/etc/profile.d/mamba.sh" ]; then
+    . "/Users/andrewszot/miniconda3/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
-## >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-# if [ -f "/Users/andrewszot/miniforge3/etc/profile.d/conda.sh" ]; then
-#     . "/Users/andrewszot/miniforge3/etc/profile.d/conda.sh"
-# else
-#     export PATH="/Users/andrewszot/miniforge3/bin:$PATH"
-# fi
-
 
 
 # This is needed for homebrew installation on macos silicon
@@ -156,9 +164,8 @@ if (command -v brew && brew list --formula | grep -c ctags ) > /dev/null 2>&1; t
 fi
 export EDITOR=vim
 
-# Activate base conda env
-conda activate base
-
 # For GPG
 export GPG_TTY=$(tty)
+
+
 

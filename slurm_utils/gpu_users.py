@@ -9,6 +9,7 @@ import sys
 from collections import defaultdict
 from dataclasses import dataclass
 from io import StringIO
+from typing import Dict, List
 
 import pandas as pd
 
@@ -34,7 +35,7 @@ def custom_num_sort(item):
             return (0, item)
 
 
-def get_lab_caps() -> dict[str, dict[str, int]]:
+def get_lab_caps() -> Dict[str, Dict[str, int]]:
     """
     Gets the
     """
@@ -58,7 +59,7 @@ def get_lab_caps() -> dict[str, dict[str, int]]:
     return lab_caps
 
 
-def get_lab_totals() -> dict[str, dict[str, int]]:
+def get_lab_totals() -> Dict[str, Dict[str, int]]:
     # Running the specified command using subprocess
     command_output = subprocess.check_output(
         ["squeue", "-O", f"UserName:20,tres-alloc:100,State,Partition"], text=True
@@ -132,8 +133,15 @@ def main():
 
         if gpu != "N/A":
             gpu_parts = gpu.split(":")
-            gpu_type = gpu_parts[-2]
-            gpu_count = int(gpu_parts[-1])
+            if len(gpu_parts) == 4:
+                # Format is like gres:gpu:a40:1
+                gpu_type = gpu_parts[-2]
+                gpu_count = int(gpu_parts[-1])
+            else:
+                # Format is like gres:gpu:a40 (rare)
+                gpu_type = gpu_parts[-1]
+                gpu_count = 1
+
             lab_to_user_to_res[lab][use_user][gpu_type] += gpu_count
         lab_to_user_to_res[lab][use_user]["cpu"] += int(cpus)
 

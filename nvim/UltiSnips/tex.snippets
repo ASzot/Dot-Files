@@ -84,14 +84,8 @@ snippet resdoc "resdoc"
 \date{}
 \maketitle
 
-\section{Problem}
-$0
-
-\section{Motivation}
-
-\section{Contribution}
-
 \section{Method}
+$0
 
 \section{Experiments}
 
@@ -583,7 +577,7 @@ snippet .. "dot" iA
 endsnippet
 
 context "isMath()"
-snippet do "dot" iA
+snippet dot "dot" iA
 \dot{$1}$0
 endsnippet
 
@@ -716,13 +710,13 @@ snippet BB "bb" iA
 endsnippet
 
 context "isMath()"
-snippet bb "bb" iA
-\mathcal{B}$0
+snippet HH "RealNums" iA
+\mathcal{H}$0
 endsnippet
 
 context "isMath()"
-snippet HH "RealNums" iA
-\mathcal{H}$0
+snippet hh "Holomorphic" iA
+\mathscr{H}$0
 endsnippet
 
 context "isMath()"
@@ -842,6 +836,11 @@ endsnippet
 context "isMath()"
 snippet al "alpha" iA
 \alpha
+endsnippet
+
+context "isMath()"
+snippet ze "alpha" iA
+\zeta
 endsnippet
 
 context "isMath()"
@@ -1011,6 +1010,11 @@ snippet sumo "sum_inf"
 endsnippet
 
 context "isMath()"
+snippet prodo "prod_inf"
+\prod_{$1=$2}^{\infty} $0
+endsnippet
+
+context "isMath()"
 snippet ubr "underbracket" iA
 \underbracket{$0
 endsnippet
@@ -1120,7 +1124,7 @@ snippet log "log" iA
 endsnippet
 
 context "isMath()"
-snippet mx "max" iA
+snippet max "max" iA
 \max$0
 endsnippet
 

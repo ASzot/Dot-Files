@@ -176,12 +176,14 @@ require("catppuccin").setup {
         --     text = "#ffffff",
         -- },
         latte = {
-            base = "#ffffff",
+            -- base = "#ffffff",
             -- mantle = "#242424",
             -- crust = "#474747",
         },
         frappe = {},
         macchiato = {},
-        mocha = {},
+        mocha = {
+          base="#262626",
+        },
     }
 }
