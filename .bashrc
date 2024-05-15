@@ -153,4 +153,3 @@ fi
 export TERM=xterm
 export LC_ALL=en_US.UTF-8
 export DISPLAY=:1
-source activate habitat 
