@@ -76,6 +76,7 @@ snippet resdoc "resdoc"
 %@ Publish Date: 
 %@ URL: 
 %@ ref: 
+%@ score: 
 
 \input{\string~/me/header.tex}
 \begin{document}
@@ -83,6 +84,8 @@ snippet resdoc "resdoc"
 \title{$1}
 \date{}
 \maketitle
+
+Score Justification: $2
 
 \section{Method}
 $0
@@ -422,7 +425,7 @@ snippet down "downarrow"
 \downarrow $0
 endsnippet
 
-snippet larrow "arrow"
+snippet l> "arrow" iA
 \xrightarrow{$1} $0
 endsnippet
 
@@ -591,6 +594,11 @@ snippet ~ "sim" iA
 \sim $0
 endsnippet
 
+context "isMath()"
+snippet =s "simeq" iA
+\simeq $0
+endsnippet
+
 snippet < "langle"
 \langle $0
 endsnippet
@@ -679,6 +687,11 @@ snippet EE "Expectation" iA
 \mathbb{E}$0
 endsnippet
 
+context "isMath()"
+snippet ee "Expectation" iA
+\mathcal{E}$0
+endsnippet
+
 snippet 11 "indicator"
 \mathbbm{1}$0
 endsnippet
@@ -755,6 +768,23 @@ snippet AA "AA" iA
 endsnippet
 
 context "isMath()"
+snippet WW "WW" iA
+\mathcal{W}$0
+endsnippet
+
+context "isMath()"
+snippet UU "UU" iA
+\mathcal{U}$0
+endsnippet
+
+context "isMath()"
+snippet aa "aa" iA
+\mathscr{A}$0
+endsnippet
+
+
+
+context "isMath()"
 snippet OO "OO" iA
 \mathcal{O}$0
 endsnippet
@@ -787,6 +817,11 @@ endsnippet
 context "isMath()"
 snippet PP "Prob" iA
 \mathbb{P}$0
+endsnippet
+
+context "isMath()"
+snippet pp "pp" iA
+\mathcal{P}$0
 endsnippet
 
 context "isMath()"
@@ -836,6 +871,11 @@ endsnippet
 context "isMath()"
 snippet al "alpha" iA
 \alpha
+endsnippet
+
+context "isMath()"
+snippet io "alpha" iA
+\iota
 endsnippet
 
 context "isMath()"

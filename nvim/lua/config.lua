@@ -9,8 +9,15 @@ require("formatter").setup {
   log_level = vim.log.levels.WARN,
   filetype = {
     python = {
-      require("formatter.filetypes.python").black,
-      require("formatter.filetypes.python").isort
+      require("formatter.filetypes.python").isort,
+      function()
+        return {
+          exe = "black",
+          args = { "--line-length", "88", "--target-version", "py38", "--stdin-filename", vim.api.nvim_buf_get_name(0), "-" },
+          stdin = true
+        }
+      end
+      -- require("formatter.filetypes.python").black,
     }
   }
 }
@@ -185,3 +192,33 @@ require("catppuccin").setup {
         },
     }
 }
+
+local conf = {
+    -- For customization, refer to Install > Configuration in the Documentation/Readme
+    openai_api_key = os.getenv("OPENAI_API_KEY"), 
+  
+    -- at least one working provider is required 
+    -- to disable a provider set it to empty table like openai = {} 
+    providers = { 
+      -- secrets can be strings or tables with command and arguments 
+      -- secret = { "cat", "path_to/openai_api_key" }, 
+      -- secret = { "bw", "get", "password", "OPENAI_API_KEY" }, 
+      -- secret : "sk-...", 
+      -- secret = os.getenv("env_name.."), 
+      openai = { 
+        disable = true, 
+        endpoint = "https://api.openai.com/v1/chat/completions", 
+        -- secret = os.getenv("OPENAI_API_KEY"), 
+      },
+      copilot = {
+        disable = false,
+        endpoint = "https://api.githubcopilot.com/chat/completions",
+        secret = {
+          "bash",
+          "-c",
+          "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+        },
+      },
+    }
+}
+require("gp").setup(conf)

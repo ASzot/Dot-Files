@@ -168,4 +168,10 @@ export EDITOR=vim
 export GPG_TTY=$(tty)
 
 
+alias llarp2='python -m rl_utils.launcher --cfg /Users/andrewszot/Documents/code/experiment-tracking/hosts/llarpv3_accel.yaml'
+alias llarp="python -m rl_utils.launcher --cfg /Users/andrewszot/Documents/code/experiment-tracking/hosts/llarpv3.yaml"
 
+export WANDB_API_KEY="local-d06b5bbf7eb2cf2c7ad78504ee8ba4eb71933429"
+export LLARP_WB_PROJECT="llarpv3"
+export LLARP_WB_ENTITY="interactive-embodied"
+export LLARP_CKPT_DIR="s3://mlr-nrg-proj-eifm/usr/aszot/checkpoints/"

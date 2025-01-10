@@ -50,6 +50,9 @@ Plug 'github/copilot.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'sindrets/diffview.nvim'
 
+Plug 'tpope/vim-dispatch'
+Plug 'robitx/gp.nvim'
+
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -207,6 +210,8 @@ colorscheme catppuccin-latte
 nnoremap <leader>1 :colorscheme catppuccin-latte<CR>
 nnoremap <leader>2 :colorscheme catppuccin-mocha<CR>
 
+set makeprg=pre-commit\ run\ --all-files
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -279,10 +284,13 @@ map <F9> :call FastCompileFile() <CR>
 
 " Toggle focus mode.
 nmap <leader>f :Goyo 100x100%<CR>
-nmap <leader>d :Goyo 100-25%x100%<CR>
 
 " Copy github link to line numbers.
 nmap <leader>g :'<,'>GetCurrentBranchLink<CR>
+
+" Diff the current file in vertical split.
+nmap <leader>d :Gvdiffsplit<CR>
+nmap <leader>s :Gvdiffsplit main<CR>
 
 function SetLspOptions()
   " LSP Symbols
@@ -316,11 +324,6 @@ function SetPythonOptions()
   :silent exec "!mkdir -p ~/.tags/`pwd`"
   map <leader>e obreakpoint()<C-c>
 
-  " Auto formatters.
-  "autocmd BufWritePre *.py silent! call Black()
-  " autocmd BufWritePre *.py execute ':Isort'
-  " autocmd FocusLost *.py silent! TagbarClose
-  " autocmd FocusGained *.py silent! TagbarOpen
   autocmd VimEnter,BufNewFile,BufRead,VimResized *.py call PythonRefreshWindow()
 
   set signcolumn=number
@@ -330,7 +333,7 @@ endfunction
 " Called whenever the window is refreshed
 function PythonRefreshWindow()
   " Ensure all syntax highlighting is active.
-  if (winwidth(0) > 120)
+  if (winwidth(0) > 81)
     :TagbarOpen
   else
     :TagbarClose
@@ -364,6 +367,7 @@ function SetMdOptions()
   set signcolumn=no
 
   nmap <leader>z :call AutoOpenEntry()<CR>
+  nmap <leader>x :call AutoOpenJobLog()<CR>
 
   " Disable the auto complete
   :lua require('cmp').setup.buffer { enabled = false }
@@ -391,7 +395,8 @@ function SetTexOptions()
   " Disable the auto complete
   :lua require('cmp').setup.buffer { enabled = false }
 
-  noremap <leader>b :call FastTex()<CR>
+  noremap <leader>b :silent !python write_tags.py<CR>
+  "inoremap <C-x><C-o> <C-o>:call vimtex#fzf#run('ctli', g:fzf_layout)<CR>
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -463,6 +468,15 @@ function AutoOpenEntry()
   :wa
   let projName = input('Project: ')
   let projPath = system('python entry.py ' . projName)
+  let projPath = projPath[:len(projPath)-2]
+
+  execute "e " . projPath
+endfunction
+
+function AutoOpenJobLog()
+  :wa
+  let projName = input('Project: ')
+  let projPath = system('python entry.py ' . projName . ' jobs')
   let projPath = projPath[:len(projPath)-2]
 
   execute "e " . projPath
