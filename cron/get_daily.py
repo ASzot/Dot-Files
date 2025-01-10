@@ -9,7 +9,7 @@ os.makedirs(write_dir, exist_ok=True)
 
 root_dir = osp.join(home_dir, "me")
 
-fetch = {"research": 2, "math_encyclopedia": 3, "books": 2}
+fetch = {"research": 2, "math_encyclopedia": 4, "books": 2}
 
 
 for base_dir, count in fetch.items():

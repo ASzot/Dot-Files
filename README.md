@@ -48,24 +48,6 @@ chpwd () {
 - Start neovim. 
 - `:PlugInstall`. Quit and run this again if you get an error about one of the plugins installing.
 
-### Setting Up a Mac Environment
-- Install 1pass: https://1password.com/downloads/mac/
-- Install iterm: https://iterm2.com
-- Download drive for desktop: https://www.google.com/drive/download/
-- Download slack from app store
-- Download this repo `git clone https://github.com/ASzot/Dot-Files.git .dot-files`
-- Install brew https://brew.sh/ 
-- Install oh-my-zsh `sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-- Run installation script: `sh ~/.dot-files/macos_setup.sh`
-- Install rectangle: https://github.com/rxhanson/Rectangle
-- Link `me` folder: `ln -s "/Users/andrewszot/My Drive/personal/me" /Users/andrewszot/me`
-- Link papers folder: `ln -s "/Users/andrewszot/My Drive/papers/read" /Users/andrewszot/papers`
-- Install neovim: `brew install neovim`
-- Download forklift 3 https://binarynights.com see `me/wiki/guides/code/macos.md` for product key. Be sure to download forklift 3, not an earlier version.
-- System preferences:
-    - Turn off system sounds: `System Preferences -> Sound -> Sound Effects`
-    - Add shortcuts for Preview. `System Preferences -> Keyboard -> Keyboard Shortcuts -> App Shortcuts` Add shortcut for preview. The menu title items are "Next Page" and "Previous Page". 
-
 
 ### Vim Usage
 Then run `sh vim_setup.sh`.
