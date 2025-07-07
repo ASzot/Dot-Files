@@ -264,7 +264,7 @@ snippet limo "limit_inf"
 endsnippet
 
 snippet mk "Math" wA
-$ ${1}$`!p
+$${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
     snip.rv = ' '
 else:
@@ -273,9 +273,10 @@ else:
 endsnippet
 
 snippet dm "Math" wA
-\begin{align*}
+$$\begin{align*}
 	$1
-\end{align*} $0
+\end{align*}$$ 
+$0
 endsnippet
 
 snippet qm "Qoute" wA

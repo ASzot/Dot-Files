@@ -3,6 +3,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin()
 
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lualine/lualine.nvim'
 
@@ -44,14 +45,13 @@ Plug 'knsh14/vim-github-link'
 
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
-Plug 'github/copilot.vim'
-
 " Git related plugins
 Plug 'tpope/vim-fugitive'
 Plug 'sindrets/diffview.nvim'
 
 Plug 'tpope/vim-dispatch'
-Plug 'robitx/gp.nvim'
+" Plug 'robitx/gp.nvim'
+" Plug 'olimorris/codecompanion.nvim'
 
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -178,18 +178,6 @@ let g:black#settings = {
 " This is the default
 " g:isort_command = 'isort'
 
-imap <silent><script><expr> <C-S> copilot#Accept("\<CR>")
-inoremap <C-L> <Plug>(copilot-suggest)
-let g:copilot_enabled = v:false
-let g:copilot_no_tab_map = v:true
-" By default disable copilot for all file types.
-let g:copilot_filetypes = {
-    \ '*': v:false,
-    \ 'gitcommit': v:true,
-    \ 'python': v:true,
-    \ 'yaml': v:true,
-    \ }
-
 let g:semshi#mark_selected_nodes=0
 
 " Options for editing encrypted files.
@@ -241,21 +229,72 @@ nmap <leader>n :Tags<CR>
 nmap <c-f> :Files<CR>
 nmap <space>a :Buffers<CR>
 nmap <Space>f :Ag<Space>
-nmap <Space>t :Ag<Space>(^\%\@).*
+nmap <Space>t :Ag<Space>(^meta\:).*
 " Remove the '!' if you don't want this to open up a new window. 
 noremap <Space>e :Ag! <C-r>=expand('<cword>')<CR><CR>
 imap <c-x><c-f> <plug>(fzf-complete-path)
-inoremap <expr> <c-x><c-]> fzf#vim#complete(fzf#vim#tags)
 
-function! s:make_sentence(lines)
-  let subbed = substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '')
-  let splitList = split(subbed, '\t')
-  return '\href{' . splitList[2] . '}{' . tolower(splitList[0]) . '}'
+" inoremap <expr> <c-x><c-]> fzf#vim#complete(fzf#vim#tags)
+" function! s:make_sentence(lines)
+"   let subbed = substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '')
+"   let splitList = split(subbed, '\t')
+"   return '\href{' . splitList[2] . '}{' . tolower(splitList[0]) . '}'
+" endfunction
+" 
+" inoremap <expr> <c-x><c-]> fzf#vim#complete({
+"   \ 'source':  'cat tags',
+"   \ 'reducer': function('<sid>make_sentence')})
+"
+"
+function! s:remove_path_and_extension(filepath)
+  " Ensure the input is treated as a string
+  let filepath = string(a:filepath)
+  " Extract the filename without path or extension
+  return "[[" . fnamemodify(filepath, ':t:r') . "]]"
 endfunction
 
+imap <c-x><c-]> <plug>(fzf-complete-path)
+
 inoremap <expr> <c-x><c-]> fzf#vim#complete({
-  \ 'source':  'cat tags',
-  \ 'reducer': function('<sid>make_sentence')})
+  \ 'source':  'find . -type f',
+  \ 'reducer': function('<sid>remove_path_and_extension')})
+
+
+function! s:open_file_from_brackets()
+  " Get the current line and cursor position
+  let line = getline('.')
+  let cursor_pos = col('.')
+
+  " Find the starting and ending brackets surrounding the cursor
+  let start_idx = match(line[0:cursor_pos - 1], '\[\[')
+  let end_idx = match(line[cursor_pos:], ']]') + cursor_pos - 1
+
+  " If no valid brackets are found, show an error and return
+  if start_idx == -1 || end_idx == -1
+    echoerr "No matching [[...]] found around cursor"
+    return
+  endif
+
+  " Extract the filename between the brackets
+  let filename = line[start_idx + 2:end_idx]
+  let filename_with_ext = filename . ".md"
+
+  " Find the file in the current directory and subdirectories
+  let filepath = system('find . -type f -name ' . shellescape(filename_with_ext))
+
+  " If the file is not found, show an error
+  if empty(filepath)
+    echoerr "File not found: " . filename_with_ext
+    return
+  endif
+
+  " Open the file
+  execute 'edit' filepath
+endfunction
+
+" Map <c-]> to call the function
+nnoremap <silent> <c-]> :call <SID>open_file_from_brackets()<CR>
+
 
 " quick fix window
 map <leader>h :cn<CR>
@@ -306,6 +345,18 @@ function SetLspOptions()
   " map gd :lua vim.lsp.buf.definition()<CR>
   "
 endfunction
+
+function! ToggleFiletypeMdTex()
+    if &filetype ==# 'markdown'
+        set filetype=tex
+        call UltiSnips#RefreshSnippets()
+    elseif &filetype ==# 'tex'
+        set filetype=markdown
+        call UltiSnips#RefreshSnippets()
+    endif
+endfunction
+
+nnoremap <leader>p :call ToggleFiletypeMdTex()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -319,6 +370,9 @@ function SetPythonOptions()
   call SetLspOptions()
   nnoremap <leader>^ :call FindReplaceMultiFile()<CR>
   nnoremap <leader>& :call FindReplaceUnderWordMultiFile("/gj **/*.yaml **/*.py")<CR>
+  "nnoremap <leader>a :CodeCompanion 
+  "vnoremap <leader>a :<C-u>'<,'>CodeCompanion 
+  "nnoremap <leader>x :CodeCompanionChat Toggle<CR>
 
   " Create the tags output directory
   :silent exec "!mkdir -p ~/.tags/`pwd`"
@@ -333,7 +387,7 @@ endfunction
 " Called whenever the window is refreshed
 function PythonRefreshWindow()
   " Ensure all syntax highlighting is active.
-  if (winwidth(0) > 81)
+  if (winwidth(0) > 120)
     :TagbarOpen
   else
     :TagbarClose
@@ -395,7 +449,7 @@ function SetTexOptions()
   " Disable the auto complete
   :lua require('cmp').setup.buffer { enabled = false }
 
-  noremap <leader>b :silent !python write_tags.py<CR>
+  "noremap <leader>b :silent !python write_tags.py<CR>
   "inoremap <C-x><C-o> <C-o>:call vimtex#fzf#run('ctli', g:fzf_layout)<CR>
 endfunction
 

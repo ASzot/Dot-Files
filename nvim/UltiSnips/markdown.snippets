@@ -1,3 +1,48 @@
+snippet resdoc "resdoc"
+---
+Authors: $2
+meta:
+Created: `date +%F`
+Publish Date: $3
+URL: $4
+ref: $5
+score: $1
+---
+
+Score Justification: $6
+
+# Method
+$0
+
+# Experiments
+
+endsnippet
+
+snippet mathdoc "mathdoc"
+---
+tags:
+  - $1
+---
+$0
+endsnippet
+
+snippet bookdoc "bookdoc"
+---
+Author: $2
+Format: $3
+Finished: $4
+Rating (/10): $5
+Year Published: $6
+Number of Pages: $7
+---
+
+$1
+
+endsnippet
+
+
+
+
 snippet bf "bold"
 **$1**$0
 endsnippet

@@ -50,6 +50,8 @@ then
 fi
 
 # Aliases (shortcuts)
+alias dataout="mv .git ../git-tmp && mv ./data ../data-tmp"
+alias datain="mv ../git-tmp .git && mv ../data-tmp ./data"
 alias creategit="sh ~/.dot-files/create_gh_key.sh"
 alias py=python
 alias nv='nvidia-smi'

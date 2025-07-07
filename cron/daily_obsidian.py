@@ -5,9 +5,9 @@ from datetime import datetime
 BASE_DIR = "/Users/andrewszot/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes-synced"
 
 NOTE_COUNTS = {
-    "math_encyclopedia": 4,
-    "research": 2,
-    "books/content": 2
+    "math_encyclopedia": 10,
+    "research": 10,
+    "books/content": 4
 }
 
 def get_files_in_directory(directory):

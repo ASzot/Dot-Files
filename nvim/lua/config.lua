@@ -176,49 +176,89 @@ vim.api.nvim_create_user_command('CustomRename', function()
 	vim.lsp.buf.rename()
 end, {})
 
--- Color schemes
+
 require("catppuccin").setup {
     color_overrides = {
-        -- all = {
-        --     text = "#ffffff",
-        -- },
         latte = {
-          base='#edeeee'
+            base = "#edeeee",
         },
-        frappe = {},
-        macchiato = {},
         mocha = {
-          base="#262626",
+            base = "#262626",
         },
-    }
+    },
+    custom_highlights = function(colors)
+        return {
+            -- Change the color of the concealed math symbols
+            Conceal = { fg = colors.peach, bg = colors.base },
+
+            -- Optional: Adjust vimtex math zones if desired
+            texMathZoneX = { fg = colors.peach, bg = colors.base },
+            texMathZoneA = { fg = colors.lavender, bg = colors.base },
+            texMathZoneB = { fg = colors.sky, bg = colors.base },
+            texMathDelim = { fg = colors.red, bg = colors.base },
+            texMathOper = { fg = colors.yellow, bg = colors.base },
+        }
+    end
 }
 
-local conf = {
-    -- For customization, refer to Install > Configuration in the Documentation/Readme
-    openai_api_key = os.getenv("OPENAI_API_KEY"), 
-  
-    -- at least one working provider is required 
-    -- to disable a provider set it to empty table like openai = {} 
-    providers = { 
-      -- secrets can be strings or tables with command and arguments 
-      -- secret = { "cat", "path_to/openai_api_key" }, 
-      -- secret = { "bw", "get", "password", "OPENAI_API_KEY" }, 
-      -- secret : "sk-...", 
-      -- secret = os.getenv("env_name.."), 
-      openai = { 
-        disable = true, 
-        endpoint = "https://api.openai.com/v1/chat/completions", 
-        -- secret = os.getenv("OPENAI_API_KEY"), 
-      },
-      copilot = {
-        disable = false,
-        endpoint = "https://api.githubcopilot.com/chat/completions",
-        secret = {
-          "bash",
-          "-c",
-          "cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
-        },
-      },
-    }
-}
-require("gp").setup(conf)
+-- require("codecompanion").setup({
+--   adapters = {
+--     openai = function()
+--       return require("codecompanion.adapters").extend("openai", {
+--         schema = {
+--           model = {
+--             default = "gpt-4o",
+--           },
+--         },
+--         env = {
+--           api_key = "",
+--         },
+--       })
+--     end,
+--   },
+--   display = {
+--     chat = {
+--       -- Options to customize the UI of the chat buffer
+--       window = {
+--         layout = "vertical", -- float|vertical|horizontal|buffer
+--         position = "right", -- left|right|top|bottom (nil will default depending on vim.opt.plitright|vim.opt.splitbelow)
+--       },
+--     },
+--     diff = {
+--       enabled = true,
+--       close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
+--       layout = "vertical", -- vertical|horizontal split for default provider
+--       opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+--       provider = "default", -- default|mini_diff
+--     },
+--   },
+--   strategies = {
+--     chat = {
+--       adapter = "openai",
+--       keymaps = {
+--         send = {
+--           modes = { n = "<C-s>", i = "<C-s>" },
+--         },
+--         close = {
+--           modes = { n = "<Esc>", i = "<Esc>" },
+--         },
+--         -- Add further custom keymaps here
+--       },
+--     },
+--     inline = {
+--       adapter = "openai",
+--       keymaps = {
+--         accept_change = {
+--           modes = { n = "ga" },
+--           description = "Accept the suggested change",
+--         },
+--         reject_change = {
+--           modes = { n = "gr" },
+--           description = "Reject the suggested change",
+--         },
+--       },
+--     },
+--   },
+-- })
+-- 
+-- vim.api.nvim_set_keymap("v", "ge", "<cmd>CodeCompanionChat Add<cr>", { noremap = true, silent = true })
