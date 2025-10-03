@@ -30,3 +30,5 @@
 	postBuffer = 1048576000
 	lowSpeedLimit = 0
 	lowSpeedTime = 999999
+[credential]
+	helper = store

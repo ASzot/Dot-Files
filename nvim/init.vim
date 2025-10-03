@@ -135,6 +135,7 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 " Tagbar
 let g:tagbar_autofocus = 0 
 let g:tagbar_left = 1
+let g:tagbar_sort = 0
 
 " Vimtex
 syntax on
