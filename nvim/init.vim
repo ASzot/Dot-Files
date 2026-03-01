@@ -105,6 +105,12 @@ hi Visual cterm=reverse term=reverse ctermfg=cyan
 
 set updatetime=250
 
+" Auto-resize splits when the Neovim UI size changes (e.g., terminal resize / sidebar toggles)
+augroup AutoResizeSplits
+  autocmd!
+  autocmd VimResized * wincmd =
+augroup END
+
 " Unfold by default
 au BufRead * normal zR
 
@@ -136,6 +142,11 @@ let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:tagbar_autofocus = 0 
 let g:tagbar_left = 1
 let g:tagbar_sort = 0
+
+" Make tagbar be very compact.
+let g:tagbar_width = 20
+let g:tagbar_compact = 1
+let g:tagbar_show_visibility = 0
 
 " Vimtex
 syntax on
@@ -316,8 +327,6 @@ cnoremap YMD <C-R>=strftime("%Y_%m_%d")<CR>
 " LSP Navigate Errors
 map <leader>j :lua vim.diagnostic.goto_next()<cr>
 map <leader>k :lua vim.diagnostic.goto_prev()<cr>
-" Display all errors.
-map <leader>q :lua vim.diagnostic.setloclist()<CR>
 
 map <F8> :call CompileFile() <CR>
 map <F9> :call FastCompileFile() <CR>
@@ -331,6 +340,20 @@ nmap <leader>g :'<,'>GetCurrentBranchLink<CR>
 " Diff the current file in vertical split.
 nmap <leader>d :Gvdiffsplit<CR>
 nmap <leader>s :Gvdiffsplit main<CR>
+
+if exists('$TMUX')
+  nmap <leader>y :silent call system('tmux resize-pane -Z') \| tabclose<CR>
+else
+  nmap <leader>y :tabclose<CR>
+endif
+
+if exists('$TMUX')
+  nmap <leader>a :silent call system('tmux resize-pane -Z') \| DiffviewOpen HEAD<CR>
+  nmap <leader>q :silent call system('tmux resize-pane -Z') \| DiffviewOpen main<CR>
+else
+  nmap <leader>a :DiffviewOpen HEAD<CR>
+  nmap <leader>q :DiffviewOpen main<CR>
+endif
 
 function SetLspOptions()
   " LSP Symbols
@@ -388,7 +411,7 @@ endfunction
 " Called whenever the window is refreshed
 function PythonRefreshWindow()
   " Ensure all syntax highlighting is active.
-  if (winwidth(0) > 120)
+  if tabpagenr('$') == 1 && winwidth(0) > 100
     :TagbarOpen
   else
     :TagbarClose

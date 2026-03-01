@@ -4,6 +4,7 @@
 # Path to your oh-my-zsh installation.
 # OSX
 export ZSH=~/.oh-my-zsh
+DISABLE_AUTO_UPDATE="true"
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -112,6 +113,18 @@ calc() {
   python -c "print($1)"
 }
 
+# Pull from editor → create random branch off editor's current branch
+ccpull() {
+  git switch -c "$(openssl rand -hex 4)" "$(git -C ../embodied_foundation_models branch --show-current)"
+}
+
+# Push to editor → commit + merge into editor repo
+ccpush() {
+  git aa
+  git commit -m "pre cc" --no-verify
+  git -C ../embodied_foundation_models merge --no-edit "$(git branch --show-current)"
+}
+
 # Default env
 #source activate tor 
 systemName=$(uname -s)
@@ -164,7 +177,8 @@ export PATH=~/miniconda3/bin:$PATH
 if (command -v brew && brew list --formula | grep -c ctags ) > /dev/null 2>&1; then
     alias ctags="$(brew --prefix universal-ctags)/bin/ctags"
 fi
-export EDITOR=vim
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # For GPG
 export GPG_TTY=$(tty)
