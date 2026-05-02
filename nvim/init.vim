@@ -337,6 +337,9 @@ nmap <leader>f :Goyo 100x100%<CR>
 " Copy github link to line numbers.
 nmap <leader>g :'<,'>GetCurrentBranchLink<CR>
 
+" Copy filename
+nmap <leader>r :let @+ = expand('%')<CR>
+
 " Diff the current file in vertical split.
 nmap <leader>d :Gvdiffsplit<CR>
 nmap <leader>s :Gvdiffsplit main<CR>
@@ -361,8 +364,6 @@ function SetLspOptions()
   map [I :lua vim.lsp.buf.references()<CR>
   map K :lua vim.lsp.buf.hover()<CR>
   map gK :lua vim.lsp.buf.signature_help()<CR>
-  " Smart rename
-  map <leader>r :lua vim.lsp.buf.rename()<CR>
 
   " The same as declaration
   " map <leader>D :lua vim.lsp.buf.type_definition()<CR>
@@ -380,7 +381,7 @@ function! ToggleFiletypeMdTex()
     endif
 endfunction
 
-nnoremap <leader>p :call ToggleFiletypeMdTex()<CR>
+nnoremap <leader>p :!git add -A && git commit -m "pre cc" --no-verify<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
