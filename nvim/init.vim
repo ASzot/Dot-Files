@@ -13,7 +13,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdtree'
 
 " Auto complete plugin
-Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig', { 'tag': 'v0.1.8' }
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
