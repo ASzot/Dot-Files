@@ -113,16 +113,36 @@ calc() {
   python -c "print($1)"
 }
 
-# Pull from editor → create random branch off editor's current branch
-ccpull() {
-  git switch -c "$(openssl rand -hex 4)" "$(git -C ../embodied_foundation_models branch --show-current)"
+# ccpush <dirname>: merge the current branch into the worktree at <dirname>.
+ccpush() {
+  if [ -z "$1" ]; then
+    echo "usage: ccpush <dirname>" >&2
+    return 1
+  fi
+  local target="$1"
+  local src_branch here
+  src_branch=$(git rev-parse --abbrev-ref HEAD) || return 1
+  here=$(pwd)
+  cd "$target" || return 1
+  git merge --no-edit "$src_branch"
+  local status=$?
+  cd "$here" || return 1
+  return $status
 }
 
-# Push to editor → commit + merge into editor repo
-ccpush() {
-  git aa
-  git commit -m "pre cc" --no-verify
-  git -C ../embodied_foundation_models merge --no-edit "$(git branch --show-current)"
+# ccpull <dirname>: create a new randomly-named branch off the branch
+# currently checked out in the worktree at <dirname>.
+ccpull() {
+  if [ -z "$1" ]; then
+    echo "usage: ccpull <dirname>" >&2
+    return 1
+  fi
+  local target="$1"
+  local src_branch new_branch
+  src_branch=$(git -C "$target" rev-parse --abbrev-ref HEAD) || return 1
+  new_branch=$(openssl rand -hex 4)
+  echo "creating branch '$new_branch' off '$src_branch' (from $target)"
+  git switch -c "$new_branch" "$src_branch"
 }
 
 # Default env
@@ -132,12 +152,6 @@ systemName=$(uname -s)
 
 # Needed for deepmind control suite.
 export MJLIB_PATH=/home/aszot/.mujoco/mujoco200/bin/libmujoco200.so
-
-# Replace this with the HOME dir in the future so it is agnostic to the computer? 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/andrewszot/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/path.zsh.inc'; fi
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/andrewszot/google-cloud-sdk/completion.zsh.inc'; fi
 
 # For golang
 export GOPATH=$HOME/go
@@ -191,3 +205,9 @@ export WANDB_API_KEY="local-d06b5bbf7eb2cf2c7ad78504ee8ba4eb71933429"
 export LLARP_WB_PROJECT="llarpv3"
 export LLARP_WB_ENTITY="interactive-embodied"
 export LLARP_CKPT_DIR="s3://mlr-nrg-proj-eifm/usr/aszot/checkpoints/"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi

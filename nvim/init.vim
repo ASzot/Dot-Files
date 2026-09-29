@@ -53,6 +53,7 @@ Plug 'tpope/vim-dispatch'
 " Plug 'robitx/gp.nvim'
 " Plug 'olimorris/codecompanion.nvim'
 
+let g:vim_markdown_folding_disabled = 1
 call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -382,6 +383,7 @@ function! ToggleFiletypeMdTex()
 endfunction
 
 nnoremap <leader>p :!git add -A && git commit -m "pre cc" --no-verify<CR>
+nnoremap <leader>0 :!git add -A && git commit -m "pre cc" --no-verify && git push<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -433,23 +435,27 @@ endfunction
 autocmd BufRead,BufNewFile *.md,*.rst,*.asc call SetMdOptions()
 function SetMdOptions()
   setf markdown
-	set tabstop=4
-	set softtabstop=4
-	set shiftwidth=4
-	set expandtab
-	set autoindent
-	set nospell
-	set textwidth=0
-  nnoremap j gj
-  nnoremap k gk
-  set wrap linebreak nolist
-  set signcolumn=no
-
   nmap <leader>z :call AutoOpenEntry()<CR>
   nmap <leader>x :call AutoOpenJobLog()<CR>
 
-  " Disable the auto complete
-  :lua require('cmp').setup.buffer { enabled = false }
+  setlocal nofoldenable
+  setlocal foldmethod=manual
+
+  " Existing settings...
+  setlocal tabstop=4
+  setlocal softtabstop=4
+  setlocal shiftwidth=4
+  setlocal expandtab
+  setlocal autoindent
+  setlocal nospell
+  setlocal textwidth=0
+  setlocal wrap linebreak nolist
+  setlocal signcolumn=no
+
+  nnoremap <buffer> j gj
+  nnoremap <buffer> k gk
+
+  lua require('cmp').setup.buffer { enabled = false }
 endfunction
 
 " Options for LaTex
