@@ -7,10 +7,10 @@ from pathlib import Path
 
 BASE_DIR = "/Users/andrewszot/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes-synced"
 
-NOTE_COUNTS = {"math_encyclopedia": 10, "research": 10, "books/content": 4}
+NOTE_COUNTS = {"math_encyclopedia": 20, "research": 10, "books/content": 4, "bio": 20}
 
 SUB_COUNTS = {
-    "math_encyclopedia": "summary/math/analysis/manifolds/",
+    # "math_encyclopedia": "summary/math/analysis/manifolds/",
 }
 
 
